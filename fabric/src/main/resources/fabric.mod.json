@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "vc_gliders",
   "version": "${version}",
   "name": "${mod_name}",
   "description": "PalladiumCore template mod",
@@ -9,19 +9,19 @@
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/FabricMC/fabric-vc_gliders"
   },
   "license": "${mod_license}",
-  "icon": "assets/examplemod/icon.png",
+  "icon": "assets/vc_gliders/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "net.venturecraft.gliders.fabric.VCGlidersFabric"
     ]
   },
   "mixins": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "vc_gliders.mixins.json",
+    "vc_gliders-common.mixins.json"
   ],
   "depends": {
     "fabric": "*",

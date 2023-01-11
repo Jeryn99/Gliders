@@ -25,11 +25,11 @@ loom {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-        mixinConfig "examplemod-common.mixins.json"
-        mixinConfig "examplemod.mixins.json"
+        mixinConfig "vc_gliders-common.mixins.json"
+        mixinConfig "vc_gliders.mixins.json"
 
         dataGen {
-            mod "examplemod"
+            mod "vc_gliders"
         }
     }
 }

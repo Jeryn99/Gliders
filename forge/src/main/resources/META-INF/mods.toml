@@ -4,7 +4,7 @@ loaderVersion = "[43,)"
 license = "${mod_license}"
 
 [[mods]]
-modId = "examplemod"
+modId = "vc_gliders"
 version = "${version}"
 displayName = "${mod_name}"
 authors = "${mod_author}"
@@ -13,21 +13,21 @@ PalladiumCore template mod
 '''
 #logoFile = ""
 
-[[dependencies.examplemod]]
+[[dependencies.vc_gliders]]
 modId = "forge"
 mandatory = true
 versionRange = "[43,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.vc_gliders]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.19.2,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.vc_gliders]]
 modId = "palladiumcore"
 mandatory = true
 versionRange = "[1.19.2-1.2.0.0,)"
