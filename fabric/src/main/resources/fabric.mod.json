@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "examplemod",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "PalladiumCore template mod",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "${mod_license}",
+  "icon": "assets/examplemod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.examplemod.fabric.ExampleModFabric"
+    ]
+  },
+  "mixins": [
+    "examplemod.mixins.json",
+    "examplemod-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2",
+    "palladiumcore": ">=1.19.2-1.2.0.0"
+  }
+}
