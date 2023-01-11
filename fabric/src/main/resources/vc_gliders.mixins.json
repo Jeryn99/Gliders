@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.examplemod.mixin.forge",
+  "package": "net.venturecraft.gliders.mixin.fabric",
   "compatibilityLevel": "JAVA_17",
   "client": [
   ],

@@ -1,9 +1,8 @@
 {
   "required": true,
-  "package": "net.examplemod.mixin",
+  "package": "net.vc_gliders.mixin.forge",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "MixinTitleScreen"
   ],
   "mixins": [
   ],

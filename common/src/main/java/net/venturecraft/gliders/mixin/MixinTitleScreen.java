@@ -1,4 +1,4 @@
-package net.examplemod.mixin;
+package net.venturecraft.gliders.mixin;
 
 import net.minecraft.client.gui.screens.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
