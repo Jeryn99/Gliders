@@ -1,0 +1,111 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runConfigs.configureEach {
+        // Use MC_USERNAME and MC_ACCESS_TOKEN in your system environment variables to use your Minecraft account in dev
+        if (name == "client") {
+            if (System.getenv('MC_USERNAME') && System.getenv('MC_UUID') && System.getenv('MC_ACCESS_TOKEN')) {
+                programArgs '--username', System.getenv('MC_USERNAME'), '--uuid', System.getenv('MC_UUID'), '--accessToken', System.getenv('MC_ACCESS_TOKEN')
+            }
+        } else if (name == "data") {
+            programArgs '--existing', project(":common").file("src/main/resources/").absolutePath
+        }
+    }
+
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
+        mixinConfig "examplemod-common.mixins.json"
+        mixinConfig "examplemod.mixins.json"
+
+        dataGen {
+            mod "examplemod"
+        }
+    }
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    modApi "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
+    include "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mod_name", rootProject.mod_name
+    inputs.property "mod_author", rootProject.mod_author
+    inputs.property "mod_license", rootProject.mod_license
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version,
+                "mod_name": rootProject.mod_name,
+                "mod_author": rootProject.mod_author,
+                "mod_license": rootProject.mod_license
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
+    archiveClassifier = 'forge'
+}
+
+jar {
+    classifier "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}
