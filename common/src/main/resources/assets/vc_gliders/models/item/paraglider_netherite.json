@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "vc_gliders:item/paraglider_netherite"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "copper_mod": 0
+      },
+      "model": "vc_gliders:item/paraglider_netherite"
+    },
+    {
+      "predicate": {
+        "copper_mod": 1
+      },
+      "model": "vc_gliders:item/paraglider_netherite_copper_mod"
+    }
+  ]
+}

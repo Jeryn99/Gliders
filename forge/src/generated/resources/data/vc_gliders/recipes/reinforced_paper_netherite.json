@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "gliders",
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "P": {
+      "item": "vc_gliders:reinforced_paper"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NPN",
+    "NNN"
+  ],
+  "result": {
+    "item": "vc_gliders:reinforced_paper_netherite"
+  }
+}

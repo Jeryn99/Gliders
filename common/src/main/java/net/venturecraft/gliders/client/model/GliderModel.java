@@ -9,8 +9,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.venturecraft.gliders.util.GliderUtil;
 
 public class GliderModel extends HierarchicalModel {
 
@@ -76,14 +74,15 @@ public class GliderModel extends HierarchicalModel {
 
     @Override
     public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity instanceof LivingEntity livingEntity) {
+        //TODO
+        /*  if (entity instanceof LivingEntity livingEntity) {
             VenturePlayerData.get(livingEntity).ifPresent(iCap -> {
                 this.root().getAllParts().forEach(ModelPart::resetPose);
                 if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
                     this.animate(iCap.getAnimation(VenturePlayerData.AnimationStates.GLIDER_OPENING), OPENING, ageInTicks);
                 }
             });
-        }
+        }*/
     }
 
     @Override

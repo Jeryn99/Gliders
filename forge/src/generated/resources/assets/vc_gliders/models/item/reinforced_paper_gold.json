@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vc_gliders:item/reinforced_paper_gold"
+  }
+}
