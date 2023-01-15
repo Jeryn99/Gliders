@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "gliders",
+  "key": {
+    "O": {
+      "item": "minecraft:feather"
+    },
+    "R": {
+      "item": "vc_gliders:reinforced_paper_iron"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "W": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "SWS",
+    "WOW"
+  ],
+  "result": {
+    "item": "vc_gliders:paraglider_iron"
+  }
+}

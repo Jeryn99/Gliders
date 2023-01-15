@@ -1,0 +1,51 @@
+package net.venturecraft.gliders.forge.data;
+
+import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.threetag.palladiumcore.registry.RegistrySupplier;
+import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.common.item.ItemRegistry;
+
+import java.util.Objects;
+
+public class ItemModelGeneration extends ItemModelProvider {
+
+    public ItemModelGeneration(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+        super(generator, VCGliders.MOD_ID, existingFileHelper);
+    }
+
+    @Override
+    protected void registerModels() {
+
+        for (RegistrySupplier<Item> entry : ItemRegistry.ITEMS.getEntries()) {
+            if (entry.get() instanceof GliderItem) {
+                ResourceLocation gliderId = ForgeRegistries.ITEMS.getKey(entry.get());
+                layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_copper_mod"), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(entry.get())), new ResourceLocation(VCGliders.MOD_ID, "glider_copper_mod"));
+                continue;
+            }
+
+            basicItem(entry.get());
+        }
+    }
+
+    public ItemModelBuilder layeredItem(ResourceLocation destination, ResourceLocation item, ResourceLocation resourceLocation) {
+        return getBuilder(destination.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()))
+                .texture("layer1", new ResourceLocation(resourceLocation.getNamespace(), "item/" + resourceLocation.getPath()));
+    }
+
+    public ItemModelBuilder layeredItem(ResourceLocation item, ResourceLocation resourceLocation) {
+        return getBuilder(item.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()))
+                .texture("layer1", new ResourceLocation(resourceLocation.getNamespace(), "item/" + resourceLocation.getPath()));
+    }
+}

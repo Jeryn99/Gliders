@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "vc_gliders:item/paraglider_gold"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "copper_mod": 0
+      },
+      "model": "vc_gliders:item/paraglider_gold"
+    },
+    {
+      "predicate": {
+        "copper_mod": 1
+      },
+      "model": "vc_gliders:item/paraglider_gold_copper_mod"
+    }
+  ]
+}
