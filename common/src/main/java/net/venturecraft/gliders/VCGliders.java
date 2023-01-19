@@ -2,6 +2,7 @@ package net.venturecraft.gliders;
 
 import net.minecraft.resources.ResourceLocation;
 import net.venturecraft.gliders.common.item.ItemRegistry;
+import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.network.GliderNetwork;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +15,7 @@ public class VCGliders {
 
     public static void init() {
         ItemRegistry.ITEMS.register();
+        SoundRegistry.SOUNDS.register();
         GliderNetwork.init();
     }
 

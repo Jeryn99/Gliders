@@ -1,9 +1,11 @@
 package net.venturecraft.gliders.forge.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.item.ItemRegistry;
+import net.venturecraft.gliders.common.sound.SoundRegistry;
 
 public class EnglishLangProvider extends LanguageProvider {
 
@@ -27,5 +29,16 @@ public class EnglishLangProvider extends LanguageProvider {
         add(ItemRegistry.REINFORCED_PAPER_DIAMOND.get(), "Re-Inforced Paper (Diamond)");
         add(ItemRegistry.REINFORCED_PAPER_NETHERITE.get(), "Re-Inforced Paper (Netherite)");
 
+        addSound(SoundRegistry.GLIDER_OPEN.get(), "Glider opens");
+        addSound(SoundRegistry.SPACE_GLIDE.get(), "Space Glide");
+        addSound(SoundRegistry.SPACE_DEPLOY.get(), "Space Deploy");
+
+        add("itemGroup." + VCGliders.MOD_ID, "VentureCraft - Gliders");
+        add("itemGroup." + VCGliders.MOD_ID + ".main", "VentureCraft - Gliders");
+    }
+
+
+    private void addSound(SoundEvent soundEvent, String subtitle) {
+        add("subtitle." + VCGliders.MOD_ID + "." + soundEvent.getLocation().getPath(), subtitle);
     }
 }

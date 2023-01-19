@@ -14,6 +14,7 @@ import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.forge.data.EnglishLangProvider;
 import net.venturecraft.gliders.forge.data.ItemModelGeneration;
 import net.venturecraft.gliders.forge.data.RecipeGeneration;
+import net.venturecraft.gliders.forge.data.SoundProvider;
 
 @Mod(VCGliders.MOD_ID)
 @Mod.EventBusSubscriber(modid = VCGliders.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -35,6 +36,7 @@ public class VCGlidersForge {
         ExistingFileHelper existingFileHelper = e.getExistingFileHelper();
         generator.addProvider(e.includeClient(), new ItemModelGeneration(generator, existingFileHelper));
         generator.addProvider(e.includeClient(), new EnglishLangProvider(generator));
+        generator.addProvider(e.includeClient(), new SoundProvider(generator, existingFileHelper));
         generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
     }
 }

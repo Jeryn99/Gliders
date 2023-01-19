@@ -1,0 +1,21 @@
+{
+  "glider_open": {
+    "sounds": [
+      "vc_gliders:glider/glider_open_0",
+      "vc_gliders:glider/glider_open_1"
+    ],
+    "subtitle": "subtitle.vc_gliders.glider_open"
+  },
+  "space_deploy": {
+    "sounds": [
+      "vc_gliders:glider/space_deploy"
+    ],
+    "subtitle": "subtitle.vc_gliders.space_deploy"
+  },
+  "space_glide": {
+    "sounds": [
+      "vc_gliders:glider/space_glide"
+    ],
+    "subtitle": "subtitle.vc_gliders.space_glide"
+  }
+}
