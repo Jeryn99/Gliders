@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "net.venturecraft.gliders.fabric.VCGlidersFabric"
+    ],
+    "client": [
+      "net.venturecraft.gliders.fabric.VCGlidersFabricClient"
     ]
   },
   "mixins": [
