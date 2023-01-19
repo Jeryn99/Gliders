@@ -1,6 +1,7 @@
 package net.venturecraft.gliders.mixin;
 
 import net.minecraft.client.player.LocalPlayer;
+import net.venturecraft.gliders.client.animation.PlayerAnimData;
 import net.venturecraft.gliders.network.MessageToggleGlide;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,4 +21,13 @@ public class LocalPlayerMixin {
             new MessageToggleGlide().send();
         }
     }
+
+
+    @Inject(method = "tick()V", at = @At(value = "TAIL"))
+    private void tick(CallbackInfo info) {
+        LocalPlayer localPlayer = (LocalPlayer) (Object) this;
+        PlayerAnimData.getOrAdd(localPlayer).tick(localPlayer);
+    }
+
+
 }
