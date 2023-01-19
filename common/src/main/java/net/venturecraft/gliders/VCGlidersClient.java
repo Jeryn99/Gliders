@@ -13,11 +13,10 @@ import net.venturecraft.gliders.util.ClientUtil;
 
 public class VCGlidersClient {
 
+    public static int lightLevel = 0;
+
     public static void init() {
-        System.out.println("uhhh hey");
-
         ModelRegistry.init();
-
         EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
 
         LifecycleEvents.CLIENT_SETUP.register(() -> {

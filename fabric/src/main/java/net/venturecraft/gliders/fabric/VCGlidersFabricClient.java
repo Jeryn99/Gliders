@@ -7,5 +7,6 @@ public class VCGlidersFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         VCGlidersClient.init();
+        FabricClientEvents.init();
     }
 }
