@@ -8,5 +8,10 @@
   "item.vc_gliders.reinforced_paper_diamond": "Re-Inforced Paper (Diamond)",
   "item.vc_gliders.reinforced_paper_gold": "Re-Inforced Paper (Gold)",
   "item.vc_gliders.reinforced_paper_iron": "Re-Inforced Paper (Iron)",
-  "item.vc_gliders.reinforced_paper_netherite": "Re-Inforced Paper (Netherite)"
+  "item.vc_gliders.reinforced_paper_netherite": "Re-Inforced Paper (Netherite)",
+  "itemGroup.vc_gliders": "VentureCraft - Gliders",
+  "itemGroup.vc_gliders.main": "VentureCraft - Gliders",
+  "subtitle.vc_gliders.glider_open": "Glider opens",
+  "subtitle.vc_gliders.space_deploy": "Space Deploy",
+  "subtitle.vc_gliders.space_glide": "Space Glide"
 }
