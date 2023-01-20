@@ -91,6 +91,10 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
             Vec3 m = player.getDeltaMovement();
             boolean hasSpeedMods = hasCopperMod(stack) && hasBeenStruck(stack);
 
+            if(player.tickCount % 200 == 0 && !player.isCreative()) {
+                player.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(1, player, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
+            }
+
             // Particles
             float horizonalSpeed = (float) player.getDeltaMovement().horizontalDistance();
             if (isSpaceGlider(stack) && horizonalSpeed >= 0.01F) {
