@@ -53,7 +53,7 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
         return compound.getBoolean("copper_mod");
     }
 
-    public static boolean glidingEnabled(ItemStack itemStack) {
+    public static boolean isGlidingEnabled(ItemStack itemStack) {
         CompoundTag compound = itemStack.getOrCreateTag();
         if (!compound.contains("glide")) return false;
         return compound.getBoolean("glide") && itemStack.getMaxDamage() != itemStack.getDamageValue();
@@ -79,7 +79,7 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
     public void armorTick(ItemStack stack, Level level, Player player) {
 
         boolean playerCanGlide = !GliderUtil.isPlayerOnGroundOrWater(player) && !player.getAbilities().flying;
-        boolean gliderCanGlide = glidingEnabled(stack);
+        boolean gliderCanGlide = isGlidingEnabled(stack);
 
         if (playerCanGlide && gliderCanGlide) {
 

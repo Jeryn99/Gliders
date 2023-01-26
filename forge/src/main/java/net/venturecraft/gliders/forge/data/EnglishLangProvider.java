@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.common.GliderDamageSource;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 
@@ -35,8 +36,14 @@ public class EnglishLangProvider extends LanguageProvider {
 
         add("itemGroup." + VCGliders.MOD_ID, "VentureCraft - Gliders");
         add("itemGroup." + VCGliders.MOD_ID + ".main", "VentureCraft - Gliders");
+
+        addDamageSource(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, "&s was killed by a bad lightning experiment");
     }
 
+
+    public void addDamageSource(GliderDamageSource gliderDamageSource, String translation){
+        add("dmg." + VCGliders.MOD_ID + "." + gliderDamageSource.getTranslationKey(), translation);
+    }
 
     private void addSound(SoundEvent soundEvent, String subtitle) {
         add("subtitle." + VCGliders.MOD_ID + "." + soundEvent.getLocation().getPath(), subtitle);
