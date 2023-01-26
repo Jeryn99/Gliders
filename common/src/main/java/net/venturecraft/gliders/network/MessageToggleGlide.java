@@ -34,10 +34,10 @@ public class MessageToggleGlide extends MessageC2S {
     @Override
     public void handle(MessageContext context) {
         var sender = context.getPlayer();
-        if (GliderUtil.hasParagliderEquipped(sender)) {
+        if (GliderUtil.hasGliderEquipped(sender)) {
             ItemStack chestItem = sender.getItemBySlot(EquipmentSlot.CHEST);
-            GliderItem.setGlide(chestItem, !GliderItem.glidingEnabled(chestItem));
-            if (GliderItem.glidingEnabled(chestItem)) {
+            GliderItem.setGlide(chestItem, !GliderItem.isGlidingEnabled(chestItem));
+            if (GliderItem.isGlidingEnabled(chestItem)) {
                 sender.level.playSound(null, sender.getX(), sender.getY(), sender.getZ(), GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_DEPLOY.get() : SoundRegistry.GLIDER_OPEN.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 new MessagePlaySound(GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_GLIDE.get().getLocation() : SoundEvents.ELYTRA_FLYING.getLocation(), sender.getUUID()).sendToTracking(sender);
             }

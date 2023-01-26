@@ -7,14 +7,14 @@ import net.minecraft.world.item.ItemStack;
 import net.venturecraft.gliders.common.item.GliderItem;
 
 public class GliderUtil {
-    public static boolean hasParagliderEquipped(LivingEntity livingEntity) {
+    public static boolean hasGliderEquipped(LivingEntity livingEntity) {
         return livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof GliderItem;
     }
 
     public static boolean isGliderActive(LivingEntity livingEntity) {
             ItemStack stack = livingEntity.getItemBySlot(EquipmentSlot.CHEST);
             if (stack.getItem() instanceof GliderItem) {
-                return GliderItem.glidingEnabled(stack);
+                return GliderItem.isGlidingEnabled(stack);
             }
         return false;
     }
@@ -31,6 +31,6 @@ public class GliderUtil {
             }
         }
 
-        return hasParagliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.isOnGround() && !livingEntity.isInWater();
+        return hasGliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.isOnGround() && !livingEntity.isInWater();
     }
 }
