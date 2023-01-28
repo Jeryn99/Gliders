@@ -11,10 +11,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Wearable;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.threetag.palladiumcore.item.IPalladiumItem;
@@ -135,10 +132,13 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
         }
     }
 
-    @Override
+/*    @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
-        return repairCandidate.getItem() == repairItem.get();
-    }
+
+
+
+        return repairCandidate.getItem() == repairItem.get() || repairCandidate.getItem() == Items.COPPER_INGOT;
+    }*/
 
     @Override
     public @Nullable EquipmentSlot getEquipmentSlot(ItemStack stack) {

@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityEvents.Hurt, PlayerEvents.AnvilUpdate, LivingEntityEvents.ItemUse {
 
-    public static void initEvents(){
-        var instance = new GliderEvents();
+    public static void initEvents() {
+        GliderEvents instance = new GliderEvents();
         EntityEvents.LIGHTNING_STRIKE.register(instance);
         LivingEntityEvents.HURT.register(instance);
         PlayerEvents.ANVIL_UPDATE.register(instance);
@@ -37,7 +37,7 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
     @Override
     public void lightningStrike(List<Entity> entities, LightningBolt lightningBolt) {
         for (Entity entity : entities) {
-            if(entity instanceof ServerPlayer player){
+            if (entity instanceof ServerPlayer player) {
                 ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
                 boolean hasCopperMod = GliderItem.hasCopperMod(chestItem);
                 boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
@@ -67,6 +67,7 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
 
     @Override
     public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, String name, AtomicInteger cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
+        System.out.println(left);
         if (left.getItem() instanceof GliderItem && right.getItem() == Items.COPPER_INGOT) {
             ItemStack copiedStack = left.copy();
             GliderItem.setCopper(copiedStack, true);
@@ -74,7 +75,8 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
             output.set(copiedStack);
         }
 
-        return EventResult.pass();    }
+        return EventResult.pass();
+    }
 
     @Override
     public EventResult livingEntityItemUse(LivingEntity entity, @NotNull ItemStack stack, AtomicInteger duration) {
