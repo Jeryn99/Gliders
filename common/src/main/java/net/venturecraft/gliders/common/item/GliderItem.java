@@ -11,8 +11,12 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Wearable;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.phys.Vec3;
 import net.threetag.palladiumcore.item.IPalladiumItem;
 import net.threetag.palladiumcore.util.Platform;
@@ -22,15 +26,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
-    private final Supplier<Item> repairItem;
-
-    public GliderItem(Properties itemProperties, Supplier<Item> itemSupplier) {
+    public GliderItem(Properties itemProperties) {
         super(itemProperties);
-        this.repairItem = itemSupplier;
     }
 
     public static boolean isSpaceGlider(ItemStack stack) {
@@ -88,8 +88,13 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
             Vec3 m = player.getDeltaMovement();
             boolean hasSpeedMods = hasCopperMod(stack) && hasBeenStruck(stack);
 
-            if(player.tickCount % 200 == 0 && !player.isCreative()) {
-                player.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(1, player, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
+            if (player.tickCount % 200 == 0 && !player.isCreative()) {
+                player.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(player.level.dimension() == Level.NETHER ? 10 : 1, player, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
+            }
+
+            if (level.getBlockState(player.blockPosition().below(2)).getBlock() instanceof FireBlock) {
+                player.setDeltaMovement(player.getDeltaMovement().add(0, 2, 0));
+                return;
             }
 
             // Particles
