@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vc_gliders:item/paraglider_wood",
+    "layer1": "vc_gliders:item/nether_upgrade"
+  }
+}

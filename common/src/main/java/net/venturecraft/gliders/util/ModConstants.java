@@ -6,7 +6,8 @@ public class ModConstants {
 
     // Tooltip
     public static final String INSTALLED_MODS = createToolTip("installed_mods");
-    public static final String COPPER_MOD = createToolTip("copper_mod");
+    public static final String NETHER_UPGRADE = createToolTip("nether_upgrade");
+    public static final String COPPER_UPGRADE = createToolTip("copper_upgrade");
 
     // Messages
 

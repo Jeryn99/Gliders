@@ -27,12 +27,16 @@ public class ItemModelGeneration extends ItemModelProvider {
         for (RegistrySupplier<Item> entry : ItemRegistry.ITEMS.getEntries()) {
             if (entry.get() instanceof GliderItem) {
                 ResourceLocation gliderId = ForgeRegistries.ITEMS.getKey(entry.get());
-                layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_copper_mod"), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(entry.get())), new ResourceLocation(VCGliders.MOD_ID, "glider_copper_mod"));
+                layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_copper_upgrade"), gliderId, new ResourceLocation(VCGliders.MOD_ID, "copper_upgrade"));
+                layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_nether_upgrade"), gliderId, new ResourceLocation(VCGliders.MOD_ID, "nether_upgrade"));
+                layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_combined_upgrades"), gliderId, new ResourceLocation(VCGliders.MOD_ID, "combined_upgrades"));
                 continue;
             }
 
             basicItem(entry.get());
         }
+
+        basicItem(new ResourceLocation(VCGliders.MOD_ID, "damaged_glider"));
     }
 
     public ItemModelBuilder layeredItem(ResourceLocation destination, ResourceLocation item, ResourceLocation resourceLocation) {
@@ -40,6 +44,12 @@ public class ItemModelGeneration extends ItemModelProvider {
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()))
                 .texture("layer1", new ResourceLocation(resourceLocation.getNamespace(), "item/" + resourceLocation.getPath()));
+    }
+
+    public ItemModelBuilder basicItem(ResourceLocation destination) {
+        return getBuilder(destination.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(destination.getNamespace(), "item/" + destination.getPath()));
     }
 
     public ItemModelBuilder layeredItem(ResourceLocation item, ResourceLocation resourceLocation) {

@@ -14,6 +14,7 @@ import net.threetag.palladiumcore.event.EventResult;
 import net.threetag.palladiumcore.event.LivingEntityEvents;
 import net.threetag.palladiumcore.event.PlayerEvents;
 import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +40,7 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
         for (Entity entity : entities) {
             if (entity instanceof ServerPlayer player) {
                 ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-                boolean hasCopperMod = GliderItem.hasCopperMod(chestItem);
+                boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
                 boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
                 if (hasCopperMod && isGliding) {
                     GliderItem.setStruck(chestItem, true);
@@ -55,7 +56,7 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
     public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, float amount) {
         if (entity instanceof Player player) {
             ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-            boolean hasCopperMod = GliderItem.hasCopperMod(chestItem);
+            boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
             boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
             boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
             if (hasCopperMod && isGliding && isLightning) {
@@ -67,10 +68,16 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
 
     @Override
     public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, String name, AtomicInteger cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
-        System.out.println(left);
-        if (left.getItem() instanceof GliderItem && right.getItem() == Items.COPPER_INGOT) {
+        if (left.getItem() instanceof GliderItem && right.getItem() == ItemRegistry.COPPER_UPGRADE.get()) {
             ItemStack copiedStack = left.copy();
             GliderItem.setCopper(copiedStack, true);
+            cost.set(5);
+            output.set(copiedStack);
+        }
+
+        if (left.getItem() instanceof GliderItem && right.getItem() == ItemRegistry.NETHER_UPGRADE.get()) {
+            ItemStack copiedStack = left.copy();
+            GliderItem.setNether(copiedStack, true);
             cost.set(5);
             output.set(copiedStack);
         }
