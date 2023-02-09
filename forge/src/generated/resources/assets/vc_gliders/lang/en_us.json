@@ -18,5 +18,6 @@
   "subtitle.vc_gliders.space_deploy": "Space Deploy",
   "subtitle.vc_gliders.space_glide": "Space Glide",
   "tooltip.vc_gliders.copper_upgrade": "§eCopper Upgrade",
+  "tooltip.vc_gliders.installed_upgrades": "Installed Upgrades:",
   "tooltip.vc_gliders.nether_upgrade": "§dNether Upgrade"
 }

@@ -32,6 +32,7 @@ public class VCGlidersClient {
                         if (GliderItem.hasCopperUpgrade(itemStack) && GliderItem.hasNetherUpgrade(itemStack)) {
                             return 0.1F;
                         }
+
                         if (GliderItem.hasCopperUpgrade(itemStack)) {
                             return 0.2F;
                         }

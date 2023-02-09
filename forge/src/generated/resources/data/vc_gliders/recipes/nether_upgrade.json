@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "F": {
+      "item": "minecraft:nether_brick_fence"
+    },
+    "R": {
+      "item": "minecraft:blaze_rod"
+    },
+    "U": {
+      "item": "minecraft:crying_obsidian"
+    }
+  },
+  "pattern": [
+    "   ",
+    "RBR",
+    "FUF"
+  ],
+  "result": {
+    "item": "vc_gliders:nether_upgrade"
+  }
+}

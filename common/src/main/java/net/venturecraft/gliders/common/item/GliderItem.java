@@ -172,7 +172,7 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         if (hasCopperUpgrade(stack) || hasNetherUpgrade(stack)) {
-            tooltip.add(Component.translatable(ModConstants.INSTALLED_MODS));
+            tooltip.add(Component.translatable(ModConstants.INSTALLED_UPGRADES));
             if(hasCopperUpgrade(stack)) {
                 tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.COPPER_UPGRADE)));
             }

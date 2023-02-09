@@ -37,6 +37,7 @@ public class EnglishLangProvider extends LanguageProvider {
 
         add(ModConstants.NETHER_UPGRADE, Rarity.EPIC.color + "Nether Upgrade");
         add(ModConstants.COPPER_UPGRADE, Rarity.UNCOMMON.color + "Copper Upgrade");
+        add(ModConstants.INSTALLED_UPGRADES, "Installed Upgrades:");
 
         addSound(SoundRegistry.GLIDER_OPEN.get(), "Glider opens");
         addSound(SoundRegistry.SPACE_GLIDE.get(), "Space Glide");

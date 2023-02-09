@@ -20,7 +20,7 @@
       "predicate": {
         "upgrade_level": 0.2
       },
-      "model": "vc_gliders:item/paraglider_wood_nether_upgrade"
+      "model": "vc_gliders:item/paraglider_wood_copper_upgrade"
     },
     {
       "predicate": {
