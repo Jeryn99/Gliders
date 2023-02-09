@@ -4,19 +4,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.UpgradeRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.threetag.palladiumcore.registry.RegistrySupplier;
-import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.item.ItemRegistry;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -45,5 +37,16 @@ public class RecipeGeneration extends RecipeProvider {
         ShapedRecipeBuilder.shaped(ItemRegistry.NETHER_UPGRADE.get()).pattern("   ").pattern("RBR").pattern("FUF").define('R', Items.BLAZE_ROD).define('B', Items.BLAZE_POWDER).define('U', Items.CRYING_OBSIDIAN).define('F', Blocks.NETHER_BRICK_FENCE).unlockedBy("has_crafting_table", has(Blocks.CRAFTING_TABLE)).save(consumer);
         ShapedRecipeBuilder.shaped(ItemRegistry.COPPER_UPGRADE.get()).pattern("CCC").pattern("RBR").pattern("FUF").define('R', Items.BLAZE_ROD).define('B', Items.BLAZE_POWDER).define('U', Items.POTION).define('C', Blocks.COPPER_BLOCK).define('F', Blocks.NETHER_BRICK_FENCE).unlockedBy("has_crafting_table", has(Blocks.CRAFTING_TABLE)).save(consumer);
 
+        // Glider Upgrading
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_WOOD.get()), Ingredient.of(ItemRegistry.COPPER_UPGRADE.get()), "copper").unlocks(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer, VCGliders.id("wood_glider_copper_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_IRON.get()), Ingredient.of(ItemRegistry.COPPER_UPGRADE.get()), "copper").unlocks(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer, VCGliders.id("iron_glider_copper_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_GOLD.get()), Ingredient.of(ItemRegistry.COPPER_UPGRADE.get()), "copper").unlocks(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer, VCGliders.id("gold_glider_copper_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_DIAMOND.get()), Ingredient.of(ItemRegistry.COPPER_UPGRADE.get()), "copper").unlocks(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer, VCGliders.id("diamond_glider_copper_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_NETHERITE.get()), Ingredient.of(ItemRegistry.COPPER_UPGRADE.get()), "copper").unlocks(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer, VCGliders.id("netherite_glider_copper_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_WOOD.get()), Ingredient.of(ItemRegistry.NETHER_UPGRADE.get()), "nether").unlocks(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT)).save(consumer, VCGliders.id("wood_glider_nether_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_IRON.get()), Ingredient.of(ItemRegistry.NETHER_UPGRADE.get()), "nether").unlocks(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT)).save(consumer, VCGliders.id("iron_glider_nether_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_GOLD.get()), Ingredient.of(ItemRegistry.NETHER_UPGRADE.get()), "nether").unlocks(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT)).save(consumer, VCGliders.id("gold_glider_nether_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_DIAMOND.get()), Ingredient.of(ItemRegistry.NETHER_UPGRADE.get()), "nether").unlocks(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT)).save(consumer, VCGliders.id("diamond_glider_nether_upgrade"));
+        new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_NETHERITE.get()), Ingredient.of(ItemRegistry.NETHER_UPGRADE.get()), "nether").unlocks(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT)).save(consumer, VCGliders.id("netherite_glider_nether_upgrade"));
     }
 }

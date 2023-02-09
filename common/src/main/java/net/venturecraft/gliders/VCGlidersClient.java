@@ -41,11 +41,11 @@ public class VCGlidersClient {
                             return 0.3F;
                         }
 
-
                         return 0;
                     });
                 }
-            }});
+            }
+        });
 
     }
 
