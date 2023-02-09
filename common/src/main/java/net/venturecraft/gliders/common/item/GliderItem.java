@@ -26,11 +26,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
-    public GliderItem(Properties itemProperties) {
+    private Supplier<ItemStack> repair;
+
+    public GliderItem(Properties itemProperties, Supplier<ItemStack> stackSupplier) {
         super(itemProperties);
+        this.repair = stackSupplier;
     }
 
     public static boolean isSpaceGlider(ItemStack stack) {
@@ -154,13 +158,10 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
         }
     }
 
-/*    @Override
+    @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
-
-
-
-        return repairCandidate.getItem() == repairItem.get() || repairCandidate.getItem() == Items.COPPER_INGOT;
-    }*/
+        return repairCandidate.getItem() == this.repair.get().getItem();
+    }
 
     @Override
     public @Nullable EquipmentSlot getEquipmentSlot(ItemStack stack) {
