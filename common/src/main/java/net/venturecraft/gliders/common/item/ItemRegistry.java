@@ -10,6 +10,8 @@ import net.threetag.palladiumcore.registry.DeferredRegister;
 import net.threetag.palladiumcore.registry.RegistrySupplier;
 import net.venturecraft.gliders.VCGliders;
 
+import java.util.function.Supplier;
+
 import static net.venturecraft.gliders.VCGliders.MOD_ID;
 
 public class ItemRegistry {
@@ -19,11 +21,36 @@ public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
 
     // Gliders
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_WOOD = ITEMS.register("paraglider_wood", () -> new GliderItem((new Item.Properties()).durability(500).tab(MAIN).rarity(Rarity.COMMON)));
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_IRON = ITEMS.register("paraglider_iron", () -> new GliderItem((new Item.Properties()).durability(80).tab(MAIN).rarity(Rarity.UNCOMMON)));
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_GOLD = ITEMS.register("paraglider_gold", () -> new GliderItem((new Item.Properties()).durability(200).tab(MAIN).rarity(Rarity.UNCOMMON)));
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_DIAMOND = ITEMS.register("paraglider_diamond", () -> new GliderItem((new Item.Properties()).durability(100).tab(MAIN).rarity(Rarity.RARE)));
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_NETHERITE = ITEMS.register("paraglider_netherite", () -> new GliderItem((new Item.Properties()).durability(500).tab(MAIN).rarity(Rarity.EPIC)));
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_WOOD = ITEMS.register("paraglider_wood", () -> new GliderItem((new Item.Properties()).durability(500).tab(MAIN).rarity(Rarity.COMMON), new Supplier<>() {
+        @Override
+        public ItemStack get() {
+            return new ItemStack(REINFORCED_PAPER.get());
+        }
+    }));
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_IRON = ITEMS.register("paraglider_iron", () -> new GliderItem((new Item.Properties()).durability(80).tab(MAIN).rarity(Rarity.UNCOMMON), new Supplier<>() {
+        @Override
+        public ItemStack get() {
+            return new ItemStack(REINFORCED_PAPER_IRON.get());
+        }
+    }));;
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_GOLD = ITEMS.register("paraglider_gold", () -> new GliderItem((new Item.Properties()).durability(200).tab(MAIN).rarity(Rarity.UNCOMMON), new Supplier<>() {
+        @Override
+        public ItemStack get() {
+            return new ItemStack(REINFORCED_PAPER_GOLD.get());
+        }
+    }));
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_DIAMOND = ITEMS.register("paraglider_diamond", () -> new GliderItem((new Item.Properties()).durability(100).tab(MAIN).rarity(Rarity.RARE), new Supplier<>() {
+        @Override
+        public ItemStack get() {
+            return new ItemStack(REINFORCED_PAPER_DIAMOND.get());
+        }
+    }));
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_NETHERITE = ITEMS.register("paraglider_netherite", () -> new GliderItem((new Item.Properties()).durability(500).tab(MAIN).rarity(Rarity.EPIC), new Supplier<>() {
+        @Override
+        public ItemStack get() {
+            return new ItemStack(REINFORCED_PAPER_NETHERITE.get());
+        }
+    }));
     public static final RegistrySupplier<Item> COPPER_UPGRADE = ITEMS.register("copper_upgrade", () -> new Item((new Item.Properties()).tab(MAIN)));
     public static final RegistrySupplier<Item> NETHER_UPGRADE = ITEMS.register("nether_upgrade", () -> new Item((new Item.Properties()).tab(MAIN)));
 

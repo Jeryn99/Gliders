@@ -8,6 +8,7 @@
     "LocalPlayerMixin"
   ],
   "mixins": [
+    "BaseFireBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
