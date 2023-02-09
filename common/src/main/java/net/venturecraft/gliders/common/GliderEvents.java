@@ -22,18 +22,16 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityEvents.Hurt, PlayerEvents.AnvilUpdate, LivingEntityEvents.ItemUse {
+public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
         EntityEvents.LIGHTNING_STRIKE.register(instance);
         LivingEntityEvents.HURT.register(instance);
-        PlayerEvents.ANVIL_UPDATE.register(instance);
         LivingEntityEvents.ITEM_USE_START.register(instance);
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
         LivingEntityEvents.ITEM_USE_STOP.register(instance);
     }
-
 
     @Override
     public void lightningStrike(List<Entity> entities, LightningBolt lightningBolt) {
@@ -63,25 +61,6 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
                 return EventResult.cancel();
             }
         }
-        return EventResult.pass();
-    }
-
-    @Override
-    public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, String name, AtomicInteger cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
-        if (left.getItem() instanceof GliderItem && right.getItem() == ItemRegistry.COPPER_UPGRADE.get()) {
-            ItemStack copiedStack = left.copy();
-            GliderItem.setCopper(copiedStack, true);
-            cost.set(5);
-            output.set(copiedStack);
-        }
-
-        if (left.getItem() instanceof GliderItem && right.getItem() == ItemRegistry.NETHER_UPGRADE.get()) {
-            ItemStack copiedStack = left.copy();
-            GliderItem.setNether(copiedStack, true);
-            cost.set(5);
-            output.set(copiedStack);
-        }
-
         return EventResult.pass();
     }
 

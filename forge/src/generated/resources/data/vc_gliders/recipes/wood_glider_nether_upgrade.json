@@ -1,0 +1,10 @@
+{
+  "type": "vc_gliders:glider_upgrading",
+  "addition": {
+    "item": "vc_gliders:nether_upgrade"
+  },
+  "base": {
+    "item": "vc_gliders:paraglider_wood"
+  },
+  "upgrade": "nether"
+}

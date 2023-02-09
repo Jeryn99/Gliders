@@ -1,0 +1,10 @@
+{
+  "type": "vc_gliders:glider_upgrading",
+  "addition": {
+    "item": "vc_gliders:copper_upgrade"
+  },
+  "base": {
+    "item": "vc_gliders:paraglider_gold"
+  },
+  "upgrade": "copper"
+}
