@@ -1,5 +1,7 @@
 {
   "dmg.vc_gliders.zap_experiment": "&s was killed by a bad lightning experiment",
+  "item.vc_gliders.copper_upgrade": "Copper Upgrade",
+  "item.vc_gliders.nether_upgrade": "Nether Upgrade",
   "item.vc_gliders.paraglider_diamond": "Diamond Paraglider",
   "item.vc_gliders.paraglider_gold": "Gold Paraglider",
   "item.vc_gliders.paraglider_iron": "Iron Paraglider",
@@ -14,5 +16,7 @@
   "itemGroup.vc_gliders.main": "VentureCraft - Gliders",
   "subtitle.vc_gliders.glider_open": "Glider opens",
   "subtitle.vc_gliders.space_deploy": "Space Deploy",
-  "subtitle.vc_gliders.space_glide": "Space Glide"
+  "subtitle.vc_gliders.space_glide": "Space Glide",
+  "tooltip.vc_gliders.copper_upgrade": "§eCopper Upgrade",
+  "tooltip.vc_gliders.nether_upgrade": "§dNether Upgrade"
 }

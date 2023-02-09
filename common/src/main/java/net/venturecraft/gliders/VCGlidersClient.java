@@ -23,7 +23,26 @@ public class VCGlidersClient {
             // Item Predicates
             for (RegistrySupplier<Item> supplier : ItemRegistry.ITEMS) {
                 if (supplier.get() instanceof GliderItem paragliderItem) {
-                    ClientUtil.addPredicate(paragliderItem, new ResourceLocation("copper_mod"), (stack, p_call_2_, livingEntity, something) -> GliderItem.hasCopperMod(stack) ? 1 : 0);
+                    ClientUtil.addPredicate(paragliderItem, new ResourceLocation("upgrade_level"), (itemStack, clientLevel, livingEntity, i) -> {
+
+                        if (GliderItem.isTooBroken(itemStack)) {
+                            return 0.4F;
+                        }
+
+                        if (GliderItem.hasCopperUpgrade(itemStack) && GliderItem.hasNetherUpgrade(itemStack)) {
+                            return 0.1F;
+                        }
+                        if (GliderItem.hasCopperUpgrade(itemStack)) {
+                            return 0.2F;
+                        }
+
+                        if (GliderItem.hasNetherUpgrade(itemStack)) {
+                            return 0.3F;
+                        }
+
+
+                        return 0;
+                    });
                 }
             }});
 

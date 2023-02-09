@@ -39,21 +39,36 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
     public static ItemStack setCopper(ItemStack itemStack, boolean copper) {
         CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putBoolean("copper_mod", copper);
+        compound.putBoolean("copper_upgrade", copper);
         return itemStack;
     }
 
-
-    public static boolean hasCopperMod(ItemStack itemStack) {
+    public static boolean hasCopperUpgrade(ItemStack itemStack) {
         CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("copper_mod")) return false;
-        return compound.getBoolean("copper_mod");
+        if (!compound.contains("copper_upgrade")) return false;
+        return compound.getBoolean("copper_upgrade");
+    }
+
+    public static ItemStack setNether(ItemStack itemStack, boolean copper) {
+        CompoundTag compound = itemStack.getOrCreateTag();
+        compound.putBoolean("nether_upgrade", copper);
+        return itemStack;
+    }
+
+    public static boolean hasNetherUpgrade(ItemStack itemStack) {
+        CompoundTag compound = itemStack.getOrCreateTag();
+        if (!compound.contains("nether_upgrade")) return false;
+        return compound.getBoolean("nether_upgrade");
     }
 
     public static boolean isGlidingEnabled(ItemStack itemStack) {
         CompoundTag compound = itemStack.getOrCreateTag();
         if (!compound.contains("glide")) return false;
-        return compound.getBoolean("glide") && itemStack.getMaxDamage() != itemStack.getDamageValue();
+        return compound.getBoolean("glide") && !isTooBroken(itemStack);
+    }
+
+    public static boolean isTooBroken(ItemStack itemStack){
+        return !(itemStack.getDamageValue() < itemStack.getMaxDamage() - 1);
     }
 
     public static void setGlide(ItemStack itemStack, boolean canGlide) {
@@ -86,10 +101,12 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
             // Handle Movement
             Vec3 m = player.getDeltaMovement();
-            boolean hasSpeedMods = hasCopperMod(stack) && hasBeenStruck(stack);
+            boolean hasSpeedMods = hasCopperUpgrade(stack) && hasBeenStruck(stack);
 
             if (player.tickCount % 200 == 0 && !player.isCreative()) {
-                player.getItemBySlot(EquipmentSlot.CHEST).hurtAndBreak(player.level.dimension() == Level.NETHER ? 10 : 1, player, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    player.getItemBySlot(EquipmentSlot.CHEST).hurt(player.level.dimension() == Level.NETHER && !hasNetherUpgrade(stack) ? getMaxDamage() / 2 : 1, player.getRandom(), serverPlayer);
+                }
             }
 
             if (level.getBlockState(player.blockPosition().below(2)).getBlock() instanceof FireBlock) {
@@ -154,9 +171,15 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
-        if (hasCopperMod(stack)) {
+        if (hasCopperUpgrade(stack) || hasNetherUpgrade(stack)) {
             tooltip.add(Component.translatable(ModConstants.INSTALLED_MODS));
-            tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.COPPER_MOD)));
+            if(hasCopperUpgrade(stack)) {
+                tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.COPPER_UPGRADE)));
+            }
+
+            if(hasNetherUpgrade(stack)) {
+                tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.NETHER_UPGRADE)));
+            }
         }
     }
 

@@ -66,7 +66,7 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
                 gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
                 // Has Coppered Embedded
-                if (GliderItem.hasCopperMod(stack)) {
+                if (GliderItem.hasCopperUpgrade(stack)) {
                     gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
                     gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), p_117351_, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
                 }
@@ -74,19 +74,6 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
             poseStack.popPose();
         }
 
-
-        
- /*      // Render on players back
-        if (GliderUtil.hasParagliderEquipped(living)) {
-            ItemStack stack = living.getItemBySlot(EquipmentSlot.CHEST);
-            poseStack.pushPose();
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(-90));
-            poseStack.translate(0, -0.8, 0.5);
-            poseStack.scale(0.4F, 0.4F,0.4F);
-            //gliderModel.handles.visible = false;
-            gliderModel.renderToBuffer(poseStack, p_117350_.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-            poseStack.popPose();
-        }*/
     }
 
 }

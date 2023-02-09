@@ -2,11 +2,13 @@ package net.venturecraft.gliders.forge.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.GliderDamageSource;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
+import net.venturecraft.gliders.util.ModConstants;
 
 public class EnglishLangProvider extends LanguageProvider {
 
@@ -29,6 +31,12 @@ public class EnglishLangProvider extends LanguageProvider {
         add(ItemRegistry.REINFORCED_PAPER_GOLD.get(), "Re-Inforced Paper (Gold)");
         add(ItemRegistry.REINFORCED_PAPER_DIAMOND.get(), "Re-Inforced Paper (Diamond)");
         add(ItemRegistry.REINFORCED_PAPER_NETHERITE.get(), "Re-Inforced Paper (Netherite)");
+
+        add(ItemRegistry.COPPER_UPGRADE.get(), "Copper Upgrade");
+        add(ItemRegistry.NETHER_UPGRADE.get(), "Nether Upgrade");
+
+        add(ModConstants.NETHER_UPGRADE, Rarity.EPIC.color + "Nether Upgrade");
+        add(ModConstants.COPPER_UPGRADE, Rarity.UNCOMMON.color + "Copper Upgrade");
 
         addSound(SoundRegistry.GLIDER_OPEN.get(), "Glider opens");
         addSound(SoundRegistry.SPACE_GLIDE.get(), "Space Glide");
