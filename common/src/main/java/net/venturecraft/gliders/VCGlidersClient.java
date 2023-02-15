@@ -25,7 +25,7 @@ public class VCGlidersClient {
                 if (supplier.get() instanceof GliderItem paragliderItem) {
                     ClientUtil.addPredicate(paragliderItem, new ResourceLocation("upgrade_level"), (itemStack, clientLevel, livingEntity, i) -> {
 
-                        if (GliderItem.isTooBroken(itemStack)) {
+                        if (GliderItem.isBroken(itemStack)) {
                             return 0.4F;
                         }
 

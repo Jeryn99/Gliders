@@ -5,6 +5,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -30,7 +32,7 @@ import java.util.function.Supplier;
 
 public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
-    private Supplier<ItemStack> repair;
+    private final Supplier<ItemStack> repair;
 
     public GliderItem(Properties itemProperties, Supplier<ItemStack> stackSupplier) {
         super(itemProperties);
@@ -68,16 +70,27 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
     public static boolean isGlidingEnabled(ItemStack itemStack) {
         CompoundTag compound = itemStack.getOrCreateTag();
         if (!compound.contains("glide")) return false;
-        return compound.getBoolean("glide") && !isTooBroken(itemStack);
+        return compound.getBoolean("glide") && !isBroken(itemStack);
     }
 
-    public static boolean isTooBroken(ItemStack itemStack){
+    public static boolean isTooBroken(ItemStack itemStack) {
         return !(itemStack.getDamageValue() < itemStack.getMaxDamage() - 1);
     }
 
     public static void setGlide(ItemStack itemStack, boolean canGlide) {
         CompoundTag compound = itemStack.getOrCreateTag();
         compound.putBoolean("glide", canGlide);
+    }
+
+    public static void setBroken(ItemStack itemStack, boolean broken) {
+        CompoundTag compound = itemStack.getOrCreateTag();
+        compound.putBoolean("broken", broken);
+    }
+
+    public static boolean isBroken(ItemStack itemStack) {
+        CompoundTag compound = itemStack.getOrCreateTag();
+        if (!compound.contains("broken")) return false;
+        return compound.getBoolean("broken");
     }
 
     public static void setStruck(ItemStack itemStack, boolean isStruck) {
@@ -109,7 +122,32 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
             if (player.tickCount % 200 == 0 && !player.isCreative()) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    player.getItemBySlot(EquipmentSlot.CHEST).hurt(player.level.dimension() == Level.NETHER && !hasNetherUpgrade(stack) ? getMaxDamage() / 2 : 1, player.getRandom(), serverPlayer);
+                    ItemStack chestSlot = player.getItemBySlot(EquipmentSlot.CHEST);
+
+                    chestSlot.hurtAndBreak(player.level.dimension() == Level.NETHER && !hasNetherUpgrade(stack) ? getMaxDamage() / 2 : 1, player, player1 -> {
+                        level.playSound(null, player1.getX(), player1.getY(), player1.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
+                        level.playSound(null, player1.getX(), player1.getY(), player1.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
+
+                        ItemStack copyChest = chestSlot.copy();
+                        copyChest.setDamageValue(0);
+                        GliderItem.setBroken(copyChest, true);
+
+                        player1.setItemSlot(EquipmentSlot.CHEST, copyChest);
+
+                    });
+                }
+            }
+
+
+            if (level.dimension() == Level.NETHER && !hasNetherUpgrade(stack)) {
+                if (player.level.random.nextInt(24) == 0 && !player.isSilent()) {
+                    player.level.playLocalSound(player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, SoundEvents.BLAZE_BURN, player.getSoundSource(), 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
+
+                    for (int i = 0; i < 2; i++) {
+                        level.addParticle(ParticleTypes.LARGE_SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
+                        level.addParticle(ParticleTypes.SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
+                        level.addParticle(ParticleTypes.LAVA, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.0D, 0.0D);
+                    }
                 }
             }
 
