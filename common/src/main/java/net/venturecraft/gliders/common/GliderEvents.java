@@ -39,10 +39,17 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
                 ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
                 boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
                 boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
+
+                if(!hasCopperMod && isGliding){
+                    ItemStack glider = player.getItemBySlot(EquipmentSlot.CHEST);
+                    GliderItem.setBroken(glider, true);
+                    return;
+                }
+
                 if (hasCopperMod && isGliding) {
                     GliderItem.setStruck(chestItem, true);
                     if (GliderItem.hasBeenStruck(chestItem)) {
-                        player.getItemBySlot(EquipmentSlot.CHEST).hurt(10, player.level.random, player);
+                        ItemStack glider = player.getItemBySlot(EquipmentSlot.CHEST);
                         player.hurt(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, 2F);
                     }
                 }

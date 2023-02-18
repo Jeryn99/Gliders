@@ -23,11 +23,5 @@ public class LocalPlayerMixin {
     }
 
 
-    @Inject(method = "tick()V", at = @At(value = "TAIL"))
-    private void tick(CallbackInfo info) {
-        LocalPlayer localPlayer = (LocalPlayer) (Object) this;
-        PlayerAnimData.getOrAdd(localPlayer).tick(localPlayer);
-    }
-
 
 }

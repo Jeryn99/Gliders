@@ -4,11 +4,13 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "BipedBodyMixin",
+    "ControlScreenMixin",
     "ItemInHandRendererMixin",
     "LocalPlayerMixin"
   ],
   "mixins": [
-    "BaseFireBlockMixin"
+    "BaseFireBlockMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

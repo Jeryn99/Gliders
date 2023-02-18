@@ -45,6 +45,7 @@ public class EnglishLangProvider extends LanguageProvider {
 
         add("itemGroup." + VCGliders.MOD_ID, "VentureCraft - Gliders");
         add("itemGroup." + VCGliders.MOD_ID + ".main", "VentureCraft - Gliders");
+        add("options.glider_perspective", "Glider Perspective");
 
         addDamageSource(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, "&s was killed by a bad lightning experiment");
     }

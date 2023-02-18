@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "${mod_name}"
 authors = "${mod_author}"
 description = '''
-PalladiumCore template mod
+Gliders: essential for traversing terrain and preventing falls
 '''
 #logoFile = ""
 

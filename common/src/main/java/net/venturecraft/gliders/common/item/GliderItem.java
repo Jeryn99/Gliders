@@ -10,7 +10,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -104,6 +106,17 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
         return compound.getBoolean("struck");
     }
 
+    public static void setLightningCounter(ItemStack itemStack, int timer) {
+        CompoundTag compound = itemStack.getOrCreateTag();
+        compound.putInt("zap", timer);
+    }
+
+    public static int getLightningCounter(ItemStack itemStack) {
+        CompoundTag compound = itemStack.getOrCreateTag();
+        if (!compound.contains("zap")) return 0;
+        return compound.getInt("zap");
+    }
+
     @Override
     public void armorTick(ItemStack stack, Level level, Player player) {
 
@@ -119,6 +132,28 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
             // Handle Movement
             Vec3 m = player.getDeltaMovement();
             boolean hasSpeedMods = hasCopperUpgrade(stack) && hasBeenStruck(stack);
+
+            if(!GliderItem.hasCopperUpgrade(player.getItemBySlot(EquipmentSlot.CHEST)) && level.isRainingAt(player.blockPosition())){
+
+                setLightningCounter(stack, getLightningCounter(stack) + 1);
+
+                if(player.level.random.nextInt(24) == 0) {
+                    for (int i = 0; i < 2; i++) {
+                        level.addParticle(ParticleTypes.WAX_ON, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
+                        level.addParticle(ParticleTypes.WAX_OFF, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
+                        level.addParticle(ParticleTypes.WARPED_SPORE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+
+                if(player.level.random.nextInt(24) == 0 && getLightningCounter(stack) > 200){
+                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
+                    lightningBolt.setVisualOnly(false);
+                    level.addFreshEntity(lightningBolt);
+                }
+            } else {
+                setLightningCounter(stack, 0);
+            }
 
             if (player.tickCount % 200 == 0 && !player.isCreative()) {
                 if (player instanceof ServerPlayer serverPlayer) {
@@ -155,6 +190,7 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
                 player.setDeltaMovement(player.getDeltaMovement().add(0, 2, 0));
                 return;
             }
+
 
             // Particles
             float horizonalSpeed = (float) player.getDeltaMovement().horizontalDistance();
