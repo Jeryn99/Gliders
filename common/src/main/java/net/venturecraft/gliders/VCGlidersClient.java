@@ -1,5 +1,6 @@
 package net.venturecraft.gliders;
 
+import net.minecraft.client.OptionInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.threetag.palladiumcore.event.LifecycleEvents;
@@ -14,10 +15,14 @@ import net.venturecraft.gliders.util.ClientUtil;
 public class VCGlidersClient {
 
     public static int lightLevel = 0;
+    public static OptionInstance<Boolean> autoPerspective;
+
 
     public static void init() {
+        autoPerspective = OptionInstance.createBoolean("options.glider_perspective", true);
         ModelRegistry.init();
         EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
+
 
         LifecycleEvents.CLIENT_SETUP.register(() -> {
             // Item Predicates

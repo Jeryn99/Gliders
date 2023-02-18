@@ -3,13 +3,13 @@
   "id": "vc_gliders",
   "version": "${version}",
   "name": "${mod_name}",
-  "description": "PalladiumCore template mod",
+  "description": "Gliders: essential for traversing terrain and preventing falls",
   "authors": [
     "${mod_author}"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-vc_gliders"
+    "homepage": "https://modrinth.com/mod/gliders",
+    "sources": "https://github.com/VentureCraftMods/MC-Gliders"
   },
   "license": "${mod_license}",
   "icon": "assets/vc_gliders/icon.png",

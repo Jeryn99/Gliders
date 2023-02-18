@@ -1,7 +1,7 @@
 {
   "dmg.vc_gliders.zap_experiment": "&s was killed by a bad lightning experiment",
-  "item.vc_gliders.copper_upgrade": "Copper Upgrade",
-  "item.vc_gliders.nether_upgrade": "Nether Upgrade",
+  "item.vc_gliders.copper_upgrade": "§eCopper Upgrade",
+  "item.vc_gliders.nether_upgrade": "§dNether Upgrade",
   "item.vc_gliders.paraglider_diamond": "Diamond Paraglider",
   "item.vc_gliders.paraglider_gold": "Gold Paraglider",
   "item.vc_gliders.paraglider_iron": "Iron Paraglider",
@@ -14,6 +14,7 @@
   "item.vc_gliders.reinforced_paper_netherite": "Re-Inforced Paper (Netherite)",
   "itemGroup.vc_gliders": "VentureCraft - Gliders",
   "itemGroup.vc_gliders.main": "VentureCraft - Gliders",
+  "options.glider_perspective": "Glider Perspective",
   "subtitle.vc_gliders.glider_open": "Glider opens",
   "subtitle.vc_gliders.space_deploy": "Space Deploy",
   "subtitle.vc_gliders.space_glide": "Space Glide",
