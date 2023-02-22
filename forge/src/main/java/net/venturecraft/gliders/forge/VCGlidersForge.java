@@ -11,10 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.threetag.palladiumcore.forge.PalladiumCoreForge;
 import net.venturecraft.gliders.VCGlidersClient;
-import net.venturecraft.gliders.forge.data.EnglishLangProvider;
-import net.venturecraft.gliders.forge.data.ItemModelGeneration;
-import net.venturecraft.gliders.forge.data.RecipeGeneration;
-import net.venturecraft.gliders.forge.data.SoundProvider;
+import net.venturecraft.gliders.forge.data.*;
 
 @Mod(VCGliders.MOD_ID)
 @Mod.EventBusSubscriber(modid = VCGliders.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -37,6 +34,7 @@ public class VCGlidersForge {
         generator.addProvider(e.includeClient(), new ItemModelGeneration(generator, existingFileHelper));
         generator.addProvider(e.includeClient(), new EnglishLangProvider(generator));
         generator.addProvider(e.includeClient(), new SoundProvider(generator, existingFileHelper));
+        generator.addProvider(e.includeClient(), new ItemTagsProvider(generator,  new BlockTagsProvider(generator), existingFileHelper));
         generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
     }
 }

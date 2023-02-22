@@ -11,6 +11,19 @@ dependencies {
     // Do NOT use other classes from fabric loader
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.threetag:PalladiumCore:${rootProject.palladiumcore_version}"
+
+    // JEI
+    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}"
+
+    // REI
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}", {
+        exclude group: "dev.architectury"
+    })
+
+    // Forge Config API Port
+    modApi "net.minecraftforge:forgeconfigapiport-fabric:${rootProject.forge_config_api_port_version}"
+
+
 }
 
 publishing {

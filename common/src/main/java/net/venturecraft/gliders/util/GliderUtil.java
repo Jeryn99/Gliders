@@ -1,21 +1,22 @@
 package net.venturecraft.gliders.util;
 
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 
 public class GliderUtil {
     public static boolean hasGliderEquipped(LivingEntity livingEntity) {
-        return livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof GliderItem;
+        return CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(livingEntity, CuriosTrinketsUtil.BACK.identifier()) != null;
     }
 
     public static boolean isGliderActive(LivingEntity livingEntity) {
-            ItemStack stack = livingEntity.getItemBySlot(EquipmentSlot.CHEST);
-            if (stack.getItem() instanceof GliderItem) {
-                return GliderItem.isGlidingEnabled(stack);
-            }
+        ItemStack glider = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(livingEntity, CuriosTrinketsUtil.BACK.identifier());
+        if (glider == null) return false;
+        if (glider.getItem() instanceof GliderItem) {
+            return GliderItem.isGlidingEnabled(glider);
+        }
         return false;
     }
 

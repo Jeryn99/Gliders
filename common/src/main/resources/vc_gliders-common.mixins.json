@@ -6,10 +6,10 @@
     "BipedBodyMixin",
     "ControlScreenMixin",
     "ItemInHandRendererMixin",
-    "LocalPlayerMixin"
+    "LocalPlayerMixin",
+    "BaseFireBlockMixin"
   ],
   "mixins": [
-    "BaseFireBlockMixin",
     "PlayerMixin"
   ],
   "injectors": {

@@ -11,11 +11,12 @@ public class AnimationHandler {
 
 
     public static void setupAnimPre(HumanoidModel<?> humanoidModel, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo callbackInfo) {
-        resetPose(humanoidModel.body, humanoidModel.leftArm, humanoidModel.rightArm, humanoidModel.leftLeg, humanoidModel.rightLeg);
+
     }
 
     public static void setupAnimPost(HumanoidModel<?> humanoidModel, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo callbackInfo) {
         if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
+            resetPoseAll(humanoidModel);
             PlayerAnimData animData = PlayerAnimData.getOrAdd(livingEntity);
             resetPose(humanoidModel.body, humanoidModel.leftArm, humanoidModel.rightArm, humanoidModel.leftLeg, humanoidModel.rightLeg);
             AnimationUtil.animate(humanoidModel, animData.playerGliding(), PlayerAnimations.GLIDING, ageInTicks, 1);

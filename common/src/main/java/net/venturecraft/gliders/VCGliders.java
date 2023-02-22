@@ -1,7 +1,9 @@
 package net.venturecraft.gliders;
 
 import net.minecraft.resources.ResourceLocation;
+import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.GliderEvents;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.common.recipe.RecipeSerializerRegistry;
 import net.venturecraft.gliders.common.sound.SoundRegistry;

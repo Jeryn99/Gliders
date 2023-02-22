@@ -34,6 +34,24 @@ dependencies {
     modApi "net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}"
     include "net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}"
 
+    // Cardinal Components
+    modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}"
+    modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}"
+
+    // Mod Menu
+    modImplementation "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+
+    // JEI
+    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-fabric-api:${rootProject.jei_version}"
+    modLocalRuntime "mezz.jei:jei-${rootProject.minecraft_version}-fabric:${rootProject.jei_version}"
+
+    // Trinkets
+    modImplementation ("dev.emi:trinkets:${rootProject.trinkets_version}") {
+        exclude(group: "dev.onyxstudios.cardinal-components-api")
+    }
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }

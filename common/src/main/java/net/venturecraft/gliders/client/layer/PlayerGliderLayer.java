@@ -18,6 +18,7 @@ import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.client.model.GliderModel;
 import net.venturecraft.gliders.client.model.ModelRegistry;
 import net.venturecraft.gliders.client.model.XWingModel;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.util.GliderUtil;
 
@@ -46,7 +47,7 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
     public void render(PoseStack poseStack, MultiBufferSource bufferSource, int p_117351_, T living, float p_117353_, float p_117354_, float p_117355_, float p_117356_, float p_117357_, float p_117358_) {
         if (living.isInvisibleTo(Minecraft.getInstance().player)) return;
 
-        ItemStack stack = living.getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack stack =  CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(living, CuriosTrinketsUtil.BACK.identifier());
 
         // Render above players when gliding
         if (GliderUtil.isGlidingWithActiveGlider(living)) {
