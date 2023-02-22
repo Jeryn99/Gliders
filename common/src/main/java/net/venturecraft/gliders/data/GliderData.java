@@ -42,6 +42,10 @@ public class GliderData {
 
         if(livingEntity.level.isClientSide) return;
         setGliding(GliderUtil.isGlidingWithActiveGlider(livingEntity));
+
+        if(livingEntity.tickCount % 40 == 0){
+            sync();
+        }
     }
 
     private void setGliding(boolean glidingWithActiveGlider) {
@@ -53,7 +57,7 @@ public class GliderData {
     }
 
     private void glideAndFallLogic(LivingEntity livingEntity) {
-        if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
+        if (isGliding() || GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             if (!glideAnimation.isStarted()) {
                 glideAnimation.start(livingEntity.tickCount);
             }
