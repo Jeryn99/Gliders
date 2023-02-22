@@ -11,6 +11,7 @@ import net.threetag.palladiumcore.network.MessageType;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
+import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,9 +42,13 @@ public class MessageToggleGlide extends MessageC2S {
             if (GliderItem.isGlidingEnabled(chestItem)) {
                 sender.level.playSound(null, sender.getX(), sender.getY(), sender.getZ(), GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_DEPLOY.get() : SoundRegistry.GLIDER_OPEN.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 new MessagePlaySound(GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_GLIDE.get().getLocation() : SoundEvents.ELYTRA_FLYING.getLocation(), sender.getUUID()).sendToTracking(sender);
+            } else {
+                GliderItem.setLightningCounter(chestItem, 0);
             }
             new MessagePOV(GliderItem.isGlidingEnabled(chestItem) ? "THIRD_PERSON_BACK" : "").send(sender);
         }
+        GliderData.get(sender).get().sync();
+
     }
 
 }
