@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.phys.Vec3;
 import net.threetag.palladiumcore.item.IPalladiumItem;
 import net.threetag.palladiumcore.util.Platform;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.util.GliderUtil;
 import net.venturecraft.gliders.util.ModConstants;
 import org.jetbrains.annotations.NotNull;
@@ -122,18 +123,17 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
         boolean playerCanGlide = !GliderUtil.isPlayerOnGroundOrWater(player) && !player.getAbilities().flying;
         boolean gliderCanGlide = isGlidingEnabled(stack);
+        ItemStack glider = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
 
         if (playerCanGlide && gliderCanGlide) {
 
             player.resetFallDistance();
 
-            player.getAbilities().mayfly = true; // Stop Servers kicking survival players
-
             // Handle Movement
             Vec3 m = player.getDeltaMovement();
             boolean hasSpeedMods = hasCopperUpgrade(stack) && hasBeenStruck(stack);
 
-            if(!GliderItem.hasCopperUpgrade(player.getItemBySlot(EquipmentSlot.CHEST)) && level.isRainingAt(player.blockPosition())){
+            if(!GliderItem.hasCopperUpgrade(glider) && level.isRainingAt(player.blockPosition())){
 
                 setLightningCounter(stack, getLightningCounter(stack) + 1);
 
@@ -157,17 +157,13 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
             if (player.tickCount % 200 == 0 && !player.isCreative()) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    ItemStack chestSlot = player.getItemBySlot(EquipmentSlot.CHEST);
 
-                    chestSlot.hurtAndBreak(player.level.dimension() == Level.NETHER && !hasNetherUpgrade(stack) ? getMaxDamage() / 2 : 1, player, player1 -> {
+                    glider.hurtAndBreak(player.level.dimension() == Level.NETHER && !hasNetherUpgrade(stack) ? getMaxDamage() / 2 : 1, player, player1 -> {
                         level.playSound(null, player1.getX(), player1.getY(), player1.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
                         level.playSound(null, player1.getX(), player1.getY(), player1.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
 
-                        ItemStack copyChest = chestSlot.copy();
-                        copyChest.setDamageValue(0);
-                        GliderItem.setBroken(copyChest, true);
-
-                        player1.setItemSlot(EquipmentSlot.CHEST, copyChest);
+                        glider.setDamageValue(0);
+                        GliderItem.setBroken(glider, true);
 
                     });
                 }
@@ -221,8 +217,6 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
                 player.setDeltaMovement(new Vec3(m.x, -0.05, m.z));
             return;
         }
-
-        player.getAbilities().mayfly = player.isCreative();
 
         if (GliderUtil.isPlayerOnGroundOrWater(player)) {
 

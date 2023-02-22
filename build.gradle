@@ -53,6 +53,82 @@ allprojects {
                 includeGroup 'org.parchmentmc.data'
             }
         }
+
+        maven {
+            // saps.dev Maven (KubeJS and Rhino)
+            url = 'https://maven.saps.dev/minecraft'
+            content {
+                includeGroup 'dev.latvian.mods'
+            }
+        }
+
+        maven {
+            url 'https://repo.repsy.io/mvn/lucraft/threetag'
+        }
+
+        maven {
+            url = 'https://maven.parchmentmc.net/'
+            content {
+                includeGroup 'org.parchmentmc.data'
+            }
+        }
+
+        maven {
+            url = 'https://www.cursemaven.com'
+            content {
+                includeGroup 'curse.maven'
+            }
+        }
+
+        maven {
+            url = 'https://maven.terraformersmc.com/releases/'
+        }
+
+        maven {
+            url = 'https://maven.shedaniel.me'
+        }
+
+        maven {
+            url = 'https://dvs1.progwml6.com/files/maven/'
+        }
+
+        maven {
+            name = 'Ladysnake Mods'
+            url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        }
+
+        maven {
+            url = 'https://maven.theillusivec4.top/'
+        }
+
+        maven {
+            name = 'TerraformersMC'
+            url = 'https://maven.terraformersmc.com/'
+        }
+
+        maven {
+            name = 'Ladysnake Libs'
+            url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        }
+
+        maven {
+            url = 'https://maven.blamejared.com'
+        }
+
+        maven {
+            url = 'https://jitpack.io'
+        }
+
+        maven {
+            name = "Fuzs Mod Resources"
+            url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+        }
+
+        // Player Animator
+        maven {
+            name "KosmX's maven"
+            url 'https://maven.kosmx.dev/'
+        }
     }
 
     tasks.withType(JavaCompile) {

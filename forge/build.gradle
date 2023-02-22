@@ -47,6 +47,21 @@ dependencies {
     modApi "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
     include "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
 
+    // JEI
+    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}"
+
+    // REI
+    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"
+
+    // Configured & Catalogue
+    modLocalRuntime "curse.maven:configured-457570:${rootProject.configured_version}"
+    modLocalRuntime "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
+
+    // Curios
+    modLocalRuntime "top.theillusivec4.curios:curios-forge:${rootProject.curios_version}"
+    modCompileOnly "top.theillusivec4.curios:curios-forge:${rootProject.curios_version}:api"
+
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
