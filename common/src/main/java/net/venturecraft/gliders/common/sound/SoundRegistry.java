@@ -16,6 +16,7 @@ public class SoundRegistry {
     public static final RegistrySupplier<SoundEvent> GLIDER_OPEN = SOUNDS.register("glider_open", () -> setUpSound("glider_open"));
     public static final RegistrySupplier<SoundEvent> SPACE_GLIDE = SOUNDS.register("space_glide", () -> setUpSound("space_glide"));
     public static final RegistrySupplier<SoundEvent> SPACE_DEPLOY = SOUNDS.register("space_deploy", () -> setUpSound("space_deploy"));
+    public static final RegistrySupplier<SoundEvent> INCOMING_LIGHTNING = SOUNDS.register("incoming_lightning", () -> setUpSound("incoming_lightning"));
 
     private static SoundEvent setUpSound(String soundName) {
         return new SoundEvent(new ResourceLocation(MOD_ID, soundName));

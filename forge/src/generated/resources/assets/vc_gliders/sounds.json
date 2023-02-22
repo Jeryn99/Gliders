@@ -6,6 +6,12 @@
     ],
     "subtitle": "subtitle.vc_gliders.glider_open"
   },
+  "incoming_lightning": {
+    "sounds": [
+      "vc_gliders:enviroment/incoming_lightning"
+    ],
+    "subtitle": "subtitle.vc_gliders.incoming_lightning"
+  },
   "space_deploy": {
     "sounds": [
       "vc_gliders:glider/space_deploy"

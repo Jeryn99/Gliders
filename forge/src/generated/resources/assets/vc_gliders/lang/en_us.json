@@ -1,4 +1,5 @@
 {
+  "curios.identifier.glider": "Glider",
   "dmg.vc_gliders.zap_experiment": "&s was killed by a bad lightning experiment",
   "item.vc_gliders.copper_upgrade": "§eCopper Upgrade",
   "item.vc_gliders.nether_upgrade": "§dNether Upgrade",
@@ -16,6 +17,7 @@
   "itemGroup.vc_gliders.main": "VentureCraft - Gliders",
   "options.glider_perspective": "Glider Perspective",
   "subtitle.vc_gliders.glider_open": "Glider opens",
+  "subtitle.vc_gliders.incoming_lightning": "Incoming Lightning",
   "subtitle.vc_gliders.space_deploy": "Space Deploy",
   "subtitle.vc_gliders.space_glide": "Space Glide",
   "tooltip.vc_gliders.copper_upgrade": "§eCopper Upgrade",

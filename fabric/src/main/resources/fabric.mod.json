@@ -20,6 +20,9 @@
     ],
     "client": [
       "net.venturecraft.gliders.fabric.VCGlidersFabricClient"
+    ],
+    "cardinal-components": [
+      "net.venturecraft.gliders.data.fabric.VCComponents"
     ]
   },
   "mixins": [
@@ -30,5 +33,10 @@
     "fabric": "*",
     "minecraft": ">=1.19.2",
     "palladiumcore": ">=1.19.2-1.2.0.0"
+  },
+  "custom": {
+    "cardinal-components": [
+      "vc_gliders:player_data"
+    ]
   }
 }

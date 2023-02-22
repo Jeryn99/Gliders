@@ -8,15 +8,18 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.client.layer.PlayerGliderLayer;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.util.GliderUtil;
 
@@ -29,7 +32,7 @@ public class ClientEvents {
     public static void onRenderLevelLast(RenderLevelStageEvent event) {
         RenderBuffers bufferSource = Minecraft.getInstance().renderBuffers();
         LocalPlayer living = Minecraft.getInstance().player;
-        ItemStack stack = living.getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(living, CuriosTrinketsUtil.BACK.identifier());
         PoseStack posestack = event.getPoseStack();
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && stack.getItem() instanceof GliderItem && GliderUtil.isGlidingWithActiveGlider(living)) {
             posestack.pushPose();
@@ -48,7 +51,6 @@ public class ClientEvents {
             posestack.popPose();
         }
     }
-
 
     @SubscribeEvent
     public static void onMovement(MovementInputUpdateEvent event) {
