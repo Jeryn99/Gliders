@@ -4,6 +4,8 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -15,11 +17,11 @@ public class AnimationHandler {
     }
 
     public static void setupAnimPost(HumanoidModel<?> humanoidModel, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo callbackInfo) {
-        if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
+        if (livingEntity instanceof Player && GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             resetPoseAll(humanoidModel);
-            PlayerAnimData animData = PlayerAnimData.getOrAdd(livingEntity);
+            GliderData animData = GliderData.get(livingEntity).get();
             resetPose(humanoidModel.body, humanoidModel.leftArm, humanoidModel.rightArm, humanoidModel.leftLeg, humanoidModel.rightLeg);
-            AnimationUtil.animate(humanoidModel, animData.playerGliding(), PlayerAnimations.GLIDING, ageInTicks, 1);
+            AnimationUtil.animate(humanoidModel, animData.getAnimation(GliderData.AnimationStates.GLIDING), PlayerAnimations.GLIDING, ageInTicks, 1);
             fixLayers(humanoidModel);
         }
     }

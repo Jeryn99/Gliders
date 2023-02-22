@@ -3,14 +3,13 @@
   "package": "net.venturecraft.gliders.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "BaseFireBlockMixin",
     "BipedBodyMixin",
     "ControlScreenMixin",
     "ItemInHandRendererMixin",
-    "LocalPlayerMixin",
-    "BaseFireBlockMixin"
+    "LocalPlayerMixin"
   ],
   "mixins": [
-    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

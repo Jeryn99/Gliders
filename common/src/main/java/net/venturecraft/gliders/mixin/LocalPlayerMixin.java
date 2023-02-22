@@ -1,7 +1,6 @@
 package net.venturecraft.gliders.mixin;
 
 import net.minecraft.client.player.LocalPlayer;
-import net.venturecraft.gliders.client.animation.PlayerAnimData;
 import net.venturecraft.gliders.network.MessageToggleGlide;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.spongepowered.asm.mixin.Mixin;

@@ -12,7 +12,9 @@ import net.threetag.palladiumcore.event.EntityEvents;
 import net.threetag.palladiumcore.event.EventResult;
 import net.threetag.palladiumcore.event.LivingEntityEvents;
 import net.threetag.palladiumcore.event.PlayerEvents;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
@@ -30,29 +32,30 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
         LivingEntityEvents.ITEM_USE_STOP.register(instance);
         PlayerEvents.ANVIL_UPDATE.register(instance);
+        PlayerEvents.START_TRACKING.register(instance);
+        LivingEntityEvents.TICK.register(instance);
     }
 
     @Override
     public void lightningStrike(List<Entity> entities, LightningBolt lightningBolt) {
         for (Entity entity : entities) {
             if (entity instanceof ServerPlayer player) {
-                ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
+                ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
                 boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
                 boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
 
                 if(!hasCopperMod && isGliding){
-                    ItemStack glider = player.getItemBySlot(EquipmentSlot.CHEST);
-                    GliderItem.setBroken(glider, true);
+                    GliderItem.setBroken(chestItem, true);
                     return;
                 }
 
                 if (hasCopperMod && isGliding) {
                     GliderItem.setStruck(chestItem, true);
                     if (GliderItem.hasBeenStruck(chestItem)) {
-                        ItemStack glider = player.getItemBySlot(EquipmentSlot.CHEST);
                         player.hurt(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, 2F);
                     }
                 }
+
             }
         }
     }
@@ -60,7 +63,7 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
     @Override
     public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, float amount) {
         if (entity instanceof Player player) {
-            ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
+            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
             boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
             boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
             boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
@@ -88,5 +91,22 @@ public class GliderEvents implements EntityEvents.LightningStrike, LivingEntityE
         }
 
         return EventResult.pass();
+    }
+
+    @Override
+    public void livingEntityTick(LivingEntity entity) {
+        if (entity instanceof Player player) {
+            GliderData.get(player).ifPresent(data -> data.tick(player));
+        }
+    }
+
+    @Override
+    public void playerTracking(Player tracker, Entity trackedEntity) {
+        // Don't sync to all, just sync to the tracker
+        if (trackedEntity instanceof Player trackedPlayer && tracker instanceof ServerPlayer trackerPlayer) {
+            GliderData.get(trackedPlayer).ifPresent(data -> {
+                data.syncTo(trackerPlayer);
+            });
+        }
     }
 }

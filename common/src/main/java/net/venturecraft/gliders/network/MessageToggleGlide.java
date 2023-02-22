@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.threetag.palladiumcore.network.MessageC2S;
 import net.threetag.palladiumcore.network.MessageContext;
 import net.threetag.palladiumcore.network.MessageType;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.util.GliderUtil;
@@ -35,7 +36,7 @@ public class MessageToggleGlide extends MessageC2S {
     public void handle(MessageContext context) {
         var sender = context.getPlayer();
         if (GliderUtil.hasGliderEquipped(sender)) {
-            ItemStack chestItem = sender.getItemBySlot(EquipmentSlot.CHEST);
+            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(sender, CuriosTrinketsUtil.BACK.identifier());
             GliderItem.setGlide(chestItem, !GliderItem.isGlidingEnabled(chestItem));
             if (GliderItem.isGlidingEnabled(chestItem)) {
                 sender.level.playSound(null, sender.getX(), sender.getY(), sender.getZ(), GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_DEPLOY.get() : SoundRegistry.GLIDER_OPEN.get(), SoundSource.PLAYERS, 1.0F, 1.0F);

@@ -42,10 +42,12 @@ public class EnglishLangProvider extends LanguageProvider {
         addSound(SoundRegistry.GLIDER_OPEN.get(), "Glider opens");
         addSound(SoundRegistry.SPACE_GLIDE.get(), "Space Glide");
         addSound(SoundRegistry.SPACE_DEPLOY.get(), "Space Deploy");
+        addSound(SoundRegistry.INCOMING_LIGHTNING.get(), "Incoming Lightning");
 
         add("itemGroup." + VCGliders.MOD_ID, "VentureCraft - Gliders");
         add("itemGroup." + VCGliders.MOD_ID + ".main", "VentureCraft - Gliders");
         add("options.glider_perspective", "Glider Perspective");
+        add("curios.identifier.glider", "Glider");
 
         addDamageSource(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, "&s was killed by a bad lightning experiment");
     }

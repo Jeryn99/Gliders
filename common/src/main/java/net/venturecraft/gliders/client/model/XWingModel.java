@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.venturecraft.gliders.client.animation.PlayerAnimData;
+import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 
 public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
@@ -160,11 +160,11 @@ public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity instanceof LivingEntity livingEntity) {
 
-            PlayerAnimData animData = PlayerAnimData.getOrAdd(livingEntity);
+            GliderData animData = GliderData.get(livingEntity).get();
             this.root().getAllParts().forEach(ModelPart::resetPose);
 
             if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
-                this.animate(animData.gliderOpen(), OPEN_XWING, ageInTicks);
+                this.animate(animData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), OPEN_XWING, ageInTicks);
             }
         }
     }

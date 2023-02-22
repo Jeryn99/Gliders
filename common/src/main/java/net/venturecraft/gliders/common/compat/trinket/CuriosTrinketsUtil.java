@@ -3,9 +3,11 @@ package net.venturecraft.gliders.common.compat.trinket;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.item.GliderItem;
 
@@ -17,7 +19,8 @@ public class CuriosTrinketsUtil {
     private static CuriosTrinketsUtil INSTANCE = new CuriosTrinketsUtil();
     public static final Slot HAT = new Slot("head", "head/hat");
     public static final Slot NECKLACE = new Slot("necklace", "chest/necklace");
-    public static final Slot BACK = new Slot("back", "chest/back");
+    public static final Slot BACK = new Slot("glider", "chest/back");
+    public static final Slot BACK_NATIVE = new Slot("back", "chest/back");
     public static final Slot CAPE = new Slot("back", "chest/cape");
     public static final Slot BELT = new Slot("belt", "legs/belt");
     public static final Slot HAND = new Slot("hand", "hand/glove");
@@ -42,15 +45,18 @@ public class CuriosTrinketsUtil {
     }
 
     public ItemStack getFirstGliderInSlot(LivingEntity entity, String slot) {
-        List<ItemStack> items = getItemsInSlot(entity, "curios:" +slot);
-        System.out.println(slot);
-        System.out.println(items);
+
+        if(entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof GliderItem){
+            return entity.getItemBySlot(EquipmentSlot.CHEST);
+        }
+
+        List<ItemStack> items = getItemsInSlot(entity, slot);
         for (ItemStack item : items) {
             if (item.getItem() instanceof GliderItem gliderItem) {
                 return item;
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     public List<ItemStack> getItemsInSlot(LivingEntity entity, String slot) {

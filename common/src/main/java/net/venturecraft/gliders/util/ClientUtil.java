@@ -58,6 +58,10 @@ public class ClientUtil {
             Minecraft.getInstance().options.setCameraType(CameraType.valueOf(pointOfView));
             return;
         }
-        Minecraft.getInstance().options.setCameraType(backupPerspective);
+
+        if(backupPerspective != null) {
+            Minecraft.getInstance().options.setCameraType(backupPerspective);
+            backupPerspective = null;
+        }
     }
 }
