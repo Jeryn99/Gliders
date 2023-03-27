@@ -11,7 +11,7 @@ import net.venturecraft.gliders.VCGliders;
 public class ModClientEvents {
 
     @SubscribeEvent
-    public void texStitch(TextureStitchEvent.Pre textureStitchEvent){
+    public static void texStitch(TextureStitchEvent.Pre textureStitchEvent){
         textureStitchEvent.addSprite(new ResourceLocation(VCGliders.MOD_ID, "item/glider_slot"));
     }
 

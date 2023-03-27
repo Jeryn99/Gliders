@@ -40,10 +40,6 @@ public class VCGlidersForge {
     }
 
     @SubscribeEvent
-    public static void texStitch(TextureStitchEvent.Pre textureStitchEvent){
-        textureStitchEvent.addSprite(new ResourceLocation(VCGliders.MOD_ID, "item/glider_slot"));
-    }
-    @SubscribeEvent
     public static void onGatherData(GatherDataEvent e) {
         DataGenerator generator = e.getGenerator();
         ExistingFileHelper existingFileHelper = e.getExistingFileHelper();
