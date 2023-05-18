@@ -61,20 +61,6 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
     }
 
     @Override
-    public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, float amount) {
-        if (entity instanceof Player player) {
-            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
-            boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
-            boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
-            boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
-            if (hasCopperMod && isGliding && isLightning) {
-                return EventResult.cancel();
-            }
-        }
-        return EventResult.pass();
-    }
-
-    @Override
     public EventResult livingEntityItemUse(LivingEntity entity, @NotNull ItemStack stack, AtomicInteger duration) {
         return GliderUtil.isGlidingWithActiveGlider(entity) ? EventResult.cancel() : EventResult.pass();
     }
@@ -108,5 +94,19 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
                 data.syncTo(trackerPlayer);
             });
         }
+    }
+
+    @Override
+    public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, AtomicReference<Float> amount) {
+        if (entity instanceof Player player) {
+            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
+            boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
+            boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
+            boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
+            if (hasCopperMod && isGliding && isLightning) {
+                return EventResult.cancel();
+            }
+        }
+        return EventResult.pass();
     }
 }
