@@ -21,13 +21,13 @@ public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
 
     // Gliders
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_WOOD = ITEMS.register("paraglider_wood", () -> new GliderItem((new Item.Properties()).durability(500).tab(MAIN).rarity(Rarity.COMMON), new Supplier<>() {
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_WOOD = ITEMS.register("paraglider_wood", () -> new GliderItem((new Item.Properties()).durability(80).tab(MAIN).rarity(Rarity.COMMON), new Supplier<>() {
         @Override
         public ItemStack get() {
             return new ItemStack(REINFORCED_PAPER.get());
         }
     }));
-    public static final RegistrySupplier<GliderItem> PARAGLIDER_IRON = ITEMS.register("paraglider_iron", () -> new GliderItem((new Item.Properties()).durability(80).tab(MAIN).rarity(Rarity.UNCOMMON), new Supplier<>() {
+    public static final RegistrySupplier<GliderItem> PARAGLIDER_IRON = ITEMS.register("paraglider_iron", () -> new GliderItem((new Item.Properties()).durability(500).tab(MAIN).rarity(Rarity.UNCOMMON), new Supplier<>() {
         @Override
         public ItemStack get() {
             return new ItemStack(REINFORCED_PAPER_IRON.get());
