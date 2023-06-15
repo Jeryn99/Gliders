@@ -32,7 +32,7 @@ public class ClientUtil {
     }
 
     public static void playGliderSound(Player player, ResourceLocation soundName, SoundSource category, boolean repeat, Supplier<Boolean> stopCondition, float volume, RandomSource randomSource) {
-        Minecraft.getInstance().getSoundManager().play(new MovingSound(player, new SoundEvent(soundName), category, repeat, stopCondition, volume, randomSource));
+        Minecraft.getInstance().getSoundManager().play(new MovingSound(player, SoundEvent.createFixedRangeEvent(soundName, 1), category, repeat, stopCondition, volume, randomSource));
     }
 
     public static void createToast(MutableComponent title, MutableComponent subtitle) {

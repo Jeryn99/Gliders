@@ -1,7 +1,12 @@
 package net.venturecraft.gliders.common;
 
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
@@ -19,6 +24,7 @@ import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -52,7 +58,7 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
                 if (hasCopperMod && isGliding) {
                     GliderItem.setStruck(chestItem, true);
                     if (GliderItem.hasBeenStruck(chestItem)) {
-                        player.hurt(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, 2F);
+                        player.hurt(GliderDamageSource.getSource((ServerLevel) player.level(), GliderDamageSource.BAD_LIGHTNING_EXPERIMENT), 2F);
                     }
                 }
 
@@ -102,7 +108,7 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
             ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
             boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
             boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
-            boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
+            boolean isLightning = Objects.equals(damageSource.typeHolder(), DamageTypes.LIGHTNING_BOLT);
             if (hasCopperMod && isGliding && isLightning) {
                 return EventResult.cancel();
             }

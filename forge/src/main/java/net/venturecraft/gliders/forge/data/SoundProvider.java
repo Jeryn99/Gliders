@@ -17,7 +17,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
      * @param helper    The existing file helper provided by the event you are initializing this provider in.
      */
     public SoundProvider(DataGenerator generator, ExistingFileHelper helper) {
-        super(generator, VCGliders.MOD_ID, helper);
+        super(generator.getPackOutput(), VCGliders.MOD_ID, helper);
     }
 
     @Override

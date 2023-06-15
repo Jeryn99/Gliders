@@ -1,20 +1,17 @@
 package net.venturecraft.gliders.forge.events;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.venturecraft.gliders.VCGliders;
@@ -22,6 +19,7 @@ import net.venturecraft.gliders.client.layer.PlayerGliderLayer;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.util.GliderUtil;
+import org.joml.Vector3f;
 
 import static net.venturecraft.gliders.VCGlidersClient.lightLevel;
 
@@ -36,8 +34,8 @@ public class ClientEvents {
         PoseStack posestack = event.getPoseStack();
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && stack.getItem() instanceof GliderItem && GliderUtil.isGlidingWithActiveGlider(living)) {
             posestack.pushPose();
-            posestack.mulPose(Vector3f.XP.rotationDegrees(180));
-            posestack.mulPose(Vector3f.YP.rotationDegrees(living.getViewYRot(1F)));
+            posestack.mulPose(Axis.XP.rotationDegrees(180));
+            posestack.mulPose(Axis.YP.rotationDegrees(living.getViewYRot(1F)));
             posestack.translate(0, -2.4, -0.5);
             posestack.scale(1.5F, 1.5F, 1.5F);
             if (GliderItem.isSpaceGlider(stack)) {

@@ -1,6 +1,7 @@
 package net.venturecraft.gliders.common.compat.trinket;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -88,8 +89,8 @@ public class CuriosTrinketsUtil {
         private final String identifier;
 
         public Slot(String forge, String fabric) {
-            this.forge = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("curios:" + forge));
-            this.fabric = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("trinkets:" + fabric));
+            this.forge = TagKey.create(Registries.ITEM, new ResourceLocation("curios:" + forge));
+            this.fabric = TagKey.create(Registries.ITEM, new ResourceLocation("trinkets:" + fabric));
             this.identifier = Platform.isForge() ? forge : fabric;
         }
 

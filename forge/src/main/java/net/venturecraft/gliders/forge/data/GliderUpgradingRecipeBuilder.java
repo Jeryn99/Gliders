@@ -102,7 +102,9 @@ public class GliderUpgradingRecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return RecipeSerializerRegistry.GLIDER_UPGRADING.get();
+            return null;
+            //TODO
+           // return RecipeSerializerRegistry.GLIDER_UPGRADING.get();
         }
 
         @Nullable
