@@ -18,7 +18,7 @@ import java.util.Objects;
 public class ItemModelGeneration extends ItemModelProvider {
 
     public ItemModelGeneration(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, VCGliders.MOD_ID, existingFileHelper);
+        super(generator.getPackOutput(), VCGliders.MOD_ID, existingFileHelper);
     }
 
     @Override

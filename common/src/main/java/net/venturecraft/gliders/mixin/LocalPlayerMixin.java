@@ -16,7 +16,7 @@ public class LocalPlayerMixin {
     private void aiStep(CallbackInfo info) {
         LocalPlayer localPlayer = (LocalPlayer) (Object) this;
 
-        if (GliderUtil.hasGliderEquipped(localPlayer) && localPlayer.level.getBlockState(localPlayer.blockPosition().below(2)).isAir() && localPlayer.level.getBlockState(localPlayer.blockPosition().below()).isAir()) {
+        if (GliderUtil.hasGliderEquipped(localPlayer) && localPlayer.level().getBlockState(localPlayer.blockPosition().below(2)).isAir() && localPlayer.level().getBlockState(localPlayer.blockPosition().below()).isAir()) {
             new MessageToggleGlide().send();
         }
     }
