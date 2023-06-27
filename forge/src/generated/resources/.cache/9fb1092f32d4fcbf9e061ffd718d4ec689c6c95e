@@ -1,4 +1,4 @@
-// 1.19.2	2023-02-18T16:25:27.3332109	Recipes
+// 1.19.2	2023-06-27T22:23:45.5522443	Recipes
 e090902338294c8d4b3b00980564a52cfcb2e69e data/vc_gliders/advancements/recipes/glider_upgrading/diamond_glider_copper_upgrade.json
 2cbe19fb9394868360800669346b4480cb6b74c1 data/vc_gliders/advancements/recipes/glider_upgrading/diamond_glider_nether_upgrade.json
 7e280ce081653252b74c5b191ab93340b57ad94b data/vc_gliders/advancements/recipes/glider_upgrading/gold_glider_copper_upgrade.json
@@ -21,7 +21,7 @@ b69fee0279c8067bc8656dfffc5de59838b548fc data/vc_gliders/advancements/recipes/vc
 7a85c317ffd7fe4f4d328ec3919cb7c600e1b2b0 data/vc_gliders/advancements/recipes/vc_gliders.main/reinforced_paper_gold.json
 0e5062b71d2c047eb9c97defb6b4b88ca464f601 data/vc_gliders/advancements/recipes/vc_gliders.main/reinforced_paper_iron.json
 dfb100c3c9f5aadf657b435015ea008b33bdbbc4 data/vc_gliders/advancements/recipes/vc_gliders.main/reinforced_paper_netherite.json
-be1b10263eb4f4f031ead606cf99f9f643fd3e14 data/vc_gliders/recipes/copper_upgrade.json
+7dc1eec0558b05366c3f03d6ec28da65f48ca953 data/vc_gliders/recipes/copper_upgrade.json
 67d396f54f34001b3339289f26df4af29c3eaf2a data/vc_gliders/recipes/diamond_glider_copper_upgrade.json
 f63bbe05a6ccfe39d7a097b550ce27cd65641cf0 data/vc_gliders/recipes/diamond_glider_nether_upgrade.json
 24b2f88c664de8519026e2f5051115ba9065494b data/vc_gliders/recipes/gold_glider_copper_upgrade.json

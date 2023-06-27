@@ -1,26 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "B": {
-      "item": "minecraft:blaze_powder"
-    },
     "C": {
       "item": "minecraft:copper_block"
     },
-    "F": {
-      "item": "minecraft:nether_brick_fence"
+    "H": {
+      "item": "minecraft:amethyst_shard"
     },
-    "R": {
-      "item": "minecraft:blaze_rod"
+    "P": {
+      "item": "minecraft:lightning_rod"
     },
-    "U": {
-      "item": "minecraft:potion"
+    "S": {
+      "item": "minecraft:string"
     }
   },
   "pattern": [
     "CCC",
-    "RBR",
-    "FUF"
+    "SPS",
+    "HCH"
   ],
   "result": {
     "item": "vc_gliders:copper_upgrade"
