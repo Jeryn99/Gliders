@@ -62,7 +62,7 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
             } else {
 
                 // Translate and render base glider
-                poseStack.translate(0, -1.9, 0);
+                poseStack.translate(0, -1.8, 0);
                 gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
                 gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 

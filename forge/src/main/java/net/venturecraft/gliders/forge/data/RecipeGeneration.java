@@ -35,7 +35,7 @@ public class RecipeGeneration extends RecipeProvider {
         ShapedRecipeBuilder.shaped(ItemRegistry.PARAGLIDER_NETHERITE.get()).pattern("RRR").pattern("SWS").pattern("WOW").define('O', Items.FEATHER).define('R', ItemRegistry.REINFORCED_PAPER_NETHERITE.get()).define('W', Items.STICK).define('S', Items.STRING).group("gliders").unlockedBy("has_crafting_table", has(Blocks.CRAFTING_TABLE)).save(consumer);
 
         ShapedRecipeBuilder.shaped(ItemRegistry.NETHER_UPGRADE.get()).pattern("   ").pattern("RBR").pattern("FUF").define('R', Items.BLAZE_ROD).define('B', Items.BLAZE_POWDER).define('U', Items.CRYING_OBSIDIAN).define('F', Blocks.NETHER_BRICK_FENCE).unlockedBy("has_crafting_table", has(Blocks.CRAFTING_TABLE)).save(consumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.COPPER_UPGRADE.get()).pattern("CCC").pattern("RBR").pattern("FUF").define('R', Items.BLAZE_ROD).define('B', Items.BLAZE_POWDER).define('U', Items.POTION).define('C', Blocks.COPPER_BLOCK).define('F', Blocks.NETHER_BRICK_FENCE).unlockedBy("has_crafting_table", has(Blocks.CRAFTING_TABLE)).save(consumer);
+        ShapedRecipeBuilder.shaped(ItemRegistry.COPPER_UPGRADE.get()).pattern("CCC").pattern("SPS").pattern("HCH").define('C', Blocks.COPPER_BLOCK).define('S', Items.STRING).define('P', Blocks.LIGHTNING_ROD).define('H', Items.AMETHYST_SHARD).unlockedBy("has_crafting_table", has(Blocks.CRAFTING_TABLE)).save(consumer);
 
         // Glider Upgrading
         new GliderUpgradingRecipeBuilder(Ingredient.of(ItemRegistry.PARAGLIDER_WOOD.get()), Ingredient.of(ItemRegistry.COPPER_UPGRADE.get()), "copper").unlocks(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer, VCGliders.id("wood_glider_copper_upgrade"));
