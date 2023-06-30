@@ -5,7 +5,6 @@
   "client": [
     "BlockMixin",
     "AbstractClientPlayerMixin",
-    "BaseFireBlockMixin",
     "BipedBodyMixin",
     "ControlScreenMixin",
     "ItemInHandRendererMixin",
