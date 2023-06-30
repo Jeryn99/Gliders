@@ -3,6 +3,7 @@
   "package": "net.venturecraft.gliders.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "BlockMixin",
     "AbstractClientPlayerMixin",
     "BaseFireBlockMixin",
     "BipedBodyMixin",
