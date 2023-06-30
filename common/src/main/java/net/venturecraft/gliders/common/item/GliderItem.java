@@ -1,7 +1,11 @@
 package net.venturecraft.gliders.common.item;
 
+import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
+import dev.kosmx.playerAnim.core.data.KeyframeAnimation;
+import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,6 +18,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Wearable;
 import net.minecraft.world.level.Level;
 import net.threetag.palladiumcore.item.IPalladiumItem;
+import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.client.animation.AnimatedPlayer;
+import net.venturecraft.gliders.util.GliderUtil;
 import net.venturecraft.gliders.util.ModConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
