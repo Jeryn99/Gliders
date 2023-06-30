@@ -41,6 +41,12 @@ allprojects {
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
 
+        // Player Animator
+        maven {
+            name = "KosmX's maven"
+            url = 'https://maven.kosmx.dev/'
+        }
+
         // ThreeTAG
         maven {
             url 'https://repo.repsy.io/mvn/lucraft/threetag'
@@ -72,6 +78,7 @@ allprojects {
                 includeGroup 'org.parchmentmc.data'
             }
         }
+
 
         maven {
             url = 'https://www.cursemaven.com'

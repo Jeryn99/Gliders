@@ -31,8 +31,13 @@ configurations {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+
+    // Player Animator
+    include modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${rootProject.player_anim_version}")
+
     modApi "net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}"
     include "net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}"
+
 
     // Cardinal Components
     modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}"
