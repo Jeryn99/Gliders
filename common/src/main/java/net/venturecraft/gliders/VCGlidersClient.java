@@ -19,7 +19,7 @@ public class VCGlidersClient {
 
 
     public static void init() {
-        autoPerspective = OptionInstance.createBoolean("options.glider_perspective", true);
+        autoPerspective = OptionInstance.createBoolean("options.glider_perspective", false);
         ModelRegistry.init();
         EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
 
