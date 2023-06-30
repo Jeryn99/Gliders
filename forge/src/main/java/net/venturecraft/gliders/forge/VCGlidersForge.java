@@ -47,6 +47,7 @@ public class VCGlidersForge {
         generator.addProvider(e.includeClient(), new EnglishLangProvider(generator));
         generator.addProvider(e.includeClient(), new SoundProvider(generator, existingFileHelper));
         generator.addProvider(e.includeClient(), new ItemTagsProvider(generator,  new BlockTagsProvider(generator), existingFileHelper));
+        generator.addProvider(e.includeClient(), new net.venturecraft.gliders.forge.data.BlockTagsProvider(generator, existingFileHelper));
         generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
     }
 }

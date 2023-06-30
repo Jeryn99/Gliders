@@ -1,5 +1,6 @@
 package net.venturecraft.gliders.util;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -103,10 +104,7 @@ public class GliderUtil {
                 }
             }
 
-            if (level.getBlockState(player.blockPosition().below(2)).getBlock() instanceof FireBlock) {
-                player.setDeltaMovement(player.getDeltaMovement().add(0, 2, 0));
-                return;
-            }
+            checkUpdraft(player.blockPosition(), level, player);
 
 
             // Particles
@@ -146,6 +144,23 @@ public class GliderUtil {
             setStruck(glider, false);
             if (player instanceof ServerPlayer serverPlayer) {
                 new MessagePOV("").send(serverPlayer);
+            }
+        }
+    }
+
+    public static void checkUpdraft(BlockPos playerPosition, Level world, LivingEntity player) {
+        BlockPos updraftBlockPos = playerPosition.below(2);
+
+        if (world.getBlockState(updraftBlockPos).is(VCGliderTags.UPDRAFT_BLOCKS)) {
+            double playerY = player.getY();
+            double updraftHeight = playerY + 20.0;
+
+            if (playerY < updraftHeight) {
+                double deltaY = Math.min(updraftHeight - playerY, 2.0);
+                player.setDeltaMovement(player.getDeltaMovement().add(0, deltaY, 0));
+            } else {
+                double deltaY = Math.max(updraftHeight - playerY, -0.08);
+                player.setDeltaMovement(player.getDeltaMovement().add(0, deltaY, 0));
             }
         }
     }
