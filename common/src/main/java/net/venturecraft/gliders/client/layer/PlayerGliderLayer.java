@@ -27,6 +27,7 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
     public static GliderModel gliderModel;
     public static XWingModel<Entity> xWingModel;
     private static final ResourceLocation COPPER_EMBED = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/copper_overlay.png");
+    private static final ResourceLocation NETHER_UPGRADE = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/nether_upgrade_overlay.png");
     private static final ResourceLocation COPPER_EMBED_CHARGED = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/copper_overlay_charged.png");
     private static final ResourceLocation XWING_TEXTURE = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/xwing.png");
 
@@ -70,6 +71,12 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
                 if (GliderItem.hasCopperUpgrade(stack)) {
                     gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
                     gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), p_117351_, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+                }
+
+                // Has Nether Embedded
+                if (GliderItem.hasNetherUpgrade(stack)) {
+                    gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
+                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(NETHER_UPGRADE)), p_117351_, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
                 }
             }
             poseStack.popPose();
