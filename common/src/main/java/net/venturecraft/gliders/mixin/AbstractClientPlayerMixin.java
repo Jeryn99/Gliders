@@ -19,16 +19,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AbstractClientPlayerMixin implements AnimatedPlayer {
 
     @Unique
-    private final ModifierLayer<IAnimation> modifierLayer = new ModifierLayer<>();
+    private final ModifierLayer<IAnimation> gliderLayer = new ModifierLayer<>();
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void init(ClientLevel clientLevel, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey, CallbackInfo ci) {
-        PlayerAnimationAccess.getPlayerAnimLayer((AbstractClientPlayer) (Object) this).addAnimLayer(1000, modifierLayer);
+        PlayerAnimationAccess.getPlayerAnimLayer((AbstractClientPlayer) (Object) this).addAnimLayer(1000, gliderLayer);
     }
 
 
     @Override
     public ModifierLayer<IAnimation> gliders_getModifierLayer() {
-        return modifierLayer;
+        return gliderLayer;
     }
 }
