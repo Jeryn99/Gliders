@@ -1,12 +1,18 @@
 package net.venturecraft.gliders.client.animation;
 
+import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
+import dev.kosmx.playerAnim.core.data.KeyframeAnimation;
+import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
+import org.intellij.lang.annotations.Identifier;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public class AnimationHandler {
@@ -18,11 +24,16 @@ public class AnimationHandler {
 
     public static void setupAnimPost(HumanoidModel<?> humanoidModel, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo callbackInfo) {
         if (livingEntity instanceof Player && GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
-            resetPoseAll(humanoidModel);
-            GliderData animData = GliderData.get(livingEntity).get();
-            resetPose(humanoidModel.body, humanoidModel.leftArm, humanoidModel.rightArm, humanoidModel.leftLeg, humanoidModel.rightLeg);
+
+            var animationContainer = ((AnimatedPlayer)livingEntity).gliders_getModifierLayer();
+
+            KeyframeAnimation anim = PlayerAnimationRegistry.getAnimation(new ResourceLocation(VCGliders.MOD_ID, "gliding"));
+            var builder = anim.mutableCopy();
+            anim = builder.build();
+            animationContainer.setAnimation(new KeyframeAnimationPlayer(anim));
+           /* GliderData animData = GliderData.get(livingEntity).get();
             AnimationUtil.animate(humanoidModel, animData.getAnimation(GliderData.AnimationStates.GLIDING), PlayerAnimations.GLIDING, ageInTicks, 1);
-            fixLayers(humanoidModel);
+            fixLayers(humanoidModel);*/
         }
     }
 

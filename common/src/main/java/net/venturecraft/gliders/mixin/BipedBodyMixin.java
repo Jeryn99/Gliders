@@ -14,7 +14,7 @@ public class BipedBodyMixin {
     @Inject(at = @At("HEAD"), cancellable = true, method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V")
     private void setupAnimHead(LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo callbackInfo) {
         HumanoidModel<?> bipedModel = (HumanoidModel<?>) (Object) this;
-        AnimationHandler.setupAnimPre(bipedModel, livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, callbackInfo);
+      //  AnimationHandler.setupAnimPre(bipedModel, livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, callbackInfo);
     }
 
 
