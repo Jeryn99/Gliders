@@ -24,11 +24,11 @@ import static net.venturecraft.gliders.common.item.GliderItem.*;
 
 public class GliderUtil {
     public static boolean hasGliderEquipped(LivingEntity livingEntity) {
-        return CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(livingEntity, CuriosTrinketsUtil.BACK.identifier()).getItem() instanceof GliderItem;
+        return CuriosTrinketsUtil.getInstance().getFirstFoundGlider(livingEntity).getItem() instanceof GliderItem;
     }
 
     public static boolean isGliderActive(LivingEntity livingEntity) {
-        ItemStack glider = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(livingEntity, CuriosTrinketsUtil.BACK.identifier());
+        ItemStack glider = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(livingEntity);
         if (glider == null) return false;
         if (glider.getItem() instanceof GliderItem) {
             return isGlidingEnabled(glider);
@@ -37,7 +37,7 @@ public class GliderUtil {
     }
 
     public static void onTickPlayerGlide(Level level, LivingEntity player) {
-        ItemStack glider = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
+        ItemStack glider = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
         boolean playerCanGlide = !GliderUtil.isPlayerOnGroundOrWater(player);
         boolean gliderCanGlide = isGlidingEnabled(glider);
 

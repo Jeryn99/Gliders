@@ -32,7 +32,7 @@ public class ClientEvents {
     public static void onRenderLevelLast(RenderLevelStageEvent event) {
         RenderBuffers bufferSource = Minecraft.getInstance().renderBuffers();
         LocalPlayer living = Minecraft.getInstance().player;
-        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(living, CuriosTrinketsUtil.BACK.identifier());
+        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(living);
         PoseStack posestack = event.getPoseStack();
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && stack.getItem() instanceof GliderItem && GliderUtil.isGlidingWithActiveGlider(living)) {
             posestack.pushPose();

@@ -44,18 +44,25 @@ public class CuriosTrinketsUtil {
         return false;
     }
 
-    public ItemStack getFirstGliderInSlot(LivingEntity entity, String slot) {
+    public ItemStack getFirstFoundGlider(LivingEntity livingEntity){
+        return findGliders(livingEntity, BACK.identifier, CAPE.identifier, BACK_NATIVE.identifier);
+    }
+
+    public ItemStack findGliders(LivingEntity entity, String... slots) {
 
         if(entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof GliderItem){
             return entity.getItemBySlot(EquipmentSlot.CHEST);
         }
 
-        List<ItemStack> items = getItemsInSlot(entity, slot);
-        for (ItemStack item : items) {
-            if (item.getItem() instanceof GliderItem gliderItem) {
-                return item;
+        for (String slot : slots) {
+            List<ItemStack> items = getItemsInSlot(entity, slot);
+            for (ItemStack item : items) {
+                if (item.getItem() instanceof GliderItem gliderItem) {
+                    return item;
+                }
             }
         }
+
         return ItemStack.EMPTY;
     }
 

@@ -40,7 +40,8 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
     public void lightningStrike(List<Entity> entities, LightningBolt lightningBolt) {
         for (Entity entity : entities) {
             if (entity instanceof ServerPlayer player) {
-                ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
+                ItemStack chestItem =  CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
+
                 boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
                 boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
 
@@ -99,7 +100,7 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
     @Override
     public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, AtomicReference<Float> amount) {
         if (entity instanceof Player player) {
-            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(player, CuriosTrinketsUtil.BACK.identifier());
+            ItemStack chestItem =  CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
             boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
             boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
             boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;

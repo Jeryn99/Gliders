@@ -29,7 +29,7 @@ public abstract class LevelRendererMixin {
         RenderBuffers bufferSource = Minecraft.getInstance().renderBuffers();
 
         LocalPlayer living = Minecraft.getInstance().player;
-        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstGliderInSlot(living, CuriosTrinketsUtil.BACK.identifier());
+        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(living);
 
         if (Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && stack.getItem() instanceof GliderItem && GliderUtil.isGlidingWithActiveGlider(living)) {
             posestack.pushPose();
