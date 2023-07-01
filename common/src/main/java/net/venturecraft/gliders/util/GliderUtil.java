@@ -109,7 +109,7 @@ public class GliderUtil {
                 }
             }
 
-            checkUpdraft(player.blockPosition(), level, player);
+            if(checkUpdraft(player.blockPosition(), level, player)) return;
 
 
             // Particles
@@ -153,7 +153,7 @@ public class GliderUtil {
         }
     }
 
-    public static void checkUpdraft(BlockPos playerPosition, Level world, LivingEntity player) {
+    public static boolean checkUpdraft(BlockPos playerPosition, Level world, LivingEntity player) {
         BlockPos updraftBlockPos = playerPosition.below(2);
 
         if (world.getBlockState(updraftBlockPos).is(VCGliderTags.UPDRAFT_BLOCKS)) {
@@ -163,11 +163,14 @@ public class GliderUtil {
             if (playerY < updraftHeight) {
                 double deltaY = Math.min(updraftHeight - playerY, 2.0);
                 player.setDeltaMovement(player.getDeltaMovement().add(0, deltaY, 0));
+                return true;
             } else {
                 double deltaY = Math.max(updraftHeight - playerY, -0.08);
                 player.setDeltaMovement(player.getDeltaMovement().add(0, deltaY, 0));
+                return true;
             }
         }
+        return false;
     }
 
     public static boolean isPlayerOnGroundOrWater(LivingEntity livingEntity) {
