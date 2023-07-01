@@ -1,9 +1,9 @@
 {
-    "entities": [
-      "player"
-    ],
-    "slots": [
-      "chest/back",
-      "chest/cape"
-    ]
-  }
+  "entities": [
+    "player"
+  ],
+  "slots": [
+    "chest/back",
+    "chest/cape"
+  ]
+}

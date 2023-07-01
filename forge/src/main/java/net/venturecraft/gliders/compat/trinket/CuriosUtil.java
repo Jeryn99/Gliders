@@ -16,6 +16,16 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 public class CuriosUtil extends CuriosTrinketsUtil {
 
+    public static void init() {
+        CuriosTrinketsUtil.setInstance(new CuriosUtil());
+        MinecraftForge.EVENT_BUS.register(CuriosTrinketsUtil.getInstance());
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(CuriosUtil::interModQueue);
+    }
+
+    public static void interModQueue(InterModEnqueueEvent e) {
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("glider").size(1).icon(new ResourceLocation(VCGliders.MOD_ID, "item/glider_slot")).build());
+    }
+
     @Override
     public boolean isCurios() {
         return true;
@@ -54,16 +64,6 @@ public class CuriosUtil extends CuriosTrinketsUtil {
         public void setStackInSlot(int index, ItemStack stack) {
             this.stackHandler.setStackInSlot(index, stack);
         }
-    }
-
-    public static void init() {
-        CuriosTrinketsUtil.setInstance(new CuriosUtil());
-        MinecraftForge.EVENT_BUS.register(CuriosTrinketsUtil.getInstance());
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(CuriosUtil::interModQueue);
-    }
-
-    public static void interModQueue(InterModEnqueueEvent e) {
-        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("glider").size(1).icon(new ResourceLocation(VCGliders.MOD_ID, "item/glider_slot")).build());
     }
 
 

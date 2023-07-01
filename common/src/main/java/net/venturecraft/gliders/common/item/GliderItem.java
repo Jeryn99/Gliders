@@ -1,11 +1,7 @@
 package net.venturecraft.gliders.common.item;
 
-import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
-import dev.kosmx.playerAnim.core.data.KeyframeAnimation;
-import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,9 +14,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Wearable;
 import net.minecraft.world.level.Level;
 import net.threetag.palladiumcore.item.IPalladiumItem;
-import net.venturecraft.gliders.VCGliders;
-import net.venturecraft.gliders.client.animation.AnimatedPlayer;
-import net.venturecraft.gliders.util.GliderUtil;
 import net.venturecraft.gliders.util.ModConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -102,18 +95,6 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
         return compound.getBoolean("struck");
     }
 
-    public static void setLightningCounter(ItemStack itemStack, int timer) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putInt("zap", timer);
-    }
-
-    public static int getLightningCounter(ItemStack itemStack) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("zap")) return 0;
-        return compound.getInt("zap");
-    }
-
-
     @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
         return repairCandidate.getItem() == this.repair.get().getItem();
@@ -130,11 +111,11 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
 
         if (hasCopperUpgrade(stack) || hasNetherUpgrade(stack)) {
             tooltip.add(Component.translatable(ModConstants.INSTALLED_UPGRADES));
-            if(hasCopperUpgrade(stack)) {
+            if (hasCopperUpgrade(stack)) {
                 tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.COPPER_UPGRADE)));
             }
 
-            if(hasNetherUpgrade(stack)) {
+            if (hasNetherUpgrade(stack)) {
                 tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.NETHER_UPGRADE)));
             }
         }

@@ -7,7 +7,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.item.GliderItem;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 public class CuriosTrinketsUtil {
 
-    private static CuriosTrinketsUtil INSTANCE = new CuriosTrinketsUtil();
     public static final Slot HAT = new Slot("head", "head/hat");
     public static final Slot NECKLACE = new Slot("necklace", "chest/necklace");
     public static final Slot BACK = new Slot("glider", "chest/back");
@@ -27,13 +25,14 @@ public class CuriosTrinketsUtil {
     public static final Slot OFFHAND = new Slot("hand", "offhand/glove");
     public static final Slot RING = new Slot("hand", "hand/ring");
     public static final Slot OFFHAND_RING = new Slot("ring", "offhand/ring");
-
-    public static void setInstance(CuriosTrinketsUtil instance) {
-        INSTANCE = instance;
-    }
+    private static CuriosTrinketsUtil INSTANCE = new CuriosTrinketsUtil();
 
     public static CuriosTrinketsUtil getInstance() {
         return INSTANCE;
+    }
+
+    public static void setInstance(CuriosTrinketsUtil instance) {
+        INSTANCE = instance;
     }
 
     public boolean isTrinkets() {
@@ -44,13 +43,13 @@ public class CuriosTrinketsUtil {
         return false;
     }
 
-    public ItemStack getFirstFoundGlider(LivingEntity livingEntity){
+    public ItemStack getFirstFoundGlider(LivingEntity livingEntity) {
         return findGliders(livingEntity, BACK.identifier, CAPE.identifier, BACK_NATIVE.identifier);
     }
 
     public ItemStack findGliders(LivingEntity entity, String... slots) {
 
-        if(entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof GliderItem){
+        if (entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof GliderItem) {
             return entity.getItemBySlot(EquipmentSlot.CHEST);
         }
 

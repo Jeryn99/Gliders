@@ -3,7 +3,6 @@ package net.venturecraft.gliders.common;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +21,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking,  LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
@@ -31,6 +30,7 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
         LivingEntityEvents.ITEM_USE_START.register(instance);
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
         LivingEntityEvents.ITEM_USE_STOP.register(instance);
+        LivingEntityEvents.HURT.register(instance);
         PlayerEvents.ANVIL_UPDATE.register(instance);
         PlayerEvents.START_TRACKING.register(instance);
         LivingEntityEvents.TICK.register(instance);
@@ -40,12 +40,12 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
     public void lightningStrike(List<Entity> entities, LightningBolt lightningBolt) {
         for (Entity entity : entities) {
             if (entity instanceof ServerPlayer player) {
-                ItemStack chestItem =  CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
+                ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
 
                 boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
                 boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
 
-                if(!hasCopperMod && isGliding){
+                if (!hasCopperMod && isGliding) {
                     GliderItem.setBroken(chestItem, true);
                     return;
                 }
@@ -100,13 +100,21 @@ public class GliderEvents implements PlayerEvents.Tracking, LivingEntityEvents.T
     @Override
     public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, AtomicReference<Float> amount) {
         if (entity instanceof Player player) {
-            ItemStack chestItem =  CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
+            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
             boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
             boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
             boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
             if (hasCopperMod && isGliding && isLightning) {
                 return EventResult.cancel();
             }
+        }
+        return EventResult.pass();
+    }
+
+    @Override
+    public EventResult livingEntityAttack(LivingEntity entity, DamageSource damageSource, float amount) {
+        if(damageSource.getDirectEntity() instanceof LivingEntity livingEntity) {
+            return GliderUtil.isGlidingWithActiveGlider(livingEntity) ? EventResult.cancel() : EventResult.pass();
         }
         return EventResult.pass();
     }

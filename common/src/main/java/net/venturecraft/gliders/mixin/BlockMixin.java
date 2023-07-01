@@ -19,7 +19,7 @@ public class BlockMixin {
 
     @Inject(at = @At("HEAD"), cancellable = true, method = "animateTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V")
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo ci) {
-        if(GliderUtil.isGlidingWithActiveGlider(Minecraft.getInstance().player) && state.is(VCGliderTags.UPDRAFT_BLOCKS)) {
+        if (GliderUtil.isGlidingWithActiveGlider(Minecraft.getInstance().player) && state.is(VCGliderTags.UPDRAFT_BLOCKS)) {
             for (int i = 0; i < 3; ++i) {
                 double xCoord = (double) pos.getX() + random.nextDouble();
                 double yCoord = (double) pos.getY() + random.nextDouble() * 0.5 + 0.5;

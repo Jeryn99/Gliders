@@ -20,7 +20,7 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
     @Override
     protected void addTags() {
         for (Item itemsValue : ForgeRegistries.ITEMS.getValues()) {
-            if(itemsValue instanceof GliderItem){
+            if (itemsValue instanceof GliderItem) {
                 add(VCGliderTags.TRINKETS_BACK, itemsValue);
                 add(VCGliderTags.TRINKETS_CAPE, itemsValue);
                 add(VCGliderTags.CURIOS_CHEST, itemsValue);

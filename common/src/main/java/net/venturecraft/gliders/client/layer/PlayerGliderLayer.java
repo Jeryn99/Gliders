@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.venturecraft.gliders.VCGliders;
@@ -24,12 +23,12 @@ import net.venturecraft.gliders.util.GliderUtil;
 
 public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
 
-    public static GliderModel gliderModel;
-    public static XWingModel<Entity> xWingModel;
     private static final ResourceLocation COPPER_EMBED = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/copper_overlay.png");
     private static final ResourceLocation NETHER_UPGRADE = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/nether_upgrade_overlay.png");
     private static final ResourceLocation COPPER_EMBED_CHARGED = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/copper_overlay_charged.png");
     private static final ResourceLocation XWING_TEXTURE = new ResourceLocation(VCGliders.MOD_ID, "textures/entity/glider/xwing.png");
+    public static GliderModel gliderModel;
+    public static XWingModel<Entity> xWingModel;
 
 
     public PlayerGliderLayer(RenderLayerParent<T, M> renderLayerParent) {
@@ -48,7 +47,7 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
     public void render(PoseStack poseStack, MultiBufferSource bufferSource, int p_117351_, T living, float p_117353_, float p_117354_, float p_117355_, float p_117356_, float p_117357_, float p_117358_) {
         if (living.isInvisibleTo(Minecraft.getInstance().player)) return;
 
-        ItemStack stack =  CuriosTrinketsUtil.getInstance().getFirstFoundGlider(living);
+        ItemStack stack = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(living);
 
         // Render above players when gliding
         if (GliderUtil.isGlidingWithActiveGlider(living)) {

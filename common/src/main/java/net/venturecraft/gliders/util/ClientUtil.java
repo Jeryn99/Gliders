@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.client.sound.MovingSound;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -24,7 +23,6 @@ public class ClientUtil {
 
     public static boolean shouldChangePerspective = true;
     public static CameraType backupPerspective = Minecraft.getInstance().options.getCameraType();
-
 
 
     public static void playPositionedSoundRecord(SoundEvent sound, float pitch, float volume) {
@@ -59,7 +57,7 @@ public class ClientUtil {
             return;
         }
 
-        if(backupPerspective != null) {
+        if (backupPerspective != null) {
             Minecraft.getInstance().options.setCameraType(backupPerspective);
             backupPerspective = null;
         }

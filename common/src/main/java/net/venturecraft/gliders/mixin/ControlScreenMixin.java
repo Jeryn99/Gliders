@@ -1,8 +1,6 @@
 package net.venturecraft.gliders.mixin;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.controls.ControlsScreen;
-import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.util.ClientUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

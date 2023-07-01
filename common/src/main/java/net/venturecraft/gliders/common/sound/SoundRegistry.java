@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.threetag.palladiumcore.registry.DeferredRegister;
 import net.threetag.palladiumcore.registry.RegistrySupplier;
-import net.venturecraft.gliders.VCGliders;
 
 import static net.venturecraft.gliders.VCGliders.MOD_ID;
 

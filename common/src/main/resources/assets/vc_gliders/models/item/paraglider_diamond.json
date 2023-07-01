@@ -27,7 +27,8 @@
         "upgrade_level": 0.3
       },
       "model": "vc_gliders:item/paraglider_diamond_nether_upgrade"
-    },    {
+    },
+    {
       "predicate": {
         "upgrade_level": 0.4
       },

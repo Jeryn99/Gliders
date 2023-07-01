@@ -2,18 +2,15 @@ package net.venturecraft.gliders.forge;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.threetag.palladiumcore.util.Platform;
-import net.venturecraft.gliders.VCGliders;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.threetag.palladiumcore.forge.PalladiumCoreForge;
+import net.threetag.palladiumcore.util.Platform;
+import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.VCGlidersClient;
-import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.compat.trinket.CuriosUtil;
 import net.venturecraft.gliders.forge.data.*;
 
@@ -34,7 +31,7 @@ public class VCGlidersForge {
             VCGlidersClient.init();
         }
 
-        if(Platform.isModLoaded("curios")){
+        if (Platform.isModLoaded("curios")) {
             CuriosUtil.init();
         }
     }
@@ -46,7 +43,7 @@ public class VCGlidersForge {
         generator.addProvider(e.includeClient(), new ItemModelGeneration(generator, existingFileHelper));
         generator.addProvider(e.includeClient(), new EnglishLangProvider(generator));
         generator.addProvider(e.includeClient(), new SoundProvider(generator, existingFileHelper));
-        generator.addProvider(e.includeClient(), new ItemTagsProvider(generator,  new BlockTagsProvider(generator), existingFileHelper));
+        generator.addProvider(e.includeClient(), new ItemTagsProvider(generator, new BlockTagsProvider(generator), existingFileHelper));
         generator.addProvider(e.includeClient(), new net.venturecraft.gliders.forge.data.BlockTagsProvider(generator, existingFileHelper));
         generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
     }

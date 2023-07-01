@@ -1,7 +1,6 @@
 package net.venturecraft.gliders.common.recipe;
 
 import net.minecraft.core.Registry;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.threetag.palladiumcore.registry.DeferredRegister;
 import net.threetag.palladiumcore.registry.RegistrySupplier;
