@@ -2,6 +2,7 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.0-SNAPSHOT" apply false
     id 'io.github.juuxel.loom-quiltflower' version '1.7.2' apply false
+    id "com.github.breadmoirai.github-release" version "2.4.1"
 }
 
 architectury {
@@ -23,6 +24,43 @@ subprojects {
             parchment("org.parchmentmc.data:parchment-${rootProject.parchment_mappings}")
         }
     }
+}
+
+task publishMeEverywhere(){
+    dependsOn ':forge:publishUnified'
+    dependsOn ':fabric:publishUnified'
+    dependsOn 'githubRelease'
+}
+
+def version = rootProject.mod_version
+
+def forgeDir = new File(project.projectDir, 'forge/build/libs/')
+def fabricDir = new File(project.projectDir, 'fabric/build/libs/')
+def commonDir = new File(project.projectDir, 'common/build/libs/')
+
+def filter = { File file -> file.getName().contains(version) } as FileFilter
+
+def forgeFiles = forgeDir.listFiles(filter)
+def fabricFiles = fabricDir.listFiles(filter)
+def commonFiles = commonDir.listFiles(filter)
+
+githubRelease {
+    token project.findProperty("github") ?: System.getenv("github") ?: ""
+    owner "VentureCraftMods"
+    repo "MC-Gliders"
+    tagName "v$rootProject.minecraft_version-${version}"
+    targetCommitish "main"
+    releaseName "[$rootProject.minecraft_version] Gliders - v$version"
+    generateReleaseNotes true
+    body new File("${rootProject.projectDir}/changelog.md").text
+    draft false
+    prerelease false
+    releaseAssets(forgeFiles + fabricFiles + commonFiles)
+    allowUploadToExisting.set false
+    overwrite true
+    dryRun false
+    apiEndpoint "https://api.github.com"
+    client
 }
 
 allprojects {

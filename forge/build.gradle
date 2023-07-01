@@ -1,5 +1,6 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
 architectury {
@@ -30,6 +31,38 @@ loom {
 
         dataGen {
             mod "vc_gliders"
+        }
+    }
+}
+
+unifiedPublishing {
+    project {
+        displayName = "[Forge - Gliders - $rootProject.minecraft_version] - v$rootProject.mod_version"
+        releaseType = "release"
+        changelog = new File("${rootProject.projectDir}/changelog.md").text
+        gameVersions = ["1.19.2"]
+        mainPublication tasks.remapJar
+        gameLoaders = ["forge"]
+        relations {
+
+        }
+
+        var CURSE_API_KEY = project.findProperty("curseforge") ?: System.getenv("curseforge") ?: ""
+        if (CURSE_API_KEY != "") {
+            curseforge {
+                token = CURSE_API_KEY
+                id = "828331"
+                gameVersions.addAll "Java 17", "1.19.2"
+            }
+        }
+
+        var MODRINTH_TOKEN = project.findProperty("modrinth") ?: System.getenv("modrinth") ?: ""
+        if (MODRINTH_TOKEN != "") {
+            modrinth {
+                token = MODRINTH_TOKEN
+                id = "XiC6HzoU"
+                version = "$rootProject.mod_version+$project.name"
+            }
         }
     }
 }
