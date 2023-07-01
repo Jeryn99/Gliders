@@ -9,6 +9,7 @@ public class GliderDamageSource extends DamageSource {
 
     public static GliderDamageSource BAD_LIGHTNING_EXPERIMENT = new GliderDamageSource("zap_experiment");
     private final String translationKey;
+
     public GliderDamageSource(String string) {
         super(string);
         this.translationKey = string;

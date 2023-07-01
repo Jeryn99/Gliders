@@ -12,11 +12,11 @@ public class ModConstants {
     // Messages
 
 
-    public static String createToolTip(String id){
+    public static String createToolTip(String id) {
         return "tooltip." + VCGliders.MOD_ID + "." + id;
     }
 
-    public static String createMessage(String id){
+    public static String createMessage(String id) {
         return "message." + VCGliders.MOD_ID + "." + id;
     }
 

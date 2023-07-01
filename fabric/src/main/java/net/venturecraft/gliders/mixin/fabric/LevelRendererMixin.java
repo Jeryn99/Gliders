@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.venturecraft.gliders.client.layer.PlayerGliderLayer;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;

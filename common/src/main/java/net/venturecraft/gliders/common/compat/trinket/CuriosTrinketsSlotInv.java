@@ -4,12 +4,6 @@ import net.minecraft.world.item.ItemStack;
 
 public interface CuriosTrinketsSlotInv {
 
-    int getSlots();
-
-    ItemStack getStackInSlot(int index);
-
-    void setStackInSlot(int index, ItemStack stack);
-
     CuriosTrinketsSlotInv EMPTY = new CuriosTrinketsSlotInv() {
         @Override
         public int getSlots() {
@@ -26,5 +20,11 @@ public interface CuriosTrinketsSlotInv {
 
         }
     };
+
+    int getSlots();
+
+    ItemStack getStackInSlot(int index);
+
+    void setStackInSlot(int index, ItemStack stack);
 
 }

@@ -13,8 +13,6 @@ import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 
-import java.util.Objects;
-
 public class ItemModelGeneration extends ItemModelProvider {
 
     public ItemModelGeneration(DataGenerator generator, ExistingFileHelper existingFileHelper) {

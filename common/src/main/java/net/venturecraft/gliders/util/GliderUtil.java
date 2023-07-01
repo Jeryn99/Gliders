@@ -12,12 +12,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.phys.Vec3;
 import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
+import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.network.MessagePOV;
 
 import static net.venturecraft.gliders.common.item.GliderItem.*;
@@ -41,7 +41,7 @@ public class GliderUtil {
         boolean playerCanGlide = !GliderUtil.isPlayerOnGroundOrWater(player);
         boolean gliderCanGlide = isGlidingEnabled(glider);
 
-        if(player instanceof Player player1){
+        if (player instanceof Player player1) {
             playerCanGlide = playerCanGlide && !player1.getAbilities().flying;
         }
 
@@ -54,12 +54,21 @@ public class GliderUtil {
             boolean hasSpeedMods = hasCopperUpgrade(glider) && hasBeenStruck(glider);
 
             if (!hasCopperUpgrade(glider) && level.isRainingAt(player.blockPosition())) {
-                int lightningTime = getLightningCounter(glider);
-                setLightningCounter(glider, lightningTime + 1);
 
-                if (lightningTime == 1) {
-                    player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
-                }
+                GliderData.get(player).ifPresent(gliderData -> {
+                    gliderData.setLightningTimer(gliderData.lightningTimer() + 1);
+
+                    if(gliderData.lightningTimer() == 1){
+                        player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
+                    }
+
+                    if (player.level.random.nextInt(24) == 0 && gliderData.lightningTimer() > 200) {
+                        LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                        lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
+                        lightningBolt.setVisualOnly(false);
+                        level.addFreshEntity(lightningBolt);
+                    }
+                });
 
                 if (player.level.random.nextInt(24) == 0) {
                     for (int i = 0; i < 2; i++) {
@@ -69,14 +78,8 @@ public class GliderUtil {
                     }
                 }
 
-                if (player.level.random.nextInt(24) == 0 && lightningTime > 200) {
-                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                    lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
-                    lightningBolt.setVisualOnly(false);
-                    level.addFreshEntity(lightningBolt);
-                }
             } else {
-                setLightningCounter(glider, 0);
+               GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
             }
 
             if (player.tickCount % 200 == 0) {

@@ -1,21 +1,10 @@
 package net.venturecraft.gliders.compat.trinket;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import dev.emi.trinkets.TrinketSlot;
-import dev.emi.trinkets.api.*;
-import dev.emi.trinkets.api.client.TrinketRenderer;
-import dev.emi.trinkets.api.client.TrinketRendererRegistry;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.sounds.SoundEvent;
+import dev.emi.trinkets.api.TrinketInventory;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsSlotInv;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 

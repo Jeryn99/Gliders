@@ -32,8 +32,8 @@ public class EnglishLangProvider extends LanguageProvider {
         add(ItemRegistry.REINFORCED_PAPER_DIAMOND.get(), "Re-Inforced Paper (Diamond)");
         add(ItemRegistry.REINFORCED_PAPER_NETHERITE.get(), "Re-Inforced Paper (Netherite)");
 
-        add(ItemRegistry.COPPER_UPGRADE.get(), Rarity.UNCOMMON.color +"Copper Upgrade");
-        add(ItemRegistry.NETHER_UPGRADE.get(), Rarity.EPIC.color +"Nether Upgrade");
+        add(ItemRegistry.COPPER_UPGRADE.get(), Rarity.UNCOMMON.color + "Copper Upgrade");
+        add(ItemRegistry.NETHER_UPGRADE.get(), Rarity.EPIC.color + "Nether Upgrade");
 
         add(ModConstants.NETHER_UPGRADE, Rarity.EPIC.color + "Nether Upgrade");
         add(ModConstants.COPPER_UPGRADE, Rarity.UNCOMMON.color + "Copper Upgrade");
@@ -53,7 +53,7 @@ public class EnglishLangProvider extends LanguageProvider {
     }
 
 
-    public void addDamageSource(GliderDamageSource gliderDamageSource, String translation){
+    public void addDamageSource(GliderDamageSource gliderDamageSource, String translation) {
         add("dmg." + VCGliders.MOD_ID + "." + gliderDamageSource.getTranslationKey(), translation);
     }
 

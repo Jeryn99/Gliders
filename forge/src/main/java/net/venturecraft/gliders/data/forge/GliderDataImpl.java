@@ -22,6 +22,13 @@ public class GliderDataImpl implements ICapabilitySerializable<CompoundTag> {
 
     public static Capability<GliderData> PLAYER_DATA = CapabilityManager.get(new CapabilityToken<>() {
     });
+    public final GliderData capability;
+    public final LazyOptional<GliderData> lazyOptional;
+
+    public GliderDataImpl(Player player) {
+        this.capability = new GliderData(player);
+        this.lazyOptional = LazyOptional.of(() -> this.capability);
+    }
 
     @SubscribeEvent
     public static void init(RegisterCapabilitiesEvent e) {
@@ -35,12 +42,8 @@ public class GliderDataImpl implements ICapabilitySerializable<CompoundTag> {
         }
     }
 
-    public final GliderData capability;
-    public final LazyOptional<GliderData> lazyOptional;
-
-    public GliderDataImpl(Player player) {
-        this.capability = new GliderData(player);
-        this.lazyOptional = LazyOptional.of(() -> this.capability);
+    public static Optional<GliderData> get(LivingEntity player) {
+        return player.getCapability(PLAYER_DATA).resolve();
     }
 
     @Override
@@ -56,9 +59,5 @@ public class GliderDataImpl implements ICapabilitySerializable<CompoundTag> {
     @Override
     public void deserializeNBT(CompoundTag arg) {
         this.capability.deserializeNBT(arg);
-    }
-
-    public static Optional<GliderData> get(LivingEntity player) {
-        return player.getCapability(PLAYER_DATA).resolve();
     }
 }

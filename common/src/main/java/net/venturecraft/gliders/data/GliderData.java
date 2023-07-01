@@ -17,15 +17,11 @@ public class GliderData {
 
     @NotNull
     private final Player player;
-    private boolean isGliding = false;
-
-    public enum AnimationStates {
-        FALLING, GLIDING, GLIDER_OPENING
-    }
-
     public AnimationState glideAnimation = new AnimationState();
     public AnimationState fallingAnimation = new AnimationState();
     public AnimationState gliderOpeningAnimation = new AnimationState();
+    private boolean isGliding = false;
+    private int lightningTimer = 0;
 
     public GliderData(@NotNull Player player) {
         this.player = player;
@@ -40,20 +36,24 @@ public class GliderData {
         glideAndFallLogic(livingEntity);
         GliderUtil.onTickPlayerGlide(livingEntity.level, livingEntity);
 
-        if(livingEntity.level.isClientSide) return;
+        if(!GliderUtil.isGlidingWithActiveGlider(livingEntity)){
+            setLightningTimer(0);
+        }
+
+        if (livingEntity.level.isClientSide) return;
         setGliding(GliderUtil.isGlidingWithActiveGlider(livingEntity));
 
-        if(livingEntity.tickCount % 40 == 0){
+        if (livingEntity.tickCount % 40 == 0) {
             sync();
         }
     }
 
-    private void setGliding(boolean glidingWithActiveGlider) {
-        isGliding = glidingWithActiveGlider;
-    }
-
     private boolean isGliding() {
         return isGliding;
+    }
+
+    private void setGliding(boolean glidingWithActiveGlider) {
+        isGliding = glidingWithActiveGlider;
     }
 
     private void glideAndFallLogic(LivingEntity livingEntity) {
@@ -70,7 +70,6 @@ public class GliderData {
             gliderOpeningAnimation.stop();
         }
     }
-
 
     public void sync() {
         if (this.player.level.isClientSide) {
@@ -97,11 +96,26 @@ public class GliderData {
     public CompoundTag serializeNBT() {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putBoolean("is_gliding", isGliding);
+        compoundTag.putInt("lightningTimer", lightningTimer);
         return compoundTag;
+    }
+
+    public int lightningTimer() {
+        return lightningTimer;
+    }
+
+    public GliderData setLightningTimer(int lightningTimer) {
+        this.lightningTimer = lightningTimer;
+        return this;
     }
 
     public void deserializeNBT(CompoundTag nbt) {
         setGliding(nbt.getBoolean("is_gliding"));
+        setLightningTimer(nbt.getInt("lightningTimer"));
+    }
+
+    public enum AnimationStates {
+        FALLING, GLIDING, GLIDER_OPENING
     }
 
 }

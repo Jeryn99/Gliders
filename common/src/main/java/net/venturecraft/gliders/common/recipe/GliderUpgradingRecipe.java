@@ -1,7 +1,6 @@
 package net.venturecraft.gliders.common.recipe;
 
 import com.google.gson.JsonObject;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -24,6 +23,12 @@ public class GliderUpgradingRecipe extends UpgradeRecipe {
         this.upgrade = upgrade;
     }
 
+    public static ItemStack makeResult(ItemStack base, String upgrade) {
+        var result = base.copy();
+        result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
+        return result;
+    }
+
     @Override
     public ItemStack assemble(Container container) {
         return makeResult(container.getItem(0), this.upgrade);
@@ -32,12 +37,6 @@ public class GliderUpgradingRecipe extends UpgradeRecipe {
     @Override
     public ItemStack getResultItem() {
         return makeResult(this.base.getItems()[0], this.upgrade);
-    }
-
-    public static ItemStack makeResult(ItemStack base, String upgrade) {
-        var result = base.copy();
-        result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
-        return result;
     }
 
     @Override
