@@ -82,15 +82,17 @@ public class GliderUtil {
                GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
             }
 
-            if (player.tickCount % 200 == 0) {
+            if (player.tickCount % (player.level.dimension() == Level.NETHER ? 40 : 200) == 0) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    glider.hurtAndBreak(player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1, player, player1 -> {
-                        level.playSound(null, player1.getX(), player1.getY(), player1.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
-                        level.playSound(null, player1.getX(), player1.getY(), player1.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
 
-                        glider.setDamageValue(0);
+                    glider.setDamageValue(glider.getDamageValue() - (player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1));
+                    if (glider.getDamageValue() <= 1) {
+                        level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
+                        level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
+
+                        glider.setDamageValue(1);
                         GliderItem.setBroken(glider, true);
-                    });
+                    }
                 }
             }
 
