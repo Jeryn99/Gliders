@@ -12,7 +12,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
     // Player Animator
-    include modImplementation("dev.kosmx.player-anim:player-animation-lib:${rootProject.player_anim_version}")
+    modImplementation("dev.kosmx.player-anim:player-animation-lib:${rootProject.player_anim_version}")
 
 
     modApi "net.threetag:PalladiumCore:${rootProject.palladiumcore_version}"
