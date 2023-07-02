@@ -1,17 +1,20 @@
 package net.venturecraft.gliders.util;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
@@ -178,5 +181,11 @@ public class GliderUtil {
 
     public static boolean isGlidingWithActiveGlider(LivingEntity livingEntity) {
         return hasGliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.isOnGround() && !livingEntity.isInWater();
+    }
+
+    public static void updraftParticles(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (GliderUtil.isGlidingWithActiveGlider(Minecraft.getInstance().player) && state.is(VCGliderTags.UPDRAFT_BLOCKS)) {
+                level.addAlwaysVisibleParticle(ParticleTypes.SNOWFLAKE, true, (double) pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), 0.0, 1, 0.0);
+        }
     }
 }
