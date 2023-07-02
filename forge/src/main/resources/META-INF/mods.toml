@@ -5,7 +5,7 @@ license = "${mod_license}"
 
 [[mods]]
 modId = "vc_gliders"
-version = "${version}"
+version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "${mod_author}"
 description = '''
