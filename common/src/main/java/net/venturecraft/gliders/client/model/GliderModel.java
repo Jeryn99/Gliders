@@ -37,7 +37,7 @@ public class GliderModel extends HierarchicalModel {
 
         PartDefinition RStrut = RMain.addOrReplaceChild("RStrut", CubeListBuilder.create(), PartPose.offset(-12.0F, 5.0F, 0.0F));
 
-        PartDefinition RExtension_r1 = RStrut.addOrReplaceChild("RExtension_r1", CubeListBuilder.create().texOffs(0, 25).addBox(-12.1166F, -0.0788F, -0.25F, 12.0F, 0.0F, 25.0F, new CubeDeformation(-0.01F)), PartPose.offsetAndRotation(0.0F, 0.0F, -7.75F, 0.0F, 0.0F, 0.3927F));
+        PartDefinition RExtension_r1 = RStrut.addOrReplaceChild("RExtension_r1", CubeListBuilder.create().texOffs(0, 28).mirror().addBox(-6.1166F, -0.0788F, -0.25F, 6.0F, 0.0F, 19.0F, new CubeDeformation(-0.01F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, -7.75F, 0.0F, 0.0F, 0.3927F));
 
         PartDefinition RStruts_r1 = RStrut.addOrReplaceChild("RStruts_r1", CubeListBuilder.create().texOffs(0, 50).addBox(-0.1166F, -0.5788F, -0.25F, 12.0F, 1.0F, 16.0F, new CubeDeformation(-0.01F)), PartPose.offsetAndRotation(0.0F, 0.0F, -7.75F, 0.0F, 0.0F, 0.2182F));
 
@@ -59,7 +59,7 @@ public class GliderModel extends HierarchicalModel {
 
         PartDefinition LStrut = LMain.addOrReplaceChild("LStrut", CubeListBuilder.create(), PartPose.offset(12.0F, 5.0F, -7.75F));
 
-        PartDefinition LExtension_r1 = LStrut.addOrReplaceChild("LExtension_r1", CubeListBuilder.create().texOffs(24, 25).addBox(0.1166F, -0.0788F, -0.25F, 12.0F, 0.0F, 25.0F, new CubeDeformation(-0.01F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3927F));
+        PartDefinition LExtension_r1 = LStrut.addOrReplaceChild("LExtension_r1", CubeListBuilder.create().texOffs(12, 28).mirror().addBox(0.1166F, -0.0788F, -0.25F, 6.0F, 0.0F, 19.0F, new CubeDeformation(-0.01F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3927F));
 
         PartDefinition LStruts_r1 = LStrut.addOrReplaceChild("LStruts_r1", CubeListBuilder.create().texOffs(51, 0).addBox(-11.8834F, -0.5788F, -0.25F, 12.0F, 1.0F, 16.0F, new CubeDeformation(-0.01F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.2182F));
 
