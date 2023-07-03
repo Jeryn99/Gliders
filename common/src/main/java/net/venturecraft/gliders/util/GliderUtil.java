@@ -167,7 +167,7 @@ public class GliderUtil {
     }
 
     public static boolean checkUpdraft(BlockPos playerPosition, Level world, LivingEntity player) {
-        AABB boundingBox = player.getBoundingBox().contract(0, 20, 0);
+        AABB boundingBox = player.getBoundingBox().contract(1, 20, 1);
         List<BlockState> blocks = world.getBlockStatesIfLoaded(boundingBox).toList();
         Stream<BlockState> filteredBlocks = blocks.stream().filter(blockState -> blockState.is(VCGliderTags.UPDRAFT_BLOCKS));
         if (filteredBlocks.toList().size() > 0) {
