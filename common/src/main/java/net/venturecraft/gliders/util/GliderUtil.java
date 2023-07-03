@@ -56,39 +56,13 @@ public class GliderUtil {
             Vec3 m = player.getDeltaMovement();
             boolean hasSpeedMods = hasCopperUpgrade(glider) && hasBeenStruck(glider);
 
-            if (!hasCopperUpgrade(glider) && level.isRainingAt(player.blockPosition())) {
+            lightningLogic(level, player, glider);
 
-                GliderData.get(player).ifPresent(gliderData -> {
-                    gliderData.setLightningTimer(gliderData.lightningTimer() + 1);
-
-                    if(gliderData.lightningTimer() == 1){
-                        player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
-                    }
-
-                    if (player.level.random.nextInt(24) == 0 && gliderData.lightningTimer() > 200) {
-                        LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                        lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
-                        lightningBolt.setVisualOnly(false);
-                        level.addFreshEntity(lightningBolt);
-                    }
-                });
-
-                if (player.level.random.nextInt(24) == 0) {
-                    for (int i = 0; i < 2; i++) {
-                        level.addParticle(ParticleTypes.WAX_ON, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
-                        level.addParticle(ParticleTypes.WAX_OFF, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
-                        level.addParticle(ParticleTypes.WARPED_SPORE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.0D, 0.0D);
-                    }
-                }
-
-            } else {
-               GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
-            }
-
-            if (player.tickCount % (player.level.dimension() == Level.NETHER ? 40 : 200) == 0) {
+            if (player.tickCount % (player.level.dimension() == Level.NETHER ? 40 : 400) == 0) {
                 if (player instanceof ServerPlayer serverPlayer) {
 
-                    glider.setDamageValue(glider.getDamageValue() - (player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1));
+                    int damageAmount = player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
+                    glider.setDamageValue(glider.getDamageValue() - damageAmount);
                     if (glider.getDamageValue() >= glider.getMaxDamage()) {
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
@@ -98,17 +72,7 @@ public class GliderUtil {
             }
 
 
-            if (level.dimension() == Level.NETHER && !hasNetherUpgrade(glider)) {
-                if (player.level.random.nextInt(24) == 0 && !player.isSilent()) {
-                    player.level.playLocalSound(player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, SoundEvents.BLAZE_BURN, player.getSoundSource(), 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
-
-                    for (int i = 0; i < 2; i++) {
-                        level.addParticle(ParticleTypes.LARGE_SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
-                        level.addParticle(ParticleTypes.SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
-                        level.addParticle(ParticleTypes.LAVA, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.0D, 0.0D);
-                    }
-                }
-            }
+            handleNetherLogic(level, player, glider);
 
             if(checkUpdraft(player.blockPosition(), level, player)) return;
 
@@ -128,7 +92,6 @@ public class GliderUtil {
 
             // Speed Modifications
             if (hasSpeedMods) {
-
                 if (!level.isClientSide() && horizonalSpeed >= 0.01F) {
                     for (int i = 0; i < 2; ++i) {
                         for (ServerPlayer serverplayer : Platform.getCurrentServer().getPlayerList().getPlayers()) {
@@ -151,6 +114,51 @@ public class GliderUtil {
             if (player instanceof ServerPlayer serverPlayer) {
                 new MessagePOV("").send(serverPlayer);
             }
+        }
+    }
+
+    private static void handleNetherLogic(Level level, LivingEntity player, ItemStack glider) {
+        if (level.dimension() == Level.NETHER && !hasNetherUpgrade(glider)) {
+            if (player.level.random.nextInt(24) == 0 && !player.isSilent()) {
+                player.level.playLocalSound(player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, SoundEvents.BLAZE_BURN, player.getSoundSource(), 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
+
+                for (int i = 0; i < 2; i++) {
+                    level.addParticle(ParticleTypes.LARGE_SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
+                    level.addParticle(ParticleTypes.SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
+                    level.addParticle(ParticleTypes.LAVA, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.0D, 0.0D);
+                }
+            }
+        }
+    }
+
+    private static void lightningLogic(Level level, LivingEntity player, ItemStack glider) {
+        if (!hasCopperUpgrade(glider) && level.isRainingAt(player.blockPosition())) {
+
+            GliderData.get(player).ifPresent(gliderData -> {
+                gliderData.setLightningTimer(gliderData.lightningTimer() + 1);
+
+                if(gliderData.lightningTimer() == 1){
+                    player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
+                }
+
+                if (player.level.random.nextInt(24) == 0 && gliderData.lightningTimer() > 200) {
+                    LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
+                    lightningBolt.setVisualOnly(false);
+                    level.addFreshEntity(lightningBolt);
+                }
+            });
+
+            if (player.level.random.nextInt(24) == 0) {
+                for (int i = 0; i < 2; i++) {
+                    level.addParticle(ParticleTypes.WAX_ON, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
+                    level.addParticle(ParticleTypes.WAX_OFF, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
+                    level.addParticle(ParticleTypes.WARPED_SPORE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.0D, 0.0D);
+                }
+            }
+
+        } else {
+           GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
         }
     }
 
