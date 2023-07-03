@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
@@ -22,6 +23,9 @@ import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.network.MessagePOV;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import static net.venturecraft.gliders.common.item.GliderItem.*;
 
@@ -163,21 +167,12 @@ public class GliderUtil {
     }
 
     public static boolean checkUpdraft(BlockPos playerPosition, Level world, LivingEntity player) {
-        BlockPos updraftBlockPos = playerPosition.below(2);
-
-        if (world.getBlockState(updraftBlockPos).is(VCGliderTags.UPDRAFT_BLOCKS)) {
-            double playerY = player.getY();
-            double updraftHeight = playerY + 20.0;
-
-            if (playerY < updraftHeight) {
-                double deltaY = Math.min(updraftHeight - playerY, 2.0);
-                player.setDeltaMovement(player.getDeltaMovement().add(0, deltaY, 0));
-                return true;
-            } else {
-                double deltaY = Math.max(updraftHeight - playerY, -0.08);
-                player.setDeltaMovement(player.getDeltaMovement().add(0, deltaY, 0));
-                return true;
-            }
+        AABB boundingBox = player.getBoundingBox().contract(0, 20, 0);
+        List<BlockState> blocks = world.getBlockStatesIfLoaded(boundingBox).toList();
+        Stream<BlockState> filteredBlocks = blocks.stream().filter(blockState -> blockState.is(VCGliderTags.UPDRAFT_BLOCKS));
+        if (filteredBlocks.toList().size() > 0) {
+            player.setDeltaMovement(0, 0.5, 0);
+            return true;
         }
         return false;
     }
