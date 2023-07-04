@@ -37,15 +37,18 @@ def version = rootProject.mod_version
 def forgeDir = new File(project.projectDir, 'forge/build/libs/')
 def fabricDir = new File(project.projectDir, 'fabric/build/libs/')
 def commonDir = new File(project.projectDir, 'common/build/libs/')
-forgeDir.mkdir()
-fabricDir.mkdir()
-commonDir.mkdir()
 
 def filter = { File file -> file.getName().contains(version) } as FileFilter
+
+// Create directories if they do not exist
+forgeDir.mkdirs()
+fabricDir.mkdirs()
+commonDir.mkdirs()
 
 def forgeFiles = forgeDir.listFiles(filter)
 def fabricFiles = fabricDir.listFiles(filter)
 def commonFiles = commonDir.listFiles(filter)
+
 
 githubRelease {
     token project.findProperty("github") ?: System.getenv("github") ?: ""
