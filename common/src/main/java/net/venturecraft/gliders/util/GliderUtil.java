@@ -3,7 +3,6 @@ package net.venturecraft.gliders.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
@@ -62,11 +60,12 @@ public class GliderUtil {
 
             lightningLogic(level, player, glider);
 
-            if (player.tickCount % (player.level.dimension() == Level.NETHER ? 40 : 400) == 0) {
+            if (player.tickCount % (player.level.dimension() == Level.NETHER ? 40 : 100) == 0) {
                 if (player instanceof ServerPlayer serverPlayer) {
 
                     int damageAmount = player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
-                    glider.setDamageValue(glider.getDamageValue() - damageAmount);
+                    glider.setDamageValue(glider.getDamageValue() + damageAmount);
+                    System.out.println(glider.getDamageValue());
                     if (glider.getDamageValue() >= glider.getMaxDamage()) {
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
@@ -78,32 +77,26 @@ public class GliderUtil {
 
             handleNetherLogic(level, player, glider);
 
-            if(checkUpdraft(player.blockPosition(), level, player)) return;
+            if (checkUpdraft(player.blockPosition(), level, player)) return;
 
 
             // Particles
             float horizonalSpeed = (float) player.getDeltaMovement().horizontalDistance();
-            if (isSpaceGlider(glider) && horizonalSpeed >= 0.01F) {
+            if (horizonalSpeed >= 0.01F) {
 
-                if (!level.isClientSide()) {
+                // Space Glider
+                if (isSpaceGlider(glider)) {
                     for (int i = 0; i < 2; ++i) {
-                        for (ServerPlayer serverplayer : Platform.getCurrentServer().getPlayerList().getPlayers()) {
-                            ((ServerLevel) serverplayer.level).sendParticles(ParticleTypes.DRAGON_BREATH, player.getRandomX(0.5D), player.getY() + 2.5, player.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                        }
+                        level.addParticle(ParticleTypes.DRAGON_BREATH, player.getRandomX(0.5D), player.getY() + 2.5, player.getRandomZ(0.5D), 1, 0.0D, 0.0D);
                     }
+                }
+
+                // Speed Modifications
+                if (hasSpeedMods) {
+                    level.addParticle(ParticleTypes.WITCH, player.getRandomX(0.5D), player.getY() + 2.5, player.getRandomZ(0.5D), 0.5, 0.0D, 0.0D);
                 }
             }
 
-            // Speed Modifications
-            if (hasSpeedMods) {
-                if (!level.isClientSide() && horizonalSpeed >= 0.01F) {
-                    for (int i = 0; i < 2; ++i) {
-                        for (ServerPlayer serverplayer : Platform.getCurrentServer().getPlayerList().getPlayers()) {
-                            ((ServerLevel) serverplayer.level).sendParticles(ParticleTypes.GLOW, player.getRandomX(0.5D), player.getY() + 2.5, player.getRandomZ(0.5D), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                        }
-                    }
-                }
-            }
 
             if (m.y < -0.05)
                 player.setDeltaMovement(new Vec3(m.x, -0.05, m.z));

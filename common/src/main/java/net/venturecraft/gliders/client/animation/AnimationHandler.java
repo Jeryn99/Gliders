@@ -20,10 +20,12 @@ public class AnimationHandler {
         ModifierLayer<IAnimation> animationContainer = ((AnimatedPlayer) livingEntity).gliders_getModifierLayer();
         KeyframeAnimation gliderAnimation = PlayerAnimationRegistry.getAnimation(new ResourceLocation(VCGliders.MOD_ID, "gliding"));
 
-
         if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             if (animationContainer.getAnimation() == null) {
-                var builder = gliderAnimation.mutableCopy();
+                KeyframeAnimation.AnimationBuilder builder = null;
+                if (gliderAnimation != null) {
+                    builder = gliderAnimation.mutableCopy();
+                }
                 gliderAnimation = builder.build();
                 animationContainer.setAnimation(new KeyframeAnimationPlayer(gliderAnimation));
             }

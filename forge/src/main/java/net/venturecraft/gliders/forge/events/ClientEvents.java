@@ -39,6 +39,7 @@ public class ClientEvents {
             posestack.scale(1.5F, 1.5F, 1.5F);
             if (GliderItem.isSpaceGlider(stack)) {
                 posestack.translate(0, -0.2, 0);
+                posestack.mulPose(Vector3f.YP.rotation(180));
                 PlayerGliderLayer.xWingModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
                 PlayerGliderLayer.xWingModel.renderToBuffer(posestack, bufferSource.bufferSource().getBuffer(RenderType.entityCutoutNoCull(PlayerGliderLayer.getGliderTexture(stack))), lightLevel, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
             } else {

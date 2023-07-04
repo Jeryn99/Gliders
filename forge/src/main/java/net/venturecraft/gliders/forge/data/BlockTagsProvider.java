@@ -1,9 +1,9 @@
 package net.venturecraft.gliders.forge.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.util.VCGliderTags;
@@ -17,7 +17,7 @@ public class BlockTagsProvider extends net.minecraft.data.tags.BlockTagsProvider
 
     @Override
     protected void addTags() {
-        add(VCGliderTags.UPDRAFT_BLOCKS, Blocks.FIRE, Blocks.MAGMA_BLOCK, Blocks.CAMPFIRE, Blocks.SOUL_CAMPFIRE);
+        add(VCGliderTags.UPDRAFT_BLOCKS, Registry.BLOCK.stream().filter(block -> block instanceof FireBlock || block instanceof CampfireBlock || block == Blocks.MAGMA_BLOCK).toList().toArray(new Block[0]));
     }
 
     public void add(TagKey<Block> branch, Block block) {
