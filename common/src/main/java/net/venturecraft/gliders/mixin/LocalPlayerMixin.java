@@ -9,6 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.venturecraft.gliders.util.GliderUtil.canDeployHere;
+
 @Mixin(LocalPlayer.class)
 public class LocalPlayerMixin {
 
@@ -22,11 +24,5 @@ public class LocalPlayerMixin {
         }
     }
 
-    public boolean canDeployHere(LocalPlayer localPlayer) {
-        boolean isAir = localPlayer.level.getBlockState(localPlayer.blockPosition().below(2)).isAir() && localPlayer.level.getBlockState(localPlayer.blockPosition().below()).isAir();
-        boolean updraftAround = localPlayer.level.getBlockStates(localPlayer.getBoundingBox().contract(2,0,2)).toList().stream().anyMatch(blockState -> blockState.is(VCGliderTags.UPDRAFT_BLOCKS));
-        boolean isUpdraft = localPlayer.level.getBlockState(localPlayer.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
-        return isUpdraft || isAir || updraftAround;
-    }
 
 }
