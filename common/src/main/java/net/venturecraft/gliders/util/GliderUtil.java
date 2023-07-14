@@ -1,13 +1,10 @@
 package net.venturecraft.gliders.util;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,17 +41,17 @@ public class GliderUtil {
         return false;
     }
 
-    public static boolean canDeployHere(LocalPlayer localPlayer) {
-        boolean isAir = localPlayer.level.getBlockState(localPlayer.blockPosition().below(2)).isAir() && localPlayer.level.getBlockState(localPlayer.blockPosition().below()).isAir();
-        boolean updraftAround = nearUpdraft(localPlayer);
-        boolean isUpdraft = localPlayer.level.getBlockState(localPlayer.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
-        return isUpdraft || isAir || updraftAround || localPlayer.fallDistance > 2;
+    public static boolean canDeployHere(LivingEntity livingEntity) {
+        boolean isAir = livingEntity.level.getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level.getBlockState(livingEntity.blockPosition().below()).isAir();
+        boolean updraftAround = nearUpdraft(livingEntity);
+        boolean isUpdraft = livingEntity.level.getBlockState(livingEntity.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
+        return isUpdraft || isAir || updraftAround || livingEntity.fallDistance > 2;
     }
 
-    public static boolean nearUpdraft(LivingEntity localPlayer) {
-        for (Iterator<BlockPos> iterator = BlockPos.withinManhattanStream(localPlayer.blockPosition(), 2, 3, 2).iterator(); iterator.hasNext(); ) {
+    public static boolean nearUpdraft(LivingEntity livingEntity) {
+        for (Iterator<BlockPos> iterator = BlockPos.withinManhattanStream(livingEntity.blockPosition(), 2, 3, 2).iterator(); iterator.hasNext(); ) {
             BlockPos pos = iterator.next();
-            BlockState blockState = localPlayer.level.getBlockState(pos);
+            BlockState blockState = livingEntity.level.getBlockState(pos);
             if (blockState.is(VCGliderTags.UPDRAFT_BLOCKS)) {
                 return true;
             }
@@ -203,9 +200,4 @@ public class GliderUtil {
         return hasGliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.isOnGround() && !livingEntity.isInWater();
     }
 
-    public static void updraftParticles(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (GliderUtil.isGlidingWithActiveGlider(Minecraft.getInstance().player) && state.is(VCGliderTags.UPDRAFT_BLOCKS)) {
-            level.addAlwaysVisibleParticle(ParticleTypes.SNOWFLAKE, true, (double) pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), 0.0, 1, 0.0);
-        }
-    }
 }

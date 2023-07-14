@@ -3,7 +3,6 @@ package net.venturecraft.gliders.mixin;
 import net.minecraft.client.player.LocalPlayer;
 import net.venturecraft.gliders.network.MessageToggleGlide;
 import net.venturecraft.gliders.util.GliderUtil;
-import net.venturecraft.gliders.util.VCGliderTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
