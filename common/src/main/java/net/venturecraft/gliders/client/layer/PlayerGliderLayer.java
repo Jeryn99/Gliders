@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,7 +40,7 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
 
     public static ResourceLocation getGliderTexture(ItemStack stack) {
         if (stack.getDisplayName().getString().contains("xwing")) return XWING_TEXTURE;
-        ResourceLocation itemLoc = Registry.ITEM.getKey(stack.getItem());
+        ResourceLocation itemLoc = GliderUtil.getItemId(stack.getItem());
         return new ResourceLocation(itemLoc.getNamespace(), "textures/entity/glider/" + itemLoc.getPath() + ".png");
     }
 

@@ -1,7 +1,6 @@
 package net.venturecraft.gliders.forge;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,8 +42,9 @@ public class VCGlidersForge {
         generator.addProvider(e.includeClient(), new ItemModelGeneration(generator, existingFileHelper));
         generator.addProvider(e.includeClient(), new EnglishLangProvider(generator));
         generator.addProvider(e.includeClient(), new SoundProvider(generator, existingFileHelper));
-        generator.addProvider(e.includeClient(), new ItemTagsProvider(generator, new BlockTagsProvider(generator), existingFileHelper));
-        generator.addProvider(e.includeClient(), new net.venturecraft.gliders.forge.data.BlockTagsProvider(generator, existingFileHelper));
+        BlockTagsProvider blocktags = new BlockTagsProvider(generator.getPackOutput(), e.getLookupProvider(), existingFileHelper);
+        generator.addProvider(e.includeClient(), new ItemTagsProvider(generator, blocktags, existingFileHelper));
+        generator.addProvider(e.includeClient(), blocktags);
         generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
     }
 }
