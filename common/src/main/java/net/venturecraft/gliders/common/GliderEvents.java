@@ -1,7 +1,10 @@
 package net.venturecraft.gliders.common;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,7 +56,9 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
                 if (hasCopperMod && isGliding) {
                     GliderItem.setStruck(chestItem, true);
                     if (GliderItem.hasBeenStruck(chestItem)) {
-                        player.hurt(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, 2F);
+                        if (player.level() instanceof ServerLevel serverLevel) {
+                            player.hurt(GliderDamageSource.getSource(serverLevel, GliderDamageSource.ZAP_EXPERIMENT), 2F);
+                        }
                     }
                 }
 
@@ -103,7 +108,7 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
             ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
             boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
             boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
-            boolean isLightning = damageSource == DamageSource.LIGHTNING_BOLT;
+            boolean isLightning = damageSource.is(DamageTypes.LIGHTNING_BOLT);
             if (hasCopperMod && isGliding && isLightning) {
                 return EventResult.cancel();
             }

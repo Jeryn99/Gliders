@@ -11,7 +11,6 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.venturecraft.gliders.common.recipe.RecipeSerializerRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
