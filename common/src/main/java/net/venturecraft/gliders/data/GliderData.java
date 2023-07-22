@@ -34,13 +34,13 @@ public class GliderData {
 
     public void tick(LivingEntity livingEntity) {
         glideAndFallLogic(livingEntity);
-        GliderUtil.onTickPlayerGlide(livingEntity.level, livingEntity);
+        GliderUtil.onTickPlayerGlide(livingEntity.level(), livingEntity);
 
         if(!GliderUtil.isGlidingWithActiveGlider(livingEntity)){
             setLightningTimer(0);
         }
 
-        if (livingEntity.level.isClientSide) return;
+        if (livingEntity.level().isClientSide) return;
         setGliding(GliderUtil.isGlidingWithActiveGlider(livingEntity));
 
         if (livingEntity.tickCount % 40 == 0) {
@@ -72,14 +72,14 @@ public class GliderData {
     }
 
     public void sync() {
-        if (this.player.level.isClientSide) {
+        if (this.player.level().isClientSide) {
             throw new IllegalStateException("Don't sync client -> server");
         }
         new SyncGliderData(this.player.getId(), serializeNBT()).sendToTracking(this.player);
     }
 
     public void syncTo(ServerPlayer receiver) {
-        if (this.player.level.isClientSide) {
+        if (this.player.level().isClientSide) {
             throw new IllegalStateException("Don't sync client -> server");
         }
         new SyncGliderData(this.player.getId(), serializeNBT()).send(receiver);

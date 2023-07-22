@@ -1,7 +1,9 @@
 package net.venturecraft.gliders.common.item;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,9 +20,7 @@ import static net.venturecraft.gliders.VCGliders.MOD_ID;
 public class ItemRegistry {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registries.ITEM);  
-    public static CreativeModeTab MAIN = CreativeModeTabRegistry.create(VCGliders.id("main"), () -> new ItemStack(ItemRegistry.PARAGLIDER_DIAMOND.get()));
-
-
+    public static CreativeModeTab MAIN = CreativeModeTabRegistry.create(Component.translatable("itemGroup." + VCGliders.MOD_ID + ".main"), () -> new ItemStack(ItemRegistry.PARAGLIDER_DIAMOND.get()));
 
     // Gliders
     public static final RegistrySupplier<GliderItem> PARAGLIDER_WOOD = ITEMS.register("paraglider_wood", () -> new GliderItem((new Item.Properties()).durability(50).rarity(Rarity.COMMON), new Supplier<>() {

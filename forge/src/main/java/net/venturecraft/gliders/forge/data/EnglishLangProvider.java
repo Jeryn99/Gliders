@@ -13,7 +13,7 @@ import net.venturecraft.gliders.util.ModConstants;
 public class EnglishLangProvider extends LanguageProvider {
 
     public EnglishLangProvider(DataGenerator gen) {
-        super(gen, VCGliders.MOD_ID, "en_us");
+        super(gen.getPackOutput(), VCGliders.MOD_ID, "en_us");
     }
 
     @Override

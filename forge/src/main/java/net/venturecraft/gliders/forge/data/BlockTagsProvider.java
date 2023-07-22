@@ -1,23 +1,25 @@
 package net.venturecraft.gliders.forge.data;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.util.VCGliderTags;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockTagsProvider extends net.minecraft.data.tags.BlockTagsProvider {
+import java.util.concurrent.CompletableFuture;
 
-    public BlockTagsProvider(DataGenerator arg, @Nullable ExistingFileHelper existingFileHelper) {
-        super(arg, VCGliders.MOD_ID, existingFileHelper);
-    }
+public class BlockTagsProvider extends net.minecraftforge.common.data.BlockTagsProvider {
 
-    @Override
-    protected void addTags() {
-        add(VCGliderTags.UPDRAFT_BLOCKS, Registry.BLOCK.stream().filter(block -> block instanceof FireBlock || block instanceof CampfireBlock || block == Blocks.MAGMA_BLOCK).toList().toArray(new Block[0]));
+
+    public BlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, VCGliders.MOD_ID, existingFileHelper);
     }
 
     public void add(TagKey<Block> branch, Block block) {
@@ -26,5 +28,10 @@ public class BlockTagsProvider extends net.minecraft.data.tags.BlockTagsProvider
 
     public void add(TagKey<Block> branch, Block... blocks) {
         this.tag(branch).add(blocks);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider arg) {
+        add(VCGliderTags.UPDRAFT_BLOCKS, ForgeRegistries.BLOCKS.getValues().stream().filter(block -> block instanceof FireBlock || block instanceof CampfireBlock || block == Blocks.MAGMA_BLOCK).toList().toArray(new Block[0]));
     }
 }
