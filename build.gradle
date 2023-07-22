@@ -145,7 +145,7 @@ allprojects {
 
         maven {
             name = 'Ladysnake Mods'
-            url = 'https://ladysnake.jfrog.io/artifactory/mods'
+            url = 'https://maven.ladysnake.org/releases'
         }
 
         maven {
@@ -158,12 +158,14 @@ allprojects {
         }
 
         maven {
-            name = 'Ladysnake Libs'
-            url = 'https://ladysnake.jfrog.io/artifactory/mods'
+            // location of the maven that hosts JEI files
+            name = "Progwml6 maven"
+            url = "https://dvs1.progwml6.com/files/maven/"
         }
-
         maven {
-            url = 'https://maven.blamejared.com'
+            // location of a maven mirror for JEI files, as a fallback
+            name = "ModMaven"
+            url = "https://modmaven.dev"
         }
 
         maven {
