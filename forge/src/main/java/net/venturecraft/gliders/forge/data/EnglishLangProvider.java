@@ -1,7 +1,9 @@
 package net.venturecraft.gliders.forge.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.venturecraft.gliders.VCGliders;
@@ -49,12 +51,13 @@ public class EnglishLangProvider extends LanguageProvider {
         add("options.glider_perspective", "Glider Perspective");
         add("curios.identifier.glider", "Glider");
 
-        addDamageSource(GliderDamageSource.BAD_LIGHTNING_EXPERIMENT, "&s was killed by a bad lightning experiment");
+        add(GliderDamageSource.ZAP_EXPERIMENT, "&s was killed by a bad lightning experiment");
     }
 
 
-    public void addDamageSource(GliderDamageSource gliderDamageSource, String translation) {
-        add("dmg." + VCGliders.MOD_ID + "." + gliderDamageSource.getTranslationKey(), translation);
+    public void add(ResourceKey<DamageType> damageSource, String message) {
+        add("death.attack." + damageSource.location().getPath(), message);
+        add("death.attack." + damageSource.location().getPath() + ".player", message);
     }
 
     private void addSound(SoundEvent soundEvent, String subtitle) {
