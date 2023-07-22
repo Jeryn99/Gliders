@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
@@ -42,10 +43,10 @@ public class GliderUtil {
     }
 
     public static boolean canDeployHere(LivingEntity livingEntity) {
-        boolean isAir = livingEntity.level.getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level.getBlockState(livingEntity.blockPosition().below()).isAir();
+        boolean isAir = !livingEntity.isOnGround() && livingEntity.level.getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level.getBlockState(livingEntity.blockPosition().below()).isAir();
         boolean updraftAround = nearUpdraft(livingEntity);
         boolean isUpdraft = livingEntity.level.getBlockState(livingEntity.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
-        return isUpdraft || isAir || updraftAround || livingEntity.fallDistance > 2;
+        return isUpdraft || isAir || updraftAround || livingEntity.fallDistance > 2 || isGliderActive(livingEntity);
     }
 
     public static boolean nearUpdraft(LivingEntity livingEntity) {
@@ -53,6 +54,11 @@ public class GliderUtil {
             BlockPos pos = iterator.next();
             BlockState blockState = livingEntity.level.getBlockState(pos);
             if (blockState.is(VCGliderTags.UPDRAFT_BLOCKS)) {
+
+                if(blockState.hasProperty(BlockStateProperties.LIT)){
+                    return blockState.getValue(BlockStateProperties.LIT);
+                }
+
                 return true;
             }
         }
@@ -97,7 +103,7 @@ public class GliderUtil {
 
             handleNetherLogic(level, player, glider);
 
-            if (checkUpdraft(player.blockPosition(), level, player)) return;
+            if (checkUpdraft(level, player)) return;
 
 
             // Particles
@@ -180,15 +186,22 @@ public class GliderUtil {
     }
 
 
-    public static boolean checkUpdraft(BlockPos playerPosition, Level world, LivingEntity player) {
+    public static boolean checkUpdraft(Level world, LivingEntity player) {
         AABB boundingBox = player.getBoundingBox().contract(2, 20, 2);
         List<BlockState> blocks = world.getBlockStatesIfLoaded(boundingBox).toList();
-        Stream<BlockState> filteredBlocks = blocks.stream().filter(blockState -> blockState.is(VCGliderTags.UPDRAFT_BLOCKS));
+        Stream<BlockState> filteredBlocks = blocks.stream().filter(blockState -> blockState.is(VCGliderTags.UPDRAFT_BLOCKS) && checkLit(blockState));
         if (filteredBlocks.toList().size() > 0 || GliderUtil.nearUpdraft(player)) {
             player.setDeltaMovement(0, 0.5, 0);
             return true;
         }
         return false;
+    }
+
+    private static boolean checkLit(BlockState blockState) {
+        if(blockState.hasProperty(BlockStateProperties.LIT)){
+            return blockState.getValue(BlockStateProperties.LIT);
+        }
+        return true;
     }
 
     public static boolean isFlyingBlocked(LivingEntity livingEntity) {
