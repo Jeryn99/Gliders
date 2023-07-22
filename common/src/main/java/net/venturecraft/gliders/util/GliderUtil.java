@@ -43,16 +43,16 @@ public class GliderUtil {
     }
 
     public static boolean canDeployHere(LivingEntity livingEntity) {
-        boolean isAir = !livingEntity.isOnGround() && livingEntity.level.getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level.getBlockState(livingEntity.blockPosition().below()).isAir();
+        boolean isAir = !livingEntity.onGround() && livingEntity.level().getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level().getBlockState(livingEntity.blockPosition().below()).isAir();
         boolean updraftAround = nearUpdraft(livingEntity);
-        boolean isUpdraft = livingEntity.level.getBlockState(livingEntity.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
+        boolean isUpdraft = livingEntity.level().getBlockState(livingEntity.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
         return isUpdraft || isAir || updraftAround || livingEntity.fallDistance > 2 || isGliderActive(livingEntity);
     }
 
     public static boolean nearUpdraft(LivingEntity livingEntity) {
         for (Iterator<BlockPos> iterator = BlockPos.withinManhattanStream(livingEntity.blockPosition(), 2, 3, 2).iterator(); iterator.hasNext(); ) {
             BlockPos pos = iterator.next();
-            BlockState blockState = livingEntity.level.getBlockState(pos);
+            BlockState blockState = livingEntity.level().getBlockState(pos);
             if (blockState.is(VCGliderTags.UPDRAFT_BLOCKS)) {
 
                 if(blockState.hasProperty(BlockStateProperties.LIT)){
@@ -84,16 +84,16 @@ public class GliderUtil {
 
             lightningLogic(level, player, glider);
 
-            if (player.tickCount % (player.level.dimension() == Level.NETHER ? 40 : 100) == 0) {
+            if (player.tickCount % (player.level().dimension() == Level.NETHER ? 40 : 100) == 0) {
                 if (player instanceof ServerPlayer serverPlayer) {
 
-                    int damageAmount = player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
+                    int damageAmount = player.level().dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
                     glider.setDamageValue(glider.getDamageValue() + damageAmount);
                     if (glider.getDamageValue() >= glider.getMaxDamage()) {
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
                         GliderItem.setBroken(glider, true);
 
-                        if (player.level.dimension() != Level.NETHER) {
+                        if (player.level().dimension() != Level.NETHER) {
                             glider.setCount(0);
                         }
                     }
@@ -142,8 +142,8 @@ public class GliderUtil {
 
     private static void handleNetherLogic(Level level, LivingEntity player, ItemStack glider) {
         if (level.dimension() == Level.NETHER && !hasNetherUpgrade(glider)) {
-            if (player.level.random.nextInt(24) == 0 && !player.isSilent()) {
-                player.level.playLocalSound(player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, SoundEvents.BLAZE_BURN, player.getSoundSource(), 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
+            if (player.level().random.nextInt(24) == 0 && !player.isSilent()) {
+                player.level().playLocalSound(player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, SoundEvents.BLAZE_BURN, player.getSoundSource(), 1.0F + level.random.nextFloat(), level.random.nextFloat() * 0.7F + 0.3F, false);
 
                 for (int i = 0; i < 2; i++) {
                     level.addParticle(ParticleTypes.LARGE_SMOKE, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
@@ -164,7 +164,7 @@ public class GliderUtil {
                     player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
                 }
 
-                if (player.level.random.nextInt(24) == 0 && gliderData.lightningTimer() > 200 && !hasBeenStruck(glider)) {
+                if (player.level().random.nextInt(24) == 0 && gliderData.lightningTimer() > 200 && !hasBeenStruck(glider)) {
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
                     lightningBolt.setVisualOnly(false);
@@ -172,7 +172,7 @@ public class GliderUtil {
                 }
             });
 
-            if (player.level.random.nextInt(24) == 0 && !hasCopperUpgrade(glider)) {
+            if (player.level().random.nextInt(24) == 0 && !hasCopperUpgrade(glider)) {
                 for (int i = 0; i < 2; i++) {
                     level.addParticle(ParticleTypes.WAX_ON, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.2D, 1.0D, 0.0D);
                     level.addParticle(ParticleTypes.WAX_OFF, player.getRandomX(0.5), player.getY() + 2.5D, player.getRandomZ(0.5), 0.0D, 0.2D, 0.0D);
@@ -205,12 +205,12 @@ public class GliderUtil {
     }
 
     public static boolean isFlyingBlocked(LivingEntity livingEntity) {
-        return livingEntity.isOnGround() || livingEntity.isInWater() || livingEntity.isUnderWater() || livingEntity.isSwimming() || livingEntity.isFallFlying();
+        return livingEntity.onGround() || livingEntity.isInWater() || livingEntity.isUnderWater() || livingEntity.isSwimming() || livingEntity.isFallFlying();
     }
 
 
     public static boolean isGlidingWithActiveGlider(LivingEntity livingEntity) {
-        return hasGliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.isOnGround() && !livingEntity.isInWater();
+        return hasGliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.onGround() && !livingEntity.isInWater();
     }
 
 }
