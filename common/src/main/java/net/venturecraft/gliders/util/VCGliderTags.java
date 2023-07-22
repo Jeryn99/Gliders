@@ -1,6 +1,7 @@
 package net.venturecraft.gliders.util;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -16,11 +17,11 @@ public class VCGliderTags {
 
 
     public static TagKey<Item> makeItem(String domain, String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(domain, path));
+        return TagKey.create(Registries.ITEM, new ResourceLocation(domain, path));
     }
 
     public static TagKey<Block> makeBlock(String domain, String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(domain, path));
+        return TagKey.create(Registries.BLOCK, new ResourceLocation(domain, path));
     }
 
 }
