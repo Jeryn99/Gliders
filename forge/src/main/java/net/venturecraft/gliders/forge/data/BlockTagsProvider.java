@@ -17,7 +17,7 @@ public class BlockTagsProvider extends net.minecraft.data.tags.BlockTagsProvider
 
     @Override
     protected void addTags() {
-        add(VCGliderTags.UPDRAFT_BLOCKS, Registry.BLOCK.stream().filter(block -> block instanceof FireBlock || block instanceof CampfireBlock || block == Blocks.MAGMA_BLOCK).toList().toArray(new Block[0]));
+        add(VCGliderTags.UPDRAFT_BLOCKS, Registry.BLOCK.stream().filter(block -> block instanceof FireBlock || block instanceof CampfireBlock).toList().toArray(new Block[0]));
     }
 
     public void add(TagKey<Block> branch, Block block) {
