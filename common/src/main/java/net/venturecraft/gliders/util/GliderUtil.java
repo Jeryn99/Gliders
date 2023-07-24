@@ -54,12 +54,10 @@ public class GliderUtil {
             BlockPos pos = iterator.next();
             BlockState blockState = livingEntity.level.getBlockState(pos);
             if (blockState.is(VCGliderTags.UPDRAFT_BLOCKS)) {
-
                 if(blockState.hasProperty(BlockStateProperties.LIT)){
                     return blockState.getValue(BlockStateProperties.LIT);
                 }
-
-                return true;
+                return livingEntity.level.canSeeSky(pos);
             }
         }
         return false;
