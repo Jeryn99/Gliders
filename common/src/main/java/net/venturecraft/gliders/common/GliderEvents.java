@@ -15,21 +15,20 @@ import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking,  LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking, LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, PlayerEvents.AnvilUpdate {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
         EntityEvents.LIGHTNING_STRIKE.register(instance);
         LivingEntityEvents.HURT.register(instance);
-        LivingEntityEvents.ITEM_USE_START.register(instance);
+       /* LivingEntityEvents.ITEM_USE_START.register(instance);
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
-        LivingEntityEvents.ITEM_USE_STOP.register(instance);
+        LivingEntityEvents.ITEM_USE_STOP.register(instance);*/
         LivingEntityEvents.HURT.register(instance);
         PlayerEvents.ANVIL_UPDATE.register(instance);
         PlayerEvents.START_TRACKING.register(instance);
@@ -61,10 +60,12 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         }
     }
 
+/*
     @Override
     public EventResult livingEntityItemUse(LivingEntity entity, @NotNull ItemStack stack, AtomicInteger duration) {
         return GliderUtil.isGlidingWithActiveGlider(entity) ? EventResult.cancel() : EventResult.pass();
     }
+*/
 
 
     @Override
@@ -118,4 +119,5 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         }
         return EventResult.pass();
     }
+
 }
