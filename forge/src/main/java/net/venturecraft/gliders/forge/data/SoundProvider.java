@@ -17,7 +17,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
      * @param helper    The existing file helper provided by the event you are initializing this provider in.
      */
     public SoundProvider(DataGenerator generator, ExistingFileHelper helper) {
-        super(generator, VCGliders.MOD_ID, helper);
+        super(generator.getPackOutput(), VCGliders.MOD_ID, helper);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
         createDefinitionAndAdd(SoundRegistry.GLIDER_OPEN.get(), SoundDefinition.SoundType.SOUND, "glider_open", "glider/glider_open_0", "glider/glider_open_1");
         createDefinitionAndAdd(SoundRegistry.SPACE_GLIDE.get(), SoundDefinition.SoundType.SOUND, "space_glide", "glider/space_glide");
         createDefinitionAndAdd(SoundRegistry.SPACE_DEPLOY.get(), SoundDefinition.SoundType.SOUND, "space_deploy", "glider/space_deploy");
-        createDefinitionAndAdd(SoundRegistry.INCOMING_LIGHTNING.get(), SoundDefinition.SoundType.SOUND, "incoming_lightning", "enviroment/incoming_lightning");
+        createDefinitionAndAdd(SoundRegistry.INCOMING_LIGHTNING.get(), SoundDefinition.SoundType.SOUND, "incoming_lightning", "environment/incoming_lightning");
     }
 
     public void createDefinitionAndAdd(SoundEvent mainSound, SoundDefinition.SoundType soundType, String subtitle, String... soundEvent) {

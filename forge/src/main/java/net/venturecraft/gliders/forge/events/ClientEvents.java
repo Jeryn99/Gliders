@@ -1,7 +1,7 @@
 package net.venturecraft.gliders.forge.events;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -33,13 +33,13 @@ public class ClientEvents {
         PoseStack posestack = event.getPoseStack();
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && stack.getItem() instanceof GliderItem && GliderUtil.isGlidingWithActiveGlider(living)) {
             posestack.pushPose();
-            posestack.mulPose(Vector3f.XP.rotationDegrees(180));
-            posestack.mulPose(Vector3f.YP.rotationDegrees(living.getViewYRot(1F)));
+            posestack.mulPose(Axis.XP.rotationDegrees(180));
+            posestack.mulPose(Axis.YP.rotationDegrees(living.getViewYRot(1F)));
             posestack.translate(0, -2.4, -0.5);
             posestack.scale(1.5F, 1.5F, 1.5F);
             if (GliderItem.isSpaceGlider(stack)) {
                 posestack.translate(0, -0.2, 0);
-                posestack.mulPose(Vector3f.YP.rotation(180));
+                posestack.mulPose(Axis.YP.rotation(180));
                 PlayerGliderLayer.xWingModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
                 PlayerGliderLayer.xWingModel.renderToBuffer(posestack, bufferSource.bufferSource().getBuffer(RenderType.entityCutoutNoCull(PlayerGliderLayer.getGliderTexture(stack))), lightLevel, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
             } else {
