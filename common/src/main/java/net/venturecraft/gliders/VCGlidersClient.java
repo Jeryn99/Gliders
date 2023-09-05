@@ -23,18 +23,6 @@ public class VCGlidersClient {
         ModelRegistry.init();
         EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
 
-    /*    ClientTickEvents.CLIENT_POST.register(new ClientTickEvents.ClientTick() {
-            @Override
-            public void clientTick(Minecraft minecraft) {
-                LocalPlayer player = minecraft.player;
-                if ((GliderKeybinds.ACTIVATE_GLIDER.consumeClick() || Minecraft.getInstance().options.keyJump.consumeClick())) {
-                    if (GliderUtil.hasGliderEquipped(player) *//*&& GliderUtil.canDeployHere(player)*//*) {
-                        new MessageToggleGlide().send();
-                    }
-                }
-            }
-        });*/
-
         LifecycleEvents.CLIENT_SETUP.register(() -> {
             // Item Predicates
             for (RegistrySupplier<Item> supplier : ItemRegistry.ITEMS) {
