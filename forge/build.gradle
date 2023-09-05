@@ -37,7 +37,7 @@ loom {
 
 unifiedPublishing {
     project {
-        displayName = "[Forge - Gliders - $rootProject.minecraft_version] - v$rootProject.mod_version"
+        displayName = "🍂 [Forge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
         releaseType = "release"
         changelog = new File("${rootProject.projectDir}/changelog.html").text
         gameVersions = ["1.19.2"]

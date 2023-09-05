@@ -56,7 +56,7 @@ githubRelease {
     repo "MC-Gliders"
     tagName "v$rootProject.minecraft_version-${version}"
     targetCommitish "main"
-    releaseName "[$rootProject.minecraft_version] Gliders - v$version"
+    releaseName "🍂 Gliders - v$rootProject.minecraft_version-${version}"
     generateReleaseNotes true
     body new File("${rootProject.projectDir}/changelog.html").text
     draft false
@@ -68,6 +68,7 @@ githubRelease {
     apiEndpoint "https://api.github.com"
     client
 }
+
 
 allprojects {
     apply plugin: "java"
