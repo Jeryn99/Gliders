@@ -86,7 +86,12 @@ public class GliderUtil {
                 if (player instanceof ServerPlayer serverPlayer) {
 
                     int damageAmount = player.level.dimension() == Level.NETHER && !hasNetherUpgrade(glider) ? glider.getMaxDamage() / 2 : 1;
-                    glider.setDamageValue(glider.getDamageValue() + damageAmount);
+
+                    // Only damage the glider if the player isn't in creative
+                    if(!serverPlayer.isCreative()) {
+                        glider.setDamageValue(glider.getDamageValue() + damageAmount);
+                    }
+
                     if (glider.getDamageValue() >= glider.getMaxDamage()) {
                         level.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F));
                         GliderItem.setBroken(glider, true);
