@@ -101,7 +101,7 @@ public class GliderItem extends Item implements Wearable, IPalladiumItem {
     }
 
     @Override
-    public @Nullable EquipmentSlot getEquipmentSlot(ItemStack stack) {
+    public EquipmentSlot getSlotForItem(ItemStack stack) {
         return EquipmentSlot.CHEST;
     }
 
