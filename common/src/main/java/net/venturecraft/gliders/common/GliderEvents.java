@@ -74,8 +74,9 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         if (left.getItem() instanceof GliderItem gliderItem && gliderItem.isValidRepairItem(left, right)) {
             ItemStack data = left.copy();
             GliderItem.setBroken(data, false);
-            data.setDamageValue(0);
             cost.set(5);
+            data.setDamageValue(0);
+            data.setRepairCost(5);
             output.set(data);
         }
 
