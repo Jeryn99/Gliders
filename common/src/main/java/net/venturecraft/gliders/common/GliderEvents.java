@@ -16,6 +16,7 @@ import net.threetag.palladiumcore.event.LivingEntityEvents;
 import net.threetag.palladiumcore.event.PlayerEvents;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
@@ -75,14 +76,42 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
     @Override
     public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, String name, AtomicInteger cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
 
-        if (left.getItem() instanceof GliderItem gliderItem && gliderItem.isValidRepairItem(left, right)) {
-            ItemStack data = left.copy();
-            GliderItem.setBroken(data, false);
-            cost.set(5);
-            output.set(data);
+
+        if(left.getItem() instanceof GliderItem gliderItem) {
+
+            // Glider Repair
+            if (gliderItem.isValidRepairItem(left, right)) {
+                ItemStack data = left.copy();
+                GliderItem.setBroken(data, false);
+                data.setDamageValue(0);
+                cost.set(5);
+                output.set(data);
+            }
+
+            if(right.getItem() == ItemRegistry.COPPER_UPGRADE.get()){
+                ItemStack data = left.copy();
+                data = makeResult(data, "copper");
+                cost.set(10);
+                output.set(data);
+            }
+
+            if(right.getItem() == ItemRegistry.NETHER_UPGRADE.get()){
+                ItemStack data = left.copy();
+                data = makeResult(data, "nether");
+                cost.set(10);
+                output.set(data);
+            }
         }
 
+
+
         return EventResult.pass();
+    }
+
+    public static ItemStack makeResult(ItemStack base, String upgrade) {
+        var result = base.copy();
+        result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
+        return result;
     }
 
     @Override

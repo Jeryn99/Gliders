@@ -8,7 +8,7 @@
   },
   "incoming_lightning": {
     "sounds": [
-      "vc_gliders:enviroment/incoming_lightning"
+      "vc_gliders:environment/incoming_lightning"
     ],
     "subtitle": "subtitle.vc_gliders.incoming_lightning"
   },

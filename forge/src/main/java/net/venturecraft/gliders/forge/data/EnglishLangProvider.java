@@ -46,8 +46,8 @@ public class EnglishLangProvider extends LanguageProvider {
         addSound(SoundRegistry.SPACE_DEPLOY.get(), "Space Deploy");
         addSound(SoundRegistry.INCOMING_LIGHTNING.get(), "Incoming Lightning");
 
-        add("itemGroup." + VCGliders.MOD_ID, "VentureCraft - Gliders");
-        add("itemGroup." + VCGliders.MOD_ID + ".main", "VentureCraft - Gliders");
+        add("itemGroup." + VCGliders.MOD_ID, "Gliders");
+        add("itemGroup." + VCGliders.MOD_ID + ".main", "Gliders");
         add("options.glider_perspective", "Glider Perspective");
         add("curios.identifier.glider", "Glider");
 
