@@ -22,7 +22,7 @@ public class AbstractClientPlayerMixin implements AnimatedPlayer {
     private final ModifierLayer<IAnimation> gliderLayer = new ModifierLayer<>();
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
-    private void init(ClientLevel clientLevel, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey, CallbackInfo ci) {
+    private void init(ClientLevel clientLevel, GameProfile gameProfile, CallbackInfo ci) {
         PlayerAnimationAccess.getPlayerAnimLayer((AbstractClientPlayer) (Object) this).addAnimLayer(1000, gliderLayer);
     }
 
