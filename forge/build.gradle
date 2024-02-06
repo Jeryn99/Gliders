@@ -40,7 +40,7 @@ unifiedPublishing {
         displayName = "[Forge - Gliders - $rootProject.minecraft_version] - v$rootProject.mod_version"
         releaseType = "release"
         changelog = new File("${rootProject.projectDir}/changelog.html").text
-        gameVersions = ["1.19.2"]
+        gameVersions = ["1.20.1"]
         mainPublication tasks.remapJar
         gameLoaders = ["forge"]
         relations {
@@ -52,7 +52,7 @@ unifiedPublishing {
             curseforge {
                 token = CURSE_API_KEY
                 id = "828331"
-                gameVersions.addAll "Java 17", "1.19.2"
+                gameVersions.addAll "Java 17", "1.20.1"
             }
         }
 
@@ -81,7 +81,8 @@ dependencies {
     include "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
 
     // Player Animator
-    include modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
+    include modImplementation("curse.maven:playeranimator-658587:4587214")
+  //  include modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
 
     // JEI
     modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}"
@@ -90,7 +91,6 @@ dependencies {
     modImplementation "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"
 
     // Configured & Catalogue
-    modLocalRuntime "curse.maven:configured-457570:${rootProject.configured_version}"
     modLocalRuntime "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
 
     // Curios

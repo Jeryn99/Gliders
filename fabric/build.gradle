@@ -69,7 +69,8 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
     // Player Animator
-    include modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${rootProject.player_anim_version}")
+    //include modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${rootProject.player_anim_version}")
+    include modImplementation("curse.maven:playeranimator-658587:4587215")
 
     modApi "net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}"
     include "net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}"
