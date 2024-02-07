@@ -42,6 +42,8 @@ public class VCGlidersForge {
         generator.addProvider(e.includeClient(), new ItemModelGeneration(generator, existingFileHelper));
         generator.addProvider(e.includeClient(), new EnglishLangProvider(generator));
         generator.addProvider(e.includeClient(), new SoundProvider(generator, existingFileHelper));
+        generator.addProvider(e.includeServer(), new DamageSourceGeneration(generator.getPackOutput(), e.getLookupProvider()));
+
         BlockTagsProvider blocktags = new BlockTagsProvider(generator.getPackOutput(), e.getLookupProvider(), existingFileHelper);
         generator.addProvider(e.includeServer(), new ItemTagsProvider(generator.getPackOutput(), e.getLookupProvider(), blocktags.contentsGetter(), existingFileHelper));
         generator.addProvider(e.includeClient(), blocktags);
