@@ -32,10 +32,10 @@ public abstract class LevelRendererMixin {
 
         if (Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON && stack.getItem() instanceof GliderItem && GliderUtil.isGlidingWithActiveGlider(living)) {
             posestack.pushPose();
-            posestack.translate(0, 2.2, -0.5);
-            posestack.scale(1.5F, 1.5F, 1.5F);
             posestack.mulPose(Axis.XP.rotationDegrees(180));
             posestack.mulPose(Axis.YP.rotationDegrees(living.getViewYRot(1F)));
+            posestack.translate(0, -2.4, -0.5);
+            posestack.scale(1.5F, 1.5F, 1.5F);
 
             if (GliderItem.isSpaceGlider(stack)) {
                 posestack.mulPose(Axis.YP.rotationDegrees(180));
