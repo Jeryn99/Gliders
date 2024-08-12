@@ -5,44 +5,30 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    forge()
+    neoForge()
 }
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
-    runConfigs.configureEach {
-        // Use MC_USERNAME and MC_ACCESS_TOKEN in your system environment variables to use your Minecraft account in dev
-        if (name == "client") {
-            if (System.getenv('MC_USERNAME') && System.getenv('MC_UUID') && System.getenv('MC_ACCESS_TOKEN')) {
-                programArgs '--username', System.getenv('MC_USERNAME'), '--uuid', System.getenv('MC_UUID'), '--accessToken', System.getenv('MC_ACCESS_TOKEN')
-            }
-        } else if (name == "data") {
-            programArgs '--existing', project(":common").file("src/main/resources/").absolutePath
-        }
-    }
-
-    forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-        mixinConfig "vc_gliders-common.mixins.json"
-        mixinConfig "vc_gliders.mixins.json"
-
-        dataGen {
-            mod "vc_gliders"
+    runs {
+        data {
+            data()
+            programArgs "--all", "--mod", "vc_gliders"
+            programArgs "--output", project(":forge").file("src/generated/resources").absolutePath
+            programArgs "--existing", project(":common").file("src/main/resources/").absolutePath
         }
     }
 }
 
 unifiedPublishing {
     project {
-        displayName = "🍂 [Forge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
+        displayName = "🍂 [NeoForge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
         releaseType = "release"
         changelog = new File("${rootProject.projectDir}/changelog.html").text
-        gameVersions = ["1.20.1"]
+        gameVersions = ["1.21.1"]
         mainPublication tasks.remapJar
-        gameLoaders = ["forge"]
+        gameLoaders = ["neoforge"]
         relations {
 
         }
@@ -52,7 +38,7 @@ unifiedPublishing {
             curseforge {
                 token = CURSE_API_KEY
                 id = "828331"
-                gameVersions.addAll "Java 17", "1.20.1"
+                gameVersions.addAll "Java 17", "1.21.1"
             }
         }
 
@@ -72,20 +58,20 @@ configurations {
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
+    developmentNeoForge.extendsFrom common
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    modApi "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
-    include "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
+    neoForge( "net.neoforged:neoforge:${neoforge_version}")
+    modApi "net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}"
+    include "net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}"
 
     // Player Animator
     include modImplementation("curse.maven:playeranimator-658587:4587214")
   //  include modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
 
     // JEI
-    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}"
+    modCompileOnly "mezz.jei:jei-1.21-forge-api:${rootProject.jei_version}"
 
     // REI
     modImplementation "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"
@@ -99,7 +85,7 @@ dependencies {
 
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 }
 
 processResources {
@@ -121,18 +107,17 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier =  "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
     archiveClassifier = 'forge-' + rootProject.mod_version
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier = "dev"
 }
 
 sourcesJar {

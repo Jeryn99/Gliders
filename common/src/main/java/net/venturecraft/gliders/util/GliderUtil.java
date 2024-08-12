@@ -58,7 +58,7 @@ public class GliderUtil {
             BlockState blockState = livingEntity.level().getBlockState(pos);
             if (blockState.is(VCGliderTags.UPDRAFT_BLOCKS)) {
 
-                if(blockState.hasProperty(BlockStateProperties.LIT)){
+                if (blockState.hasProperty(BlockStateProperties.LIT)) {
                     return blockState.getValue(BlockStateProperties.LIT);
                 }
 
@@ -69,7 +69,7 @@ public class GliderUtil {
     }
 
     @ExpectPlatform
-    public static ResourceLocation getItemId(Item item){
+    public static ResourceLocation getItemId(Item item) {
         throw new RuntimeException();
     }
 
@@ -189,7 +189,7 @@ public class GliderUtil {
             }
 
         } else {
-           GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
+            GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
         }
     }
 
@@ -206,7 +206,7 @@ public class GliderUtil {
     }
 
     private static boolean checkLit(BlockState blockState) {
-        if(blockState.hasProperty(BlockStateProperties.LIT)){
+        if (blockState.hasProperty(BlockStateProperties.LIT)) {
             return blockState.getValue(BlockStateProperties.LIT);
         }
         return true;

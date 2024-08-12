@@ -20,6 +20,8 @@ public class EnglishLangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+
+
         // Gliders
         add(ItemRegistry.PARAGLIDER_WOOD.get(), "Basic Paraglider");
         add(ItemRegistry.PARAGLIDER_IRON.get(), "Iron Paraglider");

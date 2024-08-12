@@ -36,7 +36,7 @@ public class GliderData {
         glideAndFallLogic(livingEntity);
         GliderUtil.onTickPlayerGlide(livingEntity.level(), livingEntity);
 
-        if(!GliderUtil.isGlidingWithActiveGlider(livingEntity)){
+        if (!GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             setLightningTimer(0);
         }
 

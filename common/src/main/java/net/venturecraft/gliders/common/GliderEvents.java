@@ -3,7 +3,6 @@ package net.venturecraft.gliders.common;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LightningBolt;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking,  LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking, LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
@@ -38,6 +37,12 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         PlayerEvents.ANVIL_UPDATE.register(instance);
         PlayerEvents.START_TRACKING.register(instance);
         LivingEntityEvents.TICK.register(instance);
+    }
+
+    public static ItemStack makeResult(ItemStack base, String upgrade) {
+        var result = base.copy();
+        result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
+        return result;
     }
 
     @Override
@@ -72,12 +77,11 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         return GliderUtil.isGlidingWithActiveGlider(entity) ? EventResult.cancel() : EventResult.pass();
     }
 
-
     @Override
     public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, String name, AtomicInteger cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
 
 
-        if(left.getItem() instanceof GliderItem gliderItem) {
+        if (left.getItem() instanceof GliderItem gliderItem) {
 
             // Glider Repair
             if (gliderItem.isValidRepairItem(left, right)) {
@@ -88,14 +92,14 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
                 output.set(data);
             }
 
-            if(right.getItem() == ItemRegistry.COPPER_UPGRADE.get()){
+            if (right.getItem() == ItemRegistry.COPPER_UPGRADE.get()) {
                 ItemStack data = left.copy();
                 data = makeResult(data, "copper");
                 cost.set(10);
                 output.set(data);
             }
 
-            if(right.getItem() == ItemRegistry.NETHER_UPGRADE.get()){
+            if (right.getItem() == ItemRegistry.NETHER_UPGRADE.get()) {
                 ItemStack data = left.copy();
                 data = makeResult(data, "nether");
                 cost.set(10);
@@ -104,14 +108,7 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         }
 
 
-
         return EventResult.pass();
-    }
-
-    public static ItemStack makeResult(ItemStack base, String upgrade) {
-        var result = base.copy();
-        result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
-        return result;
     }
 
     @Override
@@ -147,7 +144,7 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
 
     @Override
     public EventResult livingEntityAttack(LivingEntity entity, DamageSource damageSource, float amount) {
-        if(damageSource.getDirectEntity() instanceof LivingEntity livingEntity) {
+        if (damageSource.getDirectEntity() instanceof LivingEntity livingEntity) {
             return GliderUtil.isGlidingWithActiveGlider(livingEntity) ? EventResult.cancel() : EventResult.pass();
         }
         return EventResult.pass();
