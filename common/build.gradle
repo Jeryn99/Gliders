@@ -16,11 +16,11 @@ dependencies {
     modImplementation("curse.maven:playeranimator-658587:4587215")
 
 
-    modApi "net.threetag:PalladiumCore:${rootProject.palladiumcore_version}"
+    modApi "net.threetag:palladiumcore-common:${rootProject.palladiumcore_version}"
 
 
     // JEI
-    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}"
+    modCompileOnly "mezz.jei:jei-1.21-common-api:${rootProject.jei_version}"
 
     // REI
     modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}", {

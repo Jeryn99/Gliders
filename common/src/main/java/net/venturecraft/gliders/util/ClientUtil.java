@@ -38,6 +38,7 @@ public class ClientUtil {
             level.addAlwaysVisibleParticle(ParticleTypes.SNOWFLAKE, true, (double) pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), 0.0, 1, 0.0);
         }
     }
+
     public static void playGliderSound(Player player, ResourceLocation soundName, SoundSource category, boolean repeat, Supplier<Boolean> stopCondition, float volume, RandomSource randomSource) {
         Minecraft.getInstance().getSoundManager().play(new MovingSound(player, SoundEvent.createFixedRangeEvent(soundName, 1), category, repeat, stopCondition, volume, randomSource));
     }
