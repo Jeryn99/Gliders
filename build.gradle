@@ -79,6 +79,10 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
+
+        maven { url "https://maven.neoforged.net/releases/" }
+
+
         // Add repositories to retrieve artifacts from in here.
         // You should only use this when depending on other mods because
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -184,7 +188,7 @@ allprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.release = 17
+        options.release = 21
     }
 
     java {
