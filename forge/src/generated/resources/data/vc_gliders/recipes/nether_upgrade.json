@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
       "item": "minecraft:blaze_powder"
@@ -21,5 +22,6 @@
   ],
   "result": {
     "item": "vc_gliders:nether_upgrade"
-  }
+  },
+  "show_notification": true
 }

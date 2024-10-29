@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "gliders",
   "key": {
     "D": {
@@ -16,5 +17,6 @@
   ],
   "result": {
     "item": "vc_gliders:reinforced_paper_diamond"
-  }
+  },
+  "show_notification": true
 }

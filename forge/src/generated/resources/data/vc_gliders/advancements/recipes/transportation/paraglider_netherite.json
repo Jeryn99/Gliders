@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite_ingot": {
+    "has_crafting_table": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:netherite_ingot"
+              "minecraft:crafting_table"
             ]
           }
         ]
@@ -15,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vc_gliders:netherite_glider_nether_upgrade"
+        "recipe": "vc_gliders:paraglider_netherite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_netherite_ingot",
+      "has_crafting_table",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "vc_gliders:netherite_glider_nether_upgrade"
+      "vc_gliders:paraglider_netherite"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

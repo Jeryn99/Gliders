@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vc_gliders:paraglider_diamond"
+        "recipe": "vc_gliders:reinforced_paper_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,8 @@
   ],
   "rewards": {
     "recipes": [
-      "vc_gliders:paraglider_diamond"
+      "vc_gliders:reinforced_paper_iron"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

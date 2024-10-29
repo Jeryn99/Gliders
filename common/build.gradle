@@ -12,25 +12,29 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
     // Player Animator
- //   modImplementation("dev.kosmx.player-anim:player-animation-lib:${rootProject.player_anim_version}")
-    modImplementation("curse.maven:playeranimator-658587:4587215")
+    modImplementation("curse.maven:playeranimator-658587:4587215") {
+        exclude group: "net.minecraftforge"
+    }
 
-
-    modApi "net.threetag:PalladiumCore:${rootProject.palladiumcore_version}"
-
+    modApi("net.threetag:PalladiumCore:${rootProject.palladiumcore_version}") {
+        exclude group: "net.minecraftforge"
+    }
 
     // JEI
-    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}"
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}") {
+        exclude group: "net.minecraftforge"
+    }
 
     // REI
-    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}", {
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}") {
         exclude group: "dev.architectury"
-    })
+        exclude group: "net.minecraftforge"
+    }
 
     // Forge Config API Port
-    modApi "net.minecraftforge:forgeconfigapiport-fabric:${rootProject.forge_config_api_port_version}"
-
-
+    modApi("net.minecraftforge:forgeconfigapiport-fabric:${rootProject.forge_config_api_port_version}") {
+        exclude group: "net.minecraftforge"
+    }
 }
 
 publishing {

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vc_gliders:copper_upgrade"
+        "recipe": "vc_gliders:reinforced_paper_diamond"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,8 @@
   ],
   "rewards": {
     "recipes": [
-      "vc_gliders:copper_upgrade"
+      "vc_gliders:reinforced_paper_diamond"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

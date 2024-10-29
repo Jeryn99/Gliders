@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "gliders",
   "key": {
     "O": {
@@ -22,5 +23,6 @@
   ],
   "result": {
     "item": "vc_gliders:paraglider_iron"
-  }
+  },
+  "show_notification": true
 }

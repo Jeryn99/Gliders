@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vc_gliders:reinforced_paper_diamond"
+        "recipe": "vc_gliders:reinforced_paper_netherite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,8 @@
   ],
   "rewards": {
     "recipes": [
-      "vc_gliders:reinforced_paper_diamond"
+      "vc_gliders:reinforced_paper_netherite"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
