@@ -24,23 +24,22 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking, LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements LivingEntityEvents.DamagePost, PlayerEvents.Tracking, LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.IncomingDamage, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
         EntityEvents.LIGHTNING_STRIKE.register(instance);
-        LivingEntityEvents.HURT.register(instance);
         LivingEntityEvents.ITEM_USE_START.register(instance);
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
         LivingEntityEvents.ITEM_USE_STOP.register(instance);
-        LivingEntityEvents.HURT.register(instance);
+        LivingEntityEvents.INCOMING_DAMAGE.register(instance);
         PlayerEvents.ANVIL_UPDATE.register(instance);
         PlayerEvents.START_TRACKING.register(instance);
         LivingEntityEvents.TICK.register(instance);
     }
 
     public static ItemStack makeResult(ItemStack base, String upgrade) {
-        var result = base.copy();
+        ItemStack result = base.copy();
         result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
         return result;
     }

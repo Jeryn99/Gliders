@@ -85,10 +85,6 @@ dependencies {
     // Mod Menu
     modImplementation "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
 
-    // JEI
-    modCompileOnly "mezz.jei:jei-1.21-fabric-api:${rootProject.jei_version}"
-    modLocalRuntime "mezz.jei:jei-1.21-fabric:${rootProject.jei_version}"
-
     // Trinkets
     modImplementation ("dev.emi:trinkets:${rootProject.trinkets_version}") {
         exclude(group: "dev.onyxstudios.cardinal-components-api")

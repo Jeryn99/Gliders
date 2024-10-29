@@ -70,19 +70,8 @@ dependencies {
     include modImplementation("curse.maven:playeranimator-658587:4587214")
   //  include modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
 
-    // JEI
-    modCompileOnly "mezz.jei:jei-1.21-forge-api:${rootProject.jei_version}"
-
-    // REI
-    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"
-
     // Configured & Catalogue
     modLocalRuntime "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
-
-    // Curios
-    modLocalRuntime "top.theillusivec4.curios:curios-forge:${rootProject.curios_version}"
-    modCompileOnly "top.theillusivec4.curios:curios-forge:${rootProject.curios_version}:api"
-
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
