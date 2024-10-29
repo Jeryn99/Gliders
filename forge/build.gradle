@@ -77,29 +77,49 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    modApi "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
-    include "net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}"
+
+    modApi("net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}") {
+        exclude group: "net.minecraftforge"
+    }
+
+    include("net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}") {
+        exclude group: "net.minecraftforge"
+    }
 
     // Player Animator
-    include modImplementation("curse.maven:playeranimator-658587:4587214")
-  //  include modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${rootProject.player_anim_version}")
+    include modImplementation("curse.maven:playeranimator-658587:4587214") {
+        exclude group: "net.minecraftforge"
+    }
 
     // JEI
-    modCompileOnly "mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}"
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}") {
+        exclude group: "net.minecraftforge"
+    }
 
     // REI
-    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"
+    modImplementation("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}") {
+        exclude group: "net.minecraftforge"
+    }
 
     // Configured & Catalogue
-    modLocalRuntime "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
+    modLocalRuntime("curse.maven:catalogue-459701:${rootProject.catalogue_version}") {
+        exclude group: "net.minecraftforge"
+    }
 
     // Curios
-    modLocalRuntime "top.theillusivec4.curios:curios-forge:${rootProject.curios_version}"
-    modCompileOnly "top.theillusivec4.curios:curios-forge:${rootProject.curios_version}:api"
+    modLocalRuntime("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}") {
+        exclude group: "net.minecraftforge"
+    }
+    modCompileOnly("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}:api") {
+        exclude group: "net.minecraftforge"
+    }
 
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    common(project(path: ":common", configuration: "namedElements")) {
+        transitive = false
+    }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) {
+        transitive = false
+    }
 }
 
 processResources {
@@ -121,18 +141,17 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier = "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
     archiveClassifier = 'forge-' + rootProject.mod_version
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier = "dev"
 }
 
 sourcesJar {

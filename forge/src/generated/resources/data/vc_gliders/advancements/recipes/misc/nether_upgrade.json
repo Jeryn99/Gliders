@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vc_gliders:paraglider_netherite"
+        "recipe": "vc_gliders:nether_upgrade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,8 @@
   ],
   "rewards": {
     "recipes": [
-      "vc_gliders:paraglider_netherite"
+      "vc_gliders:nether_upgrade"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
