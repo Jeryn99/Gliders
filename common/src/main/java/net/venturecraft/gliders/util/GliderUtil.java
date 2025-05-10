@@ -46,6 +46,10 @@ public class GliderUtil {
     }
 
     public static boolean canDeployHere(LivingEntity livingEntity) {
+
+        if(livingEntity.isPassenger()){
+            return false;
+        }
         boolean isAir = !livingEntity.onGround() && livingEntity.level().getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level().getBlockState(livingEntity.blockPosition().below()).isAir();
         boolean updraftAround = nearUpdraft(livingEntity);
         boolean isUpdraft = livingEntity.level().getBlockState(livingEntity.blockPosition().below()).is(VCGliderTags.UPDRAFT_BLOCKS);
@@ -58,7 +62,13 @@ public class GliderUtil {
             BlockState blockState = livingEntity.level().getBlockState(pos);
             if (blockState.is(VCGliderTags.UPDRAFT_BLOCKS)) {
 
-                if(blockState.hasProperty(BlockStateProperties.LIT)){
+                // Check that the block above is air or non-solid
+                BlockState above = livingEntity.level().getBlockState(pos.above());
+                if (!above.isAir() && above.isSolid()) {
+                    continue;
+                }
+
+                if (blockState.hasProperty(BlockStateProperties.LIT)) {
                     return blockState.getValue(BlockStateProperties.LIT);
                 }
 
@@ -67,6 +77,7 @@ public class GliderUtil {
         }
         return false;
     }
+
 
     @ExpectPlatform
     public static ResourceLocation getItemId(Item item){
