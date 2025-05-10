@@ -2,12 +2,15 @@ package net.venturecraft.gliders.common.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -20,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class GliderItem extends Item implements IPalladiumItem {
+public class GliderItem extends Item implements IPalladiumItem, Equipable {
 
     private final Supplier<ItemStack> repair;
 
@@ -32,6 +35,9 @@ public class GliderItem extends Item implements IPalladiumItem {
     public static boolean isSpaceGlider(ItemStack stack) {
         return stack.getDisplayName().getString().contains("xwing");
     }
+
+
+
 
     public static ItemStack setCopper(ItemStack itemStack, boolean copper) {
         CompoundTag compound = itemStack.getOrCreateTag();
@@ -139,4 +145,13 @@ public class GliderItem extends Item implements IPalladiumItem {
     }
 
 
+    @Override
+    public EquipmentSlot getEquipmentSlot() {
+        return EquipmentSlot.CHEST;
+    }
+
+    @Override
+    public SoundEvent getEquipSound() {
+        return SoundEvents.ARMOR_EQUIP_ELYTRA;
+    }
 }

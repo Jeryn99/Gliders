@@ -58,7 +58,7 @@ githubRelease {
     targetCommitish "main"
     releaseName "[$rootProject.minecraft_version] Gliders - v$version"
     generateReleaseNotes true
-    body new File("${rootProject.projectDir}/changelog.html").text
+    body new File("${rootProject.projectDir}/changelog.md").text
     draft false
     prerelease false
     releaseAssets(forgeFiles + fabricFiles + commonFiles)
