@@ -13,6 +13,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 
+import java.util.Optional;
+
 public class GliderModel extends HierarchicalModel {
 
     public static final AnimationDefinition CLOSING = AnimationDefinition.Builder.withLength(0.25f).addAnimation("CentreBrace", new AnimationChannel(AnimationChannel.Targets.POSITION, new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.041666666666666664f, KeyframeAnimations.posVec(0f, -3.05f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.08333333333333333f, KeyframeAnimations.posVec(0f, -7.37f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.125f, KeyframeAnimations.posVec(0f, -11.63f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.16666666666666666f, KeyframeAnimations.posVec(0f, -14.54f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.posVec(0f, -17f, 0f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("LArm", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, -85f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("LBrace", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, -87.5f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RArm", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, 85f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RBrace", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, 87.5f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("LMain", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, 60f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RMain", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, -60f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("LStrut", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, -132.5f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RStrut", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, 132.5f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("Glider", new AnimationChannel(AnimationChannel.Targets.POSITION, new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.04166666666666666f, KeyframeAnimations.posVec(0f, 1.7799999999999998f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.125f, KeyframeAnimations.posVec(0f, 6.1f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.16666666666666669f, KeyframeAnimations.posVec(0f, 7.8f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.20833333333333334f, KeyframeAnimations.posVec(0f, 8.5f, 0f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25f, KeyframeAnimations.posVec(0f, 9f, 0f), AnimationChannel.Interpolations.CATMULLROM))).build();
@@ -76,19 +78,25 @@ public class GliderModel extends HierarchicalModel {
 
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
-
     @Override
     public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity instanceof LivingEntity livingEntity) {
 
-            GliderData animData = GliderData.get(livingEntity).get();
+            Optional<GliderData> optionalData = GliderData.get(livingEntity);
+            if (optionalData.isEmpty()) return;
+
+            GliderData animData = optionalData.get();
             this.root().getAllParts().forEach(ModelPart::resetPose);
 
             if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
-                this.animate(animData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), OPENING, ageInTicks);
+                var animation = animData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING);
+                if (animation != null) {
+                    this.animate(animation, OPENING, ageInTicks);
+                }
             }
         }
     }
+
 
     @Override
     public ModelPart root() {
