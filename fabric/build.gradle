@@ -74,13 +74,6 @@ dependencies {
         exclude group: "net.minecraftforge"
     }
 
-    modApi("net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
-    }
-    include("net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
-    }
-
     // Cardinal Components
     modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}") {
         exclude group: "net.minecraftforge"

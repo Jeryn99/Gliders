@@ -1,8 +1,10 @@
 package net.venturecraft.gliders.network;
 
-import net.threetag.palladiumcore.network.MessageType;
-import net.threetag.palladiumcore.network.NetworkManager;
 import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.network.messages.MessagePOV;
+import net.venturecraft.gliders.network.messages.MessagePlaySound;
+import net.venturecraft.gliders.network.messages.MessageToggleGlide;
+import net.venturecraft.gliders.network.messages.SyncGliderData;
 
 public class GliderNetwork {
 

@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.venturecraft.gliders.network.SyncGliderData;
+import net.venturecraft.gliders.network.messages.SyncGliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
 

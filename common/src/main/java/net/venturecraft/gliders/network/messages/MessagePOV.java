@@ -1,9 +1,9 @@
-package net.venturecraft.gliders.network;
+package net.venturecraft.gliders.network.messages;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.threetag.palladiumcore.network.MessageContext;
-import net.threetag.palladiumcore.network.MessageS2C;
-import net.threetag.palladiumcore.network.MessageType;
+import net.venturecraft.gliders.network.GliderNetwork;
+import net.venturecraft.gliders.network.MessageS2C;
+import net.venturecraft.gliders.network.MessageType;
 import net.venturecraft.gliders.util.ClientUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +29,7 @@ public class MessagePOV extends MessageS2C {
     }
 
     @Override
-    public void handle(MessageContext context) {
+    public void handle() {
         ClientUtil.setPlayerPerspective(this.pointOfView);
     }
 

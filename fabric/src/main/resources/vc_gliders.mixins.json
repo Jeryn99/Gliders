@@ -6,6 +6,8 @@
     "LevelRendererMixin"
   ],
   "mixins": [
+    "MixinEntity",
+    "MixinLivingEntity"
   ],
   "injectors": {
     "defaultRequire": 1
