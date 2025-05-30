@@ -22,7 +22,7 @@ import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.data.GliderData;
-import net.venturecraft.gliders.network.MessagePOV;
+import net.venturecraft.gliders.network.messages.MessagePOV;
 
 import java.util.Iterator;
 import java.util.List;

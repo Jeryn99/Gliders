@@ -1,7 +1,6 @@
 package net.venturecraft.gliders;
 
 import net.minecraft.resources.ResourceLocation;
-import net.venturecraft.gliders.common.GliderEvents;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.common.item.VCTabs;
 import net.venturecraft.gliders.common.sound.SoundRegistry;

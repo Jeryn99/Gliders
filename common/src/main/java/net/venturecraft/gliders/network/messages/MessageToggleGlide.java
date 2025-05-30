@@ -1,16 +1,17 @@
-package net.venturecraft.gliders.network;
+package net.venturecraft.gliders.network.messages;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import net.threetag.palladiumcore.network.MessageC2S;
-import net.threetag.palladiumcore.network.MessageContext;
-import net.threetag.palladiumcore.network.MessageType;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.data.GliderData;
+import net.venturecraft.gliders.network.GliderNetwork;
+import net.venturecraft.gliders.network.MessageC2S;
+import net.venturecraft.gliders.network.MessageType;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,8 +34,8 @@ public class MessageToggleGlide extends MessageC2S {
     }
 
     @Override
-    public void handle(MessageContext context) {
-        var sender = context.getPlayer();
+    public void handle() {
+        var sender = Minecraft.getInstance().player;
         if (GliderUtil.hasGliderEquipped(sender)) {
             ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(sender);
             GliderItem.setGlide(chestItem, !GliderItem.isGlidingEnabled(chestItem));

@@ -78,14 +78,6 @@ configurations {
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
 
-    modApi("net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
-    }
-
-    include("net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
-    }
-
     // Player Animator
     include modImplementation("curse.maven:playeranimator-658587:4587214") {
         exclude group: "net.minecraftforge"

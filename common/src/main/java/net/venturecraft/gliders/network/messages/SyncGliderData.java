@@ -1,4 +1,4 @@
-package net.venturecraft.gliders.network;
+package net.venturecraft.gliders.network.messages;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,10 +8,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.threetag.palladiumcore.network.MessageContext;
-import net.threetag.palladiumcore.network.MessageS2C;
-import net.threetag.palladiumcore.network.MessageType;
 import net.venturecraft.gliders.data.GliderData;
+import net.venturecraft.gliders.network.GliderNetwork;
+import net.venturecraft.gliders.network.MessageS2C;
+import net.venturecraft.gliders.network.MessageType;
 import org.jetbrains.annotations.NotNull;
 
 public class SyncGliderData extends MessageS2C {
@@ -42,7 +42,7 @@ public class SyncGliderData extends MessageS2C {
     }
 
     @Override
-    public void handle(MessageContext context) {
+    public void handle() {
         this.handleClient();
     }
 
