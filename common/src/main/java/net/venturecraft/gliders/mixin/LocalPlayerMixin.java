@@ -1,5 +1,6 @@
 package net.venturecraft.gliders.mixin;
 
+import commonnetwork.api.Network;
 import net.minecraft.client.player.LocalPlayer;
 import net.venturecraft.gliders.network.MessageToggleGlide;
 import net.venturecraft.gliders.util.GliderUtil;
@@ -19,7 +20,7 @@ public class LocalPlayerMixin {
         LocalPlayer localPlayer = (LocalPlayer) (Object) this;
 
         if (GliderUtil.hasGliderEquipped(localPlayer) && canDeployHere(localPlayer)) {
-            new MessageToggleGlide().send();
+            Network.getNetworkHandler().sendToServer(new MessageToggleGlide());
         }
     }
 

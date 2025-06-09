@@ -11,7 +11,7 @@ import net.venturecraft.gliders.VCGliders;
 
 public class GliderDamageSource {
 
-    public static final ResourceKey<DamageType> ZAP_EXPERIMENT = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(VCGliders.MOD_ID, "zap_experiment"));
+    public static final ResourceKey<DamageType> ZAP_EXPERIMENT = ResourceKey.create(Registries.DAMAGE_TYPE, VCGliders.id("zap_experiment"));
 
     public static DamageSource getSource(ServerLevel level, ResourceKey<DamageType> damageTypeResourceKey) {
         Holder.Reference<DamageType> damageType = level.registryAccess()

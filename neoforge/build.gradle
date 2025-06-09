@@ -1,0 +1,175 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "me.shedaniel.unified-publishing" version "0.1.+"
+}
+
+architectury {
+    platformSetupLoomIde()
+    neoForge()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runConfigs.configureEach {
+        // Use MC_USERNAME and MC_ACCESS_TOKEN in your system environment variables to use your Minecraft account in dev
+        if (name == "client") {
+            if (System.getenv('MC_USERNAME') && System.getenv('MC_UUID') && System.getenv('MC_ACCESS_TOKEN')) {
+                programArgs '--username', System.getenv('MC_USERNAME'), '--uuid', System.getenv('MC_UUID'), '--accessToken', System.getenv('MC_ACCESS_TOKEN')
+            }
+        } else if (name == "data") {
+            programArgs '--existing', project(":common").file("src/main/resources/").absolutePath
+        }
+    }
+}
+/*
+unifiedPublishing {
+    project {
+        displayName = "🍂 [Forge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
+        releaseType = "release"
+        changelog = new File("${rootProject.projectDir}/changelog.md").text
+        gameVersions = ["1.20.1"]
+        mainPublication tasks.remapJar
+        gameLoaders = ["forge"]
+        relations {
+
+        }
+
+        var CURSE_API_KEY = project.findProperty("curseforge") ?: System.getenv("curseforge") ?: ""
+        if (CURSE_API_KEY != "") {
+            curseforge {
+                token = CURSE_API_KEY
+                id = "828331"
+                gameVersions.addAll "Java 21", "1.21.1"
+            }
+        }
+
+        var MODRINTH_TOKEN = project.findProperty("modrinth") ?: System.getenv("modrinth") ?: ""
+        if (MODRINTH_TOKEN != "") {
+            modrinth {
+                token = MODRINTH_TOKEN
+                id = "XiC6HzoU"
+                version = "$rootProject.mod_version+$project.name"
+            }
+        }
+    }
+}
+*/
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
+}
+
+dependencies {
+    neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
+
+    api("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}")
+
+    include("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}") {
+        exclude group: "net.neoforged"
+    }
+
+    // Player Animator
+    include modImplementation("curse.maven:playeranimator-658587:6024462") {
+        exclude group: "net.neoforged"
+    }
+
+    // JEI
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}") {
+        exclude group: "net.neoforged"
+    }
+
+    // REI
+    modImplementation("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}") {
+        exclude group: "net.neoforged"
+    }
+
+    // Configured & Catalogue
+    modLocalRuntime("curse.maven:catalogue-459701:${rootProject.catalogue_version}") {
+        exclude group: "net.neoforged"
+    }
+
+    // Curios
+    modLocalRuntime("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}") {
+        exclude group: "net.neoforged"
+    }
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api") {
+        exclude group: "net.neoforged"
+    }
+
+    implementation("mysticdrew:common-networking-neoforge:1.0.16-1.21") {
+        exclude group: "net.neoforged"
+    }
+
+    common(project(path: ":common", configuration: "namedElements")) {
+        transitive = false
+    }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) {
+        transitive = false
+    }
+}
+
+processResources {
+    inputs.property "mod_version", rootProject.mod_version
+    inputs.property "mod_name", rootProject.mod_name
+    inputs.property "mod_author", rootProject.mod_author
+    inputs.property "mod_license", rootProject.mod_license
+
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "mod_version": rootProject.mod_version,
+                "mod_name": rootProject.mod_name,
+                "mod_author": rootProject.mod_author,
+                "mod_license": rootProject.mod_license
+    }
+}
+
+sourceSets.main.resources {
+    srcDir project(":neoforge").file("src/generated/resources").absolutePath
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier = 'neoforge-' + rootProject.mod_version
+}
+
+jar {
+    archiveClassifier = "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}

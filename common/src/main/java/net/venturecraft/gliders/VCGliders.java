@@ -2,6 +2,7 @@ package net.venturecraft.gliders;
 
 import net.minecraft.resources.ResourceLocation;
 import net.venturecraft.gliders.common.GliderEvents;
+import net.venturecraft.gliders.common.item.ItemComponentRegistry;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.common.item.VCTabs;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
@@ -17,6 +18,7 @@ public class VCGliders {
 
     public static void init() {
         ItemRegistry.ITEMS.register();
+        ItemComponentRegistry.COMPONENT_TYPES.register();
         SoundRegistry.SOUNDS.register();
         VCTabs.TABS.register();
         GliderEvents.initEvents();
@@ -24,6 +26,6 @@ public class VCGliders {
     }
 
     public static ResourceLocation id(String location) {
-        return new ResourceLocation(MOD_ID, location);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, location);
     }
 }

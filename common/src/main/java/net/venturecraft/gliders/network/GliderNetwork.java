@@ -1,20 +1,14 @@
 package net.venturecraft.gliders.network;
 
-import net.threetag.palladiumcore.network.MessageType;
-import net.threetag.palladiumcore.network.NetworkManager;
-import net.venturecraft.gliders.VCGliders;
+import commonnetwork.api.Network;
 
 public class GliderNetwork {
 
-    public static final NetworkManager INSTANCE = NetworkManager.create(VCGliders.id("main"));
-
-    public static MessageType TOGGLE_GLIDER, PLAY_SOUND, POV, SYNC_DATA;
-
     public static void init() {
-        TOGGLE_GLIDER = INSTANCE.registerC2S("toggle_glider", MessageToggleGlide::new);
-        PLAY_SOUND = INSTANCE.registerS2C("play_sound", MessagePlaySound::new);
-        POV = INSTANCE.registerS2C("pov", MessagePOV::new);
-        SYNC_DATA = INSTANCE.registerS2C("sync_data", SyncGliderData::new);
+        Network.registerPacket(MessageToggleGlide.type(), MessageToggleGlide.class, MessageToggleGlide.STREAM_CODEC, MessageToggleGlide::handle)
+                .registerPacket(MessagePlaySound.type(), MessagePlaySound.class, MessagePlaySound.STREAM_CODEC, MessagePlaySound::handle)
+                .registerPacket(MessagePOV.type(), MessagePOV.class, MessagePOV.STREAM_CODEC, MessagePOV::handle)
+                .registerPacket(SyncGliderData.type(), SyncGliderData.class, SyncGliderData.STREAM_CODEC, SyncGliderData::handle);;
     }
 
 }

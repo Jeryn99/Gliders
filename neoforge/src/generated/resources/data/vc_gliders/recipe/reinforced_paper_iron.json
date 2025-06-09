@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "gliders",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "vc_gliders:reinforced_paper"
+    }
+  },
+  "pattern": [
+    "III",
+    "IPI",
+    "III"
+  ],
+  "result": {
+    "id": "vc_gliders:reinforced_paper_iron"
+  },
+  "show_notification": true
+}

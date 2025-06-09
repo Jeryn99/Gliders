@@ -12,6 +12,7 @@
     "LocalPlayerMixin"
   ],
   "mixins": [
+    "PlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

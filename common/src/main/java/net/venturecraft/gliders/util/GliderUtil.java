@@ -1,8 +1,10 @@
 package net.venturecraft.gliders.util;
 
+import commonnetwork.api.Network;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -79,9 +81,8 @@ public class GliderUtil {
     }
 
 
-    @ExpectPlatform
     public static ResourceLocation getItemId(Item item){
-        throw new RuntimeException();
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 
     public static void onTickPlayerGlide(Level level, LivingEntity player) {
@@ -154,7 +155,7 @@ public class GliderUtil {
             setGlide(glider, false);
             setStruck(glider, false);
             if (player instanceof ServerPlayer serverPlayer) {
-                new MessagePOV("").send(serverPlayer);
+                Network.getNetworkHandler().sendToClient(new MessagePOV(""), serverPlayer);
             }
         }
     }
@@ -175,21 +176,21 @@ public class GliderUtil {
 
     private static void lightningLogic(Level level, LivingEntity player, ItemStack glider) {
         if (level.isRainingAt(player.blockPosition())) {
+            if (GliderData.getIsGliding(player)) {
+                var lightningTimer = GliderData.getLightningTimer(player) + 1;
+                GliderData.setLightningTimer(player, lightningTimer);
 
-            GliderData.get(player).ifPresent(gliderData -> {
-                gliderData.setLightningTimer(gliderData.lightningTimer() + 1);
-
-                if (gliderData.lightningTimer() == 1) {
+                if (lightningTimer == 1) {
                     player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
                 }
 
-                if (player.level().random.nextInt(24) == 0 && gliderData.lightningTimer() > 200 && !hasBeenStruck(glider)) {
+                if (player.level().random.nextInt(24) == 0 && lightningTimer > 200 && !hasBeenStruck(glider)) {
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
                     lightningBolt.setVisualOnly(false);
                     level.addFreshEntity(lightningBolt);
                 }
-            });
+            };
 
             if (player.level().random.nextInt(24) == 0 && !hasCopperUpgrade(glider)) {
                 for (int i = 0; i < 2; i++) {
@@ -200,7 +201,7 @@ public class GliderUtil {
             }
 
         } else {
-           GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
+            GliderData.setLightningTimer(player, 0);
         }
     }
 
