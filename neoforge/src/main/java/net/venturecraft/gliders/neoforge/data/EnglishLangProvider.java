@@ -1,6 +1,12 @@
-package net.venturecraft.gliders.forge.data;
+package net.venturecraft.gliders.neoforge.data;
 
 
+import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.item.Rarity;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.GliderDamageSource;
 import net.venturecraft.gliders.common.item.ItemRegistry;
@@ -29,11 +35,11 @@ public class EnglishLangProvider extends LanguageProvider {
         add(ItemRegistry.REINFORCED_PAPER_DIAMOND.get(), "Re-Inforced Paper (Diamond)");
         add(ItemRegistry.REINFORCED_PAPER_NETHERITE.get(), "Re-Inforced Paper (Netherite)");
 
-        add(ItemRegistry.COPPER_UPGRADE.get(), Rarity.UNCOMMON.color + "Copper Upgrade");
-        add(ItemRegistry.NETHER_UPGRADE.get(), Rarity.EPIC.color + "Nether Upgrade");
+        add(ItemRegistry.COPPER_UPGRADE.get(), Rarity.UNCOMMON.color() + "Copper Upgrade");
+        add(ItemRegistry.NETHER_UPGRADE.get(), Rarity.EPIC.color() + "Nether Upgrade");
 
-        add(ModConstants.NETHER_UPGRADE, Rarity.EPIC.color + "Nether Upgrade");
-        add(ModConstants.COPPER_UPGRADE, Rarity.UNCOMMON.color + "Copper Upgrade");
+        add(ModConstants.NETHER_UPGRADE, Rarity.EPIC.color() + "Nether Upgrade");
+        add(ModConstants.COPPER_UPGRADE, Rarity.UNCOMMON.color() + "Copper Upgrade");
         add(ModConstants.INSTALLED_UPGRADES, "Installed Upgrades:");
 
         addSound(SoundRegistry.GLIDER_OPEN.get(), "Glider opens");

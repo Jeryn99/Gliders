@@ -1,11 +1,11 @@
-package net.venturecraft.gliders.forge.data;
+package net.venturecraft.gliders.neoforge.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinition;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SoundDefinition;
+import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 
@@ -31,7 +31,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
     public void createDefinitionAndAdd(SoundEvent mainSound, SoundDefinition.SoundType soundType, String subtitle, String... soundEvent) {
         SoundDefinition def = SoundDefinition.definition().subtitle("subtitle." + VCGliders.MOD_ID + "." + subtitle);
         for (String event : soundEvent) {
-            def.with(SoundDefinition.Sound.sound(new ResourceLocation(VCGliders.MOD_ID, event), soundType));
+            def.with(SoundDefinition.Sound.sound(VCGliders.id(event), soundType));
         }
         add(mainSound, def);
     }

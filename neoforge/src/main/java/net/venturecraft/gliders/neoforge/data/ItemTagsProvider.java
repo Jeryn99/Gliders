@@ -1,13 +1,12 @@
-package net.venturecraft.gliders.forge.data;
+package net.venturecraft.gliders.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.util.VCGliderTags;
@@ -37,7 +36,7 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
-        for (Item itemsValue : ForgeRegistries.ITEMS.getValues()) {
+        for (Item itemsValue : BuiltInRegistries.ITEM.stream().toList()) {
             if (itemsValue instanceof GliderItem) {
                 add(VCGliderTags.TRINKETS_BACK, itemsValue);
                 add(VCGliderTags.TRINKETS_CAPE, itemsValue);

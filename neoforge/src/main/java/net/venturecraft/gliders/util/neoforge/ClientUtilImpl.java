@@ -1,4 +1,4 @@
-package net.venturecraft.gliders.util.forge;
+package net.venturecraft.gliders.util.neoforge;
 
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;

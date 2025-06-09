@@ -60,15 +60,13 @@ configurations {
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
+    developmentNeoForge.extendsFrom common
 }
 
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
 
-    modApi("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}") {
-        exclude group: "net.neoforged"
-    }
+    api("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}")
 
     include("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}") {
         exclude group: "net.neoforged"
@@ -98,14 +96,18 @@ dependencies {
     modLocalRuntime("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}") {
         exclude group: "net.neoforged"
     }
-    modCompileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api") {
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api") {
+        exclude group: "net.neoforged"
+    }
+
+    implementation("mysticdrew:common-networking-neoforge:1.0.16-1.21") {
         exclude group: "net.neoforged"
     }
 
     common(project(path: ":common", configuration: "namedElements")) {
         transitive = false
     }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) {
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) {
         transitive = false
     }
 }
@@ -116,12 +118,16 @@ processResources {
     inputs.property "mod_author", rootProject.mod_author
     inputs.property "mod_license", rootProject.mod_license
 
-    filesMatching("META-INF/mods.toml") {
+    filesMatching("META-INF/neoforge.mods.toml") {
         expand "mod_version": rootProject.mod_version,
                 "mod_name": rootProject.mod_name,
                 "mod_author": rootProject.mod_author,
                 "mod_license": rootProject.mod_license
     }
+}
+
+sourceSets.main.resources {
+    srcDir project(":neoforge").file("src/generated/resources").absolutePath
 }
 
 shadowJar {
@@ -135,7 +141,7 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = 'forge-' + rootProject.mod_version
+    archiveClassifier = 'neoforge-' + rootProject.mod_version
 }
 
 jar {

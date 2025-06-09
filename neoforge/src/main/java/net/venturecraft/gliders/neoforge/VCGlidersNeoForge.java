@@ -1,33 +1,36 @@
-package net.venturecraft.gliders.forge;
+package net.venturecraft.gliders.neoforge;
 
 
+import net.minecraft.data.DataGenerator;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.compat.trinket.CuriosUtil;
-import net.venturecraft.gliders.forge.data.*;
+import net.venturecraft.gliders.data.neoforge.GliderDataImpl;
+import net.venturecraft.gliders.data.neoforge.VCComponents;
+import net.venturecraft.gliders.neoforge.data.*;
 
 @Mod(VCGliders.MOD_ID)
-@EventBusSubscriber(modid = VCGliders.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class VCGlidersForge {
+@EventBusSubscriber(modid = VCGliders.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+public class VCGlidersNeoForge {
 
-    public VCGlidersForge() {
+    public VCGlidersNeoForge(IEventBus eventBus, ModContainer container) {
         // Submit our event bus to let PalladiumCore register our content on the right time
-        PalladiumCoreForge.registerModEventBus(VCGliders.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         VCGliders.init();
-
-        if (Platform.isModLoaded("curios")) {
-            PalladiumCoreForge.registerModEventBus("curios", FMLJavaModLoadingContext.get().getModEventBus());
-        }
+        VCComponents.register(eventBus);
 
         if (Platform.isClient()) {
             VCGlidersClient.init();
         }
-
         if (Platform.isModLoaded("curios")) {
-            CuriosUtil.init();
+            CuriosUtil.init(eventBus);
         }
     }
 
@@ -38,7 +41,7 @@ public class VCGlidersForge {
 
         var blockTagsProvider = generator.addProvider(e.includeServer(), new BlockTagsProvider(generator.getPackOutput(), e.getLookupProvider(), existingFileHelper));
 
-        generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
+//        generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
 
         generator.addProvider(e.includeServer(), new ItemTagsProvider(generator.getPackOutput(), e.getLookupProvider(), blockTagsProvider.contentsGetter(), existingFileHelper));
 

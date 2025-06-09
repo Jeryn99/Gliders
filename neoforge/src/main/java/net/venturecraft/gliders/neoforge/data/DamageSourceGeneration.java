@@ -1,4 +1,4 @@
-package net.venturecraft.gliders.forge.data;
+package net.venturecraft.gliders.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
@@ -9,8 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.GliderDamageSource;
 
@@ -28,9 +27,9 @@ public class DamageSourceGeneration extends DatapackBuiltinEntriesProvider {
         super(output, lookupProvider, BUILDER, Set.of(VCGliders.MOD_ID));
     }
 
-    public static HolderLookup.Provider createLookup() {
-        return BUILDER.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), VanillaRegistries.createLookup());
-    }
+//    public static HolderLookup.Provider createLookup() {
+//        return BUILDER.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), VanillaRegistries.createLookup());
+//    }
 
 
 }

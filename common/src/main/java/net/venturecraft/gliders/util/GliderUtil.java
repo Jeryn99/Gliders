@@ -4,6 +4,7 @@ import commonnetwork.api.Network;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -80,9 +81,8 @@ public class GliderUtil {
     }
 
 
-    @ExpectPlatform
     public static ResourceLocation getItemId(Item item){
-        throw new RuntimeException();
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 
     public static void onTickPlayerGlide(Level level, LivingEntity player) {
