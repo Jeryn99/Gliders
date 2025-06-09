@@ -9,14 +9,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import commonnetwork.networking.data.PacketContext;
-import commonnetwork.networking.data.Side;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
-import org.jetbrains.annotations.NotNull;
 
 public class MessageToggleGlide {
     public static final ResourceLocation CHANNEL = VCGliders.id("toggle_glide");
@@ -46,11 +44,11 @@ public class MessageToggleGlide {
                 sender.level().playSound(null, sender.getX(), sender.getY(), sender.getZ(), GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_DEPLOY.get() : SoundRegistry.GLIDER_OPEN.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 Network.getNetworkHandler().sendToClient(new MessagePlaySound(GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_GLIDE.get().getLocation() : SoundEvents.ELYTRA_FLYING.getLocation(), sender.getUUID()), sender);
             } else {
-                GliderData.get(sender).ifPresent(gliderData -> gliderData.setLightningTimer(0));
+                GliderData.setLightningTimer(sender, 0);
             }
             Network.getNetworkHandler().sendToClient(new MessagePOV(GliderItem.isGlidingEnabled(chestItem) ? "THIRD_PERSON_BACK" : ""), sender);
         }
-        GliderData.get(sender).get().sync();
+        GliderData.sync(sender);
 
     }
 

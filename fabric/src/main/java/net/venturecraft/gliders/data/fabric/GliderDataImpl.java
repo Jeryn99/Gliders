@@ -11,30 +11,22 @@ import org.ladysnake.cca.api.v3.component.ComponentV3;
 import java.util.Objects;
 import java.util.Optional;
 
-public class GliderDataImpl extends GliderData implements ComponentV3 {
+public class GliderDataImpl {
 
-    public GliderDataImpl(Player livingEntity) {
-        super(livingEntity);
+    public static boolean getIsGliding(LivingEntity player) {
+        return player.getAttachedOrSet(VCAttachments.IS_GLIDING, false);
     }
 
-    public static Optional<GliderData> get(LivingEntity player) {
-        try {
-            return Optional.of(VCComponents.PLAYER_DATA.get(player));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public static void setIsGliding(LivingEntity player, boolean isGliding) {
+        player.setAttached(VCAttachments.IS_GLIDING, isGliding);
     }
 
-    @Override
-    public void readFromNbt(CompoundTag tag, HolderLookup.Provider provider) {
-        this.deserializeNBT(tag);
+    public static int getLightningTimer(LivingEntity player) {
+        return player.getAttachedOrSet(VCAttachments.LIGHTNING_TIMER, 0);
     }
 
-    @Override
-    public void writeToNbt(CompoundTag tag, HolderLookup.Provider provider) {
-        CompoundTag nbt = this.serializeNBT();
-        for (String key : nbt.getAllKeys()) {
-            tag.put(key, Objects.requireNonNull(nbt.get(key)));
-        }
+    public static void setLightningTimer(LivingEntity player, int lightningTimer) {
+        player.setAttached(VCAttachments.LIGHTNING_TIMER, lightningTimer);
     }
+
 }

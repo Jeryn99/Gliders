@@ -20,7 +20,7 @@ public class PlayerEntityMixin {
     @Inject(method = "tick", at = @At(value = "HEAD"))
     private void tick(CallbackInfo info) {
         var player = (Player) (Object) this;
-        GliderData.get(player).ifPresent(data -> data.tick(player));
+        GliderData.tick(player);
     }
 
     @Inject(method = "attack", at = @At(value = "HEAD"), cancellable = true)

@@ -109,9 +109,7 @@ public class GliderEvents implements PlayerEvents.Tracking, EntityEvents.Lightni
     public void playerTracking(Player tracker, Entity trackedEntity) {
         // Don't sync to all, just sync to the tracker
         if (trackedEntity instanceof Player trackedPlayer && tracker instanceof ServerPlayer trackerPlayer) {
-            GliderData.get(trackedPlayer).ifPresent(data -> {
-                data.syncTo(trackerPlayer);
-            });
+            GliderData.syncTo(trackerPlayer);
         }
     }
 }

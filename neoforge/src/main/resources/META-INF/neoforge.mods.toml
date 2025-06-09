@@ -33,3 +33,6 @@ mandatory = true
 versionRange = "[1.19.2-1.2.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[mixins]]
+config = "vc_gliders-common.mixins.json"

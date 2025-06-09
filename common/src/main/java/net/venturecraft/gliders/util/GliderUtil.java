@@ -176,21 +176,21 @@ public class GliderUtil {
 
     private static void lightningLogic(Level level, LivingEntity player, ItemStack glider) {
         if (level.isRainingAt(player.blockPosition())) {
+            if (GliderData.getIsGliding(player)) {
+                var lightningTimer = GliderData.getLightningTimer(player) + 1;
+                GliderData.setLightningTimer(player, lightningTimer);
 
-            GliderData.get(player).ifPresent(gliderData -> {
-                gliderData.setLightningTimer(gliderData.lightningTimer() + 1);
-
-                if (gliderData.lightningTimer() == 1) {
+                if (lightningTimer == 1) {
                     player.playSound(SoundRegistry.INCOMING_LIGHTNING.get());
                 }
 
-                if (player.level().random.nextInt(24) == 0 && gliderData.lightningTimer() > 200 && !hasBeenStruck(glider)) {
+                if (player.level().random.nextInt(24) == 0 && lightningTimer > 200 && !hasBeenStruck(glider)) {
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lightningBolt.setPos(player.getX(), player.getY(), player.getZ());
                     lightningBolt.setVisualOnly(false);
                     level.addFreshEntity(lightningBolt);
                 }
-            });
+            };
 
             if (player.level().random.nextInt(24) == 0 && !hasCopperUpgrade(glider)) {
                 for (int i = 0; i < 2; i++) {
@@ -201,7 +201,7 @@ public class GliderUtil {
             }
 
         } else {
-           GliderData.get(player).ifPresent(gliderData -> gliderData.setLightningTimer(0));
+            GliderData.setLightningTimer(player, 0);
         }
     }
 

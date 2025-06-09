@@ -6,36 +6,25 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.venturecraft.gliders.data.GliderData;
-import net.venturecraft.gliders.data.neoforge.VCComponents;
 
 import java.util.Objects;
 import java.util.Optional;
 
-public class GliderDataImpl extends GliderData {
+public class GliderDataImpl {
 
-    public GliderDataImpl(Player livingEntity) {
-        super(livingEntity);
+    public static boolean getIsGliding(LivingEntity player) {
+        return player.getData(VCAttachments.IS_GLIDING);
     }
 
-    public static Optional<GliderData> get(Player player) {
-        try {
-            GliderData gliderData = new GliderData(player);
-            CompoundTag data = player.getData(VCComponents.PLAYER_DATA);
-            gliderData.deserializeNBT(data);
-            return Optional.of(gliderData);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public static void setIsGliding(LivingEntity player, boolean isGliding) {
+        player.setData(VCAttachments.IS_GLIDING, isGliding);
     }
 
-    public void readFromNbt(CompoundTag tag, HolderLookup.Provider provider) {
-        this.deserializeNBT(tag);
+    public static int getLightningTimer(LivingEntity player) {
+        return player.getData(VCAttachments.LIGHTNING_TIMER);
     }
 
-    public void writeToNbt(CompoundTag tag, HolderLookup.Provider provider) {
-        CompoundTag nbt = this.serializeNBT();
-        for (String key : nbt.getAllKeys()) {
-            tag.put(key, Objects.requireNonNull(nbt.get(key)));
-        }
+    public static void setLightningTimer(LivingEntity player, int lightningTimer) {
+        player.setData(VCAttachments.LIGHTNING_TIMER, lightningTimer);
     }
 }

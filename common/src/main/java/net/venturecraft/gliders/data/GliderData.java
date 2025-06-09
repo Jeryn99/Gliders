@@ -15,50 +15,38 @@ import java.util.Optional;
 
 public class GliderData {
 
-
-    @NotNull
-    private final Player player;
-    public AnimationState glideAnimation = new AnimationState();
-    public AnimationState fallingAnimation = new AnimationState();
-    public AnimationState gliderOpeningAnimation = new AnimationState();
-    private boolean isGliding = false;
-    private int lightningTimer = 0;
-
-    public GliderData(@NotNull Player player) {
-        this.player = player;
-    }
+    public static AnimationState glideAnimation = new AnimationState();
+    public static AnimationState fallingAnimation = new AnimationState();
+    public static AnimationState gliderOpeningAnimation = new AnimationState();
 
     @ExpectPlatform
-    public static Optional<GliderData> get(LivingEntity player) {
+    public static boolean getIsGliding(LivingEntity player) {
         throw new AssertionError();
     }
 
-    public void tick(LivingEntity livingEntity) {
+    @ExpectPlatform
+    public static int getLightningTimer(LivingEntity player) {
+        throw new AssertionError();
+    }
+
+    public static void tick(LivingEntity livingEntity) {
         glideAndFallLogic(livingEntity);
         GliderUtil.onTickPlayerGlide(livingEntity.level(), livingEntity);
 
         if(!GliderUtil.isGlidingWithActiveGlider(livingEntity)){
-            setLightningTimer(0);
+            setLightningTimer(livingEntity, 0);
         }
 
         if (livingEntity.level().isClientSide) return;
-        setGliding(GliderUtil.isGlidingWithActiveGlider(livingEntity));
+        setIsGliding(livingEntity, GliderUtil.isGlidingWithActiveGlider(livingEntity));
 
         if (livingEntity.tickCount % 40 == 0) {
-            sync();
+            sync(livingEntity);
         }
     }
 
-    private boolean isGliding() {
-        return isGliding;
-    }
-
-    private void setGliding(boolean glidingWithActiveGlider) {
-        isGliding = glidingWithActiveGlider;
-    }
-
-    private void glideAndFallLogic(LivingEntity livingEntity) {
-        if (isGliding() || GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
+    private static void glideAndFallLogic(LivingEntity livingEntity) {
+        if (getIsGliding(livingEntity) || GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             if (!glideAnimation.isStarted()) {
                 glideAnimation.start(livingEntity.tickCount);
             }
@@ -72,22 +60,22 @@ public class GliderData {
         }
     }
 
-    public void sync() {
-        if (this.player.level().isClientSide) {
+    public static void sync(LivingEntity livingEntity) {
+        if (livingEntity.level().isClientSide) {
             throw new IllegalStateException("Don't sync client -> server");
         }
-        SyncGliderData syncGliderData = new SyncGliderData(this.player.getId(), serializeNBT());
-        Network.getNetworkHandler().sendToClient(syncGliderData, (ServerPlayer) this.player);
+        SyncGliderData syncGliderData = new SyncGliderData(livingEntity.getId(), serializeNBT());
+        Network.getNetworkHandler().sendToClient(syncGliderData, (ServerPlayer) livingEntity);
     }
 
-    public void syncTo(ServerPlayer receiver) {
-        if (this.player.level().isClientSide) {
+    public static void syncTo(ServerPlayer receiver) {
+        if (receiver.level().isClientSide) {
             throw new IllegalStateException("Don't sync client -> server");
         }
-        Network.getNetworkHandler().sendToClient(new SyncGliderData(this.player.getId(), serializeNBT()), receiver);
+        Network.getNetworkHandler().sendToClient(new SyncGliderData(receiver.getId(), serializeNBT()), receiver);
     }
 
-    public AnimationState getAnimation(AnimationStates animationStates) {
+    public static AnimationState getAnimation(AnimationStates animationStates) {
         return switch (animationStates) {
             case FALLING -> fallingAnimation;
             case GLIDING -> glideAnimation;
@@ -95,25 +83,25 @@ public class GliderData {
         };
     }
 
-    public CompoundTag serializeNBT() {
+    public static CompoundTag serializeNBT() {
         CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putBoolean("is_gliding", isGliding);
-        compoundTag.putInt("lightningTimer", lightningTimer);
         return compoundTag;
     }
 
-    public int lightningTimer() {
-        return lightningTimer;
+    @ExpectPlatform
+    public static void setLightningTimer(LivingEntity player, int lightningTimer) {
+        throw new AssertionError();
     }
 
-    public GliderData setLightningTimer(int lightningTimer) {
-        this.lightningTimer = lightningTimer;
-        return this;
+
+    @ExpectPlatform
+    public static void setIsGliding(LivingEntity player, boolean isGliding) {
+        throw new AssertionError();
     }
 
-    public void deserializeNBT(CompoundTag nbt) {
-        setGliding(nbt.getBoolean("is_gliding"));
-        setLightningTimer(nbt.getInt("lightningTimer"));
+    public static void deserializeNBT(Player player, CompoundTag nbt) {
+        setIsGliding(player, nbt.getBoolean("is_gliding"));
+        setLightningTimer(player, nbt.getInt("lightningTimer"));
     }
 
     public enum AnimationStates {

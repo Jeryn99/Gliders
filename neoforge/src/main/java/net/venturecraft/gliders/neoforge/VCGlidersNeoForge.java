@@ -13,8 +13,7 @@ import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.compat.trinket.CuriosUtil;
-import net.venturecraft.gliders.data.neoforge.GliderDataImpl;
-import net.venturecraft.gliders.data.neoforge.VCComponents;
+import net.venturecraft.gliders.data.neoforge.VCAttachments;
 import net.venturecraft.gliders.neoforge.data.*;
 
 @Mod(VCGliders.MOD_ID)
@@ -24,7 +23,7 @@ public class VCGlidersNeoForge {
     public VCGlidersNeoForge(IEventBus eventBus, ModContainer container) {
         // Submit our event bus to let PalladiumCore register our content on the right time
         VCGliders.init();
-        VCComponents.register(eventBus);
+        VCAttachments.register(eventBus);
 
         if (Platform.isClient()) {
             VCGlidersClient.init();

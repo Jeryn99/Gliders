@@ -55,6 +55,6 @@ public class SyncGliderData {
         Entity entity = level.getEntity(context.message().entityID);
 
         if (entity instanceof Player player)
-            GliderData.get(player).ifPresent((c) -> c.deserializeNBT(context.message().nbt));
+            GliderData.deserializeNBT(player, context.message().nbt);
     }
 }
