@@ -59,24 +59,24 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
                 // Translate and render base glider
                 poseStack.translate(0, -1.9, -0.5);
                 xWingModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                xWingModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, 1);
+                xWingModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, -1);
             } else {
 
                 // Translate and render base glider
                 poseStack.translate(0, -1.8, 0);
                 gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, 1);
+                gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(getGliderTexture(stack))), p_117351_, OverlayTexture.NO_OVERLAY, -1);
 
                 // Has Coppered Embedded
                 if (GliderItem.hasCopperUpgrade(stack)) {
                     gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), p_117351_, OverlayTexture.NO_OVERLAY, 1);
+                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.eyes(GliderItem.hasBeenStruck(stack) ? COPPER_EMBED_CHARGED : COPPER_EMBED)), p_117351_, OverlayTexture.NO_OVERLAY, -1);
                 }
 
                 // Has Nether Embedded
                 if (GliderItem.hasNetherUpgrade(stack)) {
                     gliderModel.setupAnim(living, 0, 0, living.tickCount, 0, 0);
-                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(NETHER_UPGRADE)), p_117351_, OverlayTexture.NO_OVERLAY, 1);
+                    gliderModel.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(NETHER_UPGRADE)), p_117351_, OverlayTexture.NO_OVERLAY, -1);
                 }
             }
             poseStack.popPose();

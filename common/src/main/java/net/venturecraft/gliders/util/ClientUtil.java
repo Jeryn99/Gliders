@@ -64,7 +64,7 @@ public class ClientUtil {
     public static void povButton(ControlsScreen controlsScreen) {
         int i = controlsScreen.width / 2 - 155;
         int j = i + 160;
-        int startingY = controlsScreen.height / 6 - 12 + 48;
+        int startingY = (int) (controlsScreen.height / 3.3 - 12 + 48);
         int k = startingY;
 
         for (int attempt = 0; attempt < 10; attempt++) {

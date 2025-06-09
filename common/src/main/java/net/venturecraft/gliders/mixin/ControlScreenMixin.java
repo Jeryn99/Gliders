@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ControlsScreen.class)
 public class ControlScreenMixin {
 
-    @Inject(method = "<init>", at = @At(value = "RETURN"))
+    @Inject(method = "addOptions", at = @At(value = "RETURN"))
     private void init(CallbackInfo info) {
         ControlsScreen controlsScreen = (ControlsScreen) (Object) this;
         ClientUtil.povButton(controlsScreen);
