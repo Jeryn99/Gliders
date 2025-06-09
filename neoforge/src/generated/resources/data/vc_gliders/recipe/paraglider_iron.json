@@ -7,7 +7,7 @@
       "item": "minecraft:feather"
     },
     "R": {
-      "item": "vc_gliders:reinforced_paper"
+      "item": "vc_gliders:reinforced_paper_iron"
     },
     "S": {
       "item": "minecraft:string"
@@ -22,7 +22,7 @@
     "WOW"
   ],
   "result": {
-    "item": "vc_gliders:paraglider_wood"
+    "id": "vc_gliders:paraglider_iron"
   },
   "show_notification": true
 }

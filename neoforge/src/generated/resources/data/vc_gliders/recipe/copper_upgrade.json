@@ -21,7 +21,7 @@
     "HCH"
   ],
   "result": {
-    "item": "vc_gliders:copper_upgrade"
+    "id": "vc_gliders:copper_upgrade"
   },
   "show_notification": true
 }

@@ -3,20 +3,20 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "N": {
+      "item": "minecraft:netherite_scrap"
     },
     "P": {
       "item": "vc_gliders:reinforced_paper"
     }
   },
   "pattern": [
-    "III",
-    "IPI",
-    "III"
+    "NNN",
+    "NPN",
+    "NNN"
   ],
   "result": {
-    "item": "vc_gliders:reinforced_paper_iron"
+    "id": "vc_gliders:reinforced_paper_netherite"
   },
   "show_notification": true
 }

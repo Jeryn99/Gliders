@@ -3,20 +3,20 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "L": {
-      "item": "minecraft:leather"
+    "D": {
+      "item": "minecraft:diamond"
     },
     "P": {
-      "item": "minecraft:paper"
+      "item": "vc_gliders:reinforced_paper"
     }
   },
   "pattern": [
-    "LPL",
-    "PLP",
-    "LPL"
+    "DDD",
+    "DPD",
+    "DDD"
   ],
   "result": {
-    "item": "vc_gliders:reinforced_paper"
+    "id": "vc_gliders:reinforced_paper_diamond"
   },
   "show_notification": true
 }

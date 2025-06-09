@@ -22,7 +22,7 @@
     "WOW"
   ],
   "result": {
-    "item": "vc_gliders:paraglider_netherite"
+    "id": "vc_gliders:paraglider_netherite"
   },
   "show_notification": true
 }

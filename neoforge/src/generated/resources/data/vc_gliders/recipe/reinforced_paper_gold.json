@@ -3,20 +3,20 @@
   "category": "misc",
   "group": "gliders",
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
+    "G": {
+      "item": "minecraft:gold_ingot"
     },
     "P": {
       "item": "vc_gliders:reinforced_paper"
     }
   },
   "pattern": [
-    "DDD",
-    "DPD",
-    "DDD"
+    "GGG",
+    "GPG",
+    "GGG"
   ],
   "result": {
-    "item": "vc_gliders:reinforced_paper_diamond"
+    "id": "vc_gliders:reinforced_paper_gold"
   },
   "show_notification": true
 }
