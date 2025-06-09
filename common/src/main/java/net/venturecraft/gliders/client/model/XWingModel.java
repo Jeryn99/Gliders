@@ -160,11 +160,10 @@ public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity instanceof LivingEntity livingEntity) {
 
-            GliderData animData = GliderData.get(livingEntity).get();
             this.root().getAllParts().forEach(ModelPart::resetPose);
 
             if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
-                this.animate(animData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), OPEN_XWING, ageInTicks);
+                this.animate(GliderData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), OPEN_XWING, ageInTicks);
             }
         }
     }

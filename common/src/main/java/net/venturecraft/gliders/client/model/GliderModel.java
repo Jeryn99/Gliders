@@ -82,14 +82,12 @@ public class GliderModel extends HierarchicalModel {
     public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity instanceof LivingEntity livingEntity) {
 
-            Optional<GliderData> optionalData = GliderData.get(livingEntity);
-            if (optionalData.isEmpty()) return;
+            if (!GliderData.getIsGliding(livingEntity)) return;
 
-            GliderData animData = optionalData.get();
             this.root().getAllParts().forEach(ModelPart::resetPose);
 
             if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
-                var animation = animData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING);
+                var animation = GliderData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING);
                 if (animation != null) {
                     this.animate(animation, OPENING, ageInTicks);
                 }

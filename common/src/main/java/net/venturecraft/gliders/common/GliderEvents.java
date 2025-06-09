@@ -20,24 +20,23 @@ import net.venturecraft.gliders.common.item.ItemRegistry;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tracking,  LivingEntityEvents.Tick, EntityEvents.LightningStrike, LivingEntityEvents.Hurt, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements PlayerEvents.Tracking, EntityEvents.LightningStrike, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
         EntityEvents.LIGHTNING_STRIKE.register(instance);
-        LivingEntityEvents.HURT.register(instance);
         LivingEntityEvents.ITEM_USE_START.register(instance);
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
         LivingEntityEvents.ITEM_USE_STOP.register(instance);
-        LivingEntityEvents.HURT.register(instance);
         PlayerEvents.ANVIL_UPDATE.register(instance);
         PlayerEvents.START_TRACKING.register(instance);
-        LivingEntityEvents.TICK.register(instance);
     }
 
     @Override
@@ -74,9 +73,7 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
 
 
     @Override
-    public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, String name, AtomicInteger cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
-
-
+    public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, @Nullable String name, AtomicLong cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
         if(left.getItem() instanceof GliderItem gliderItem) {
 
             // Glider Repair
@@ -90,14 +87,14 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
 
             if(right.getItem() == ItemRegistry.COPPER_UPGRADE.get()){
                 ItemStack data = left.copy();
-                data = makeResult(data, "copper");
+                data = GliderItem.setCopper(data, true);
                 cost.set(10);
                 output.set(data);
             }
 
             if(right.getItem() == ItemRegistry.NETHER_UPGRADE.get()){
                 ItemStack data = left.copy();
-                data = makeResult(data, "nether");
+                data = GliderItem.setNether(data, true);
                 cost.set(10);
                 output.set(data);
             }
@@ -108,48 +105,11 @@ public class GliderEvents implements LivingEntityEvents.Attack, PlayerEvents.Tra
         return EventResult.pass();
     }
 
-    public static ItemStack makeResult(ItemStack base, String upgrade) {
-        var result = base.copy();
-        result.getOrCreateTag().putBoolean(upgrade + "_upgrade", true);
-        return result;
-    }
-
-    @Override
-    public void livingEntityTick(LivingEntity entity) {
-        if (entity instanceof Player player) {
-            GliderData.get(player).ifPresent(data -> data.tick(player));
-        }
-    }
-
     @Override
     public void playerTracking(Player tracker, Entity trackedEntity) {
         // Don't sync to all, just sync to the tracker
         if (trackedEntity instanceof Player trackedPlayer && tracker instanceof ServerPlayer trackerPlayer) {
-            GliderData.get(trackedPlayer).ifPresent(data -> {
-                data.syncTo(trackerPlayer);
-            });
+            GliderData.syncTo(trackerPlayer);
         }
-    }
-
-    @Override
-    public EventResult livingEntityHurt(LivingEntity entity, DamageSource damageSource, AtomicReference<Float> amount) {
-        if (entity instanceof Player player) {
-            ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
-            boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);
-            boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
-            boolean isLightning = damageSource.is(DamageTypes.LIGHTNING_BOLT);
-            if (hasCopperMod && isGliding && isLightning) {
-                return EventResult.cancel();
-            }
-        }
-        return EventResult.pass();
-    }
-
-    @Override
-    public EventResult livingEntityAttack(LivingEntity entity, DamageSource damageSource, float amount) {
-        if(damageSource.getDirectEntity() instanceof LivingEntity livingEntity) {
-            return GliderUtil.isGlidingWithActiveGlider(livingEntity) ? EventResult.cancel() : EventResult.pass();
-        }
-        return EventResult.pass();
     }
 }

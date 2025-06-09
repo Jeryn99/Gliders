@@ -86,7 +86,7 @@ public class CuriosTrinketsUtil {
     }
 
     public CuriosTrinketsSlotInv getSlot(LivingEntity entity, Slot slot) {
-        return this.getSlot(entity, (Platform.isForge() ? slot.getForge() : slot.getFabric()).location().getPath());
+        return this.getSlot(entity, (Platform.isNeoForge() ? slot.getForge() : slot.getFabric()).location().getPath());
     }
 
     public static class Slot {
@@ -95,9 +95,9 @@ public class CuriosTrinketsUtil {
         private final String identifier;
 
         public Slot(String forge, String fabric) {
-            this.forge = TagKey.create(Registries.ITEM, new ResourceLocation("curios:" + forge));
-            this.fabric = TagKey.create(Registries.ITEM, new ResourceLocation("trinkets:" + fabric));
-            this.identifier = Platform.isForge() ? forge : fabric;
+            this.forge = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("curios:" + forge));
+            this.fabric = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("trinkets:" + fabric));
+            this.identifier = Platform.isNeoForge() ? forge : fabric;
         }
 
         public String identifier() {

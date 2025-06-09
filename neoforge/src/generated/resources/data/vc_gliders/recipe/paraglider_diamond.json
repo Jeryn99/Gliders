@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "gliders",
+  "key": {
+    "O": {
+      "item": "minecraft:feather"
+    },
+    "R": {
+      "item": "vc_gliders:reinforced_paper_diamond"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "W": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "SWS",
+    "WOW"
+  ],
+  "result": {
+    "id": "vc_gliders:paraglider_diamond"
+  },
+  "show_notification": true
+}

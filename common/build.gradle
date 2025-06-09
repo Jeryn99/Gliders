@@ -12,12 +12,12 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
     // Player Animator
-    modImplementation("curse.maven:playeranimator-658587:4587215") {
+    modImplementation("curse.maven:playeranimator-658587:6024464") {
         exclude group: "net.minecraftforge"
     }
 
-    modApi("net.threetag:PalladiumCore:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
+    modApi("net.threetag:palladiumcore-common:${rootProject.palladiumcore_version}") {
+        exclude group: "net.neoforged"
     }
 
     // JEI
@@ -32,8 +32,11 @@ dependencies {
     }
 
     // Forge Config API Port
-    modApi("net.minecraftforge:forgeconfigapiport-fabric:${rootProject.forge_config_api_port_version}") {
+    modApi("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${rootProject.forge_config_api_port_version}") {
         exclude group: "net.minecraftforge"
+    }
+    modImplementation("mysticdrew:common-networking-fabric:1.0.16-1.21") {
+        exclude group: "net.fabricmc.fabric-api"
     }
 }
 

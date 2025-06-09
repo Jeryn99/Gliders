@@ -1,6 +1,7 @@
 package net.venturecraft.gliders.common.item;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -8,22 +9,19 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.threetag.palladiumcore.item.IPalladiumItem;
 import net.venturecraft.gliders.util.ModConstants;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-public class GliderItem extends Item implements IPalladiumItem, Equipable {
+public class GliderItem extends Item implements Equipable {
 
     private final Supplier<ItemStack> repair;
 
@@ -40,33 +38,31 @@ public class GliderItem extends Item implements IPalladiumItem, Equipable {
 
 
     public static ItemStack setCopper(ItemStack itemStack, boolean copper) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putBoolean("copper_upgrade", copper);
+        itemStack.set(ItemComponentRegistry.COPPER_UPGRADE.get(), copper);
         return itemStack;
     }
 
     public static boolean hasCopperUpgrade(ItemStack itemStack) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("copper_upgrade")) return false;
-        return compound.getBoolean("copper_upgrade");
+        DataComponentMap compound = itemStack.getComponents();
+        if (!compound.has(ItemComponentRegistry.COPPER_UPGRADE.get())) return false;
+        return compound.get(ItemComponentRegistry.COPPER_UPGRADE.get());
     }
 
     public static ItemStack setNether(ItemStack itemStack, boolean copper) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putBoolean("nether_upgrade", copper);
+        itemStack.set(ItemComponentRegistry.NETHER_UPGRADE.get(), copper);
         return itemStack;
     }
 
     public static boolean hasNetherUpgrade(ItemStack itemStack) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("nether_upgrade")) return false;
-        return compound.getBoolean("nether_upgrade");
+        DataComponentMap compound = itemStack.getComponents();
+        if (!compound.has(ItemComponentRegistry.NETHER_UPGRADE.get())) return false;
+        return compound.get(ItemComponentRegistry.NETHER_UPGRADE.get());
     }
 
     public static boolean isGlidingEnabled(ItemStack itemStack) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("glide")) return false;
-        return compound.getBoolean("glide") && !isBroken(itemStack);
+        DataComponentMap compound = itemStack.getComponents();
+        if (!compound.has(ItemComponentRegistry.GLIDE.get())) return false;
+        return compound.get(ItemComponentRegistry.GLIDE.get()) && !isBroken(itemStack);
     }
 
     public static boolean isTooBroken(ItemStack itemStack) {
@@ -74,30 +70,27 @@ public class GliderItem extends Item implements IPalladiumItem, Equipable {
     }
 
     public static void setGlide(ItemStack itemStack, boolean canGlide) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putBoolean("glide", canGlide);
+        itemStack.set(ItemComponentRegistry.GLIDE.get(), canGlide);
     }
 
     public static void setBroken(ItemStack itemStack, boolean broken) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putBoolean("broken", broken);
+        itemStack.set(ItemComponentRegistry.STRUCK.get(), broken);
     }
 
     public static boolean isBroken(ItemStack itemStack) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("broken")) return false;
-        return compound.getBoolean("broken");
+        DataComponentMap compound = itemStack.getComponents();
+        if (!compound.has(ItemComponentRegistry.BROKEN.get())) return false;
+        return compound.get(ItemComponentRegistry.BROKEN.get());
     }
 
     public static void setStruck(ItemStack itemStack, boolean isStruck) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        compound.putBoolean("struck", isStruck);
+        itemStack.set(ItemComponentRegistry.STRUCK.get(), isStruck);
     }
 
     public static boolean hasBeenStruck(ItemStack itemStack) {
-        CompoundTag compound = itemStack.getOrCreateTag();
-        if (!compound.contains("struck")) return false;
-        return compound.getBoolean("struck");
+        DataComponentMap compound = itemStack.getComponents();
+        if (!compound.has(ItemComponentRegistry.STRUCK.get())) return false;
+        return compound.get(ItemComponentRegistry.STRUCK.get());
     }
 
     @Override
@@ -106,13 +99,8 @@ public class GliderItem extends Item implements IPalladiumItem, Equipable {
     }
 
     @Override
-    public @Nullable EquipmentSlot getEquipmentSlot(ItemStack stack) {
-        return EquipmentSlot.CHEST;
-    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltip, tooltipFlag);
 
         if (hasCopperUpgrade(stack) || hasNetherUpgrade(stack)) {
             tooltip.add(Component.translatable(ModConstants.INSTALLED_UPGRADES));
@@ -129,7 +117,7 @@ public class GliderItem extends Item implements IPalladiumItem, Equipable {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
-        EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(itemstack);
+        EquipmentSlot equipmentslot = player.getEquipmentSlotForItem(itemstack);
         ItemStack equipmentSlotStack = player.getItemBySlot(equipmentslot);
         if (equipmentSlotStack.isEmpty()) {
             player.setItemSlot(equipmentslot, itemstack.copy());
@@ -151,7 +139,7 @@ public class GliderItem extends Item implements IPalladiumItem, Equipable {
     }
 
     @Override
-    public SoundEvent getEquipSound() {
+    public Holder<SoundEvent> getEquipSound() {
         return SoundEvents.ARMOR_EQUIP_ELYTRA;
     }
 }
