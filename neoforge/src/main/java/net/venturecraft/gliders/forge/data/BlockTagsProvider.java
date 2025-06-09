@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class BlockTagsProvider extends net.minecraftforge.common.data.BlockTagsProvider {
+public class BlockTagsProvider extends BlockTagsProvider {
 
 
     public BlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {

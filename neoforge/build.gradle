@@ -5,7 +5,7 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    forge()
+    neoForge()
 }
 
 loom {
@@ -21,20 +21,8 @@ loom {
             programArgs '--existing', project(":common").file("src/main/resources/").absolutePath
         }
     }
-
-    forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-        mixinConfig "vc_gliders-common.mixins.json"
-        mixinConfig "vc_gliders.mixins.json"
-
-        dataGen {
-            mod "vc_gliders"
-        }
-    }
 }
-
+/*
 unifiedPublishing {
     project {
         displayName = "🍂 [Forge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
@@ -52,7 +40,7 @@ unifiedPublishing {
             curseforge {
                 token = CURSE_API_KEY
                 id = "828331"
-                gameVersions.addAll "Java 17", "1.20.1"
+                gameVersions.addAll "Java 21", "1.21.1"
             }
         }
 
@@ -66,7 +54,7 @@ unifiedPublishing {
         }
     }
 }
-
+*/
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -76,42 +64,42 @@ configurations {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
 
-    modApi("net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
+    modApi("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}") {
+        exclude group: "net.neoforged"
     }
 
-    include("net.threetag:PalladiumCore-forge:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
+    include("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}") {
+        exclude group: "net.neoforged"
     }
 
     // Player Animator
-    include modImplementation("curse.maven:playeranimator-658587:4587214") {
-        exclude group: "net.minecraftforge"
+    include modImplementation("curse.maven:playeranimator-658587:6024462") {
+        exclude group: "net.neoforged"
     }
 
     // JEI
-    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}") {
-        exclude group: "net.minecraftforge"
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}") {
+        exclude group: "net.neoforged"
     }
 
     // REI
-    modImplementation("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}") {
-        exclude group: "net.minecraftforge"
+    modImplementation("me.shedaniel:RoughlyEnoughItems-neoforge:${rootProject.rei_version}") {
+        exclude group: "net.neoforged"
     }
 
     // Configured & Catalogue
     modLocalRuntime("curse.maven:catalogue-459701:${rootProject.catalogue_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
 
     // Curios
-    modLocalRuntime("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}") {
-        exclude group: "net.minecraftforge"
+    modLocalRuntime("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}") {
+        exclude group: "net.neoforged"
     }
-    modCompileOnly("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}:api") {
-        exclude group: "net.minecraftforge"
+    modCompileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api") {
+        exclude group: "net.neoforged"
     }
 
     common(project(path: ":common", configuration: "namedElements")) {

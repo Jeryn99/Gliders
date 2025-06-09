@@ -17,11 +17,11 @@ public class VCGliderTags {
 
 
     public static TagKey<Item> makeItem(String domain, String path) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(domain, path));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(domain, path));
     }
 
     public static TagKey<Block> makeBlock(String domain, String path) {
-        return TagKey.create(Registries.BLOCK, new ResourceLocation(domain, path));
+        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(domain, path));
     }
 
 }

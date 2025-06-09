@@ -18,7 +18,7 @@ public class AnimationHandler {
         if (!(livingEntity instanceof Player)) return;
 
         ModifierLayer<IAnimation> animationContainer = ((AnimatedPlayer) livingEntity).gliders_getModifierLayer();
-        KeyframeAnimation gliderAnimation = PlayerAnimationRegistry.getAnimation(new ResourceLocation(VCGliders.MOD_ID, "gliding"));
+        KeyframeAnimation gliderAnimation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(VCGliders.id("gliding"));
 
         if (GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             if (animationContainer.getAnimation() == null) {

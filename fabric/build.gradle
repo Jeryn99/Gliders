@@ -20,7 +20,7 @@ loom {
         }
     }
 }
-
+/*
 unifiedPublishing {
     project {
         displayName = "🍂 [Fabric] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
@@ -41,7 +41,7 @@ unifiedPublishing {
             curseforge {
                 token = CURSE_API_KEY
                 id = "828331"
-                gameVersions.addAll "Java 17", "1.20.1"
+                gameVersions.addAll "Java 21", "1.21.1"
             }
         }
 
@@ -55,7 +55,7 @@ unifiedPublishing {
         }
     }
 }
-
+*/
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -70,47 +70,51 @@ dependencies {
 
     // Player Animator
     // include modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${rootProject.player_anim_version}")
-    include modImplementation("curse.maven:playeranimator-658587:4587215") {
-        exclude group: "net.minecraftforge"
+    include modImplementation("curse.maven:playeranimator-658587:6024464") {
+        exclude group: "net.neoforged"
     }
 
-    modApi("net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
+    modApi("net.threetag:palladiumcore-fabric:${rootProject.palladiumcore_version}") {
+        exclude group: "net.neoforged"
     }
-    include("net.threetag:PalladiumCore-fabric:${rootProject.palladiumcore_version}") {
-        exclude group: "net.minecraftforge"
+    include("net.threetag:palladiumcore-fabric:${rootProject.palladiumcore_version}") {
+        exclude group: "net.neoforged"
     }
 
     // Cardinal Components
     modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
     modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
     include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
     include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
 
     // Mod Menu
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
 
     // JEI
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-fabric-api:${rootProject.jei_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
     modLocalRuntime("mezz.jei:jei-${rootProject.minecraft_version}-fabric:${rootProject.jei_version}") {
-        exclude group: "net.minecraftforge"
+        exclude group: "net.neoforged"
     }
 
     // Trinkets
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}") {
         exclude group: "dev.onyxstudios.cardinal-components-api"
+    }
+
+    modImplementation("mysticdrew:common-networking-fabric:1.0.16-1.21") {
+        exclude group: "net.fabricmc.fabric-api"
     }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive = false }
@@ -132,7 +136,7 @@ processResources {
 }
 
 sourceSets.main.resources {
-    srcDir project(":forge").file("src/generated/resources").absolutePath
+    srcDir project(":neoforge").file("src/generated/resources").absolutePath
 }
 
 shadowJar {

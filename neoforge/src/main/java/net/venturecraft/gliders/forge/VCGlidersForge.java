@@ -1,20 +1,16 @@
 package net.venturecraft.gliders.forge;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.threetag.palladiumcore.forge.PalladiumCoreForge;
-import net.threetag.palladiumcore.util.Platform;
+
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.compat.trinket.CuriosUtil;
 import net.venturecraft.gliders.forge.data.*;
 
 @Mod(VCGliders.MOD_ID)
-@Mod.EventBusSubscriber(modid = VCGliders.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = VCGliders.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class VCGlidersForge {
 
     public VCGlidersForge() {

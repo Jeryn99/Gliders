@@ -1,5 +1,6 @@
 package net.venturecraft.gliders.data;
 
+import commonnetwork.api.Network;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -75,14 +76,15 @@ public class GliderData {
         if (this.player.level().isClientSide) {
             throw new IllegalStateException("Don't sync client -> server");
         }
-        new SyncGliderData(this.player.getId(), serializeNBT()).sendToTracking(this.player);
+        SyncGliderData syncGliderData = new SyncGliderData(this.player.getId(), serializeNBT());
+        Network.getNetworkHandler().sendToClient(syncGliderData, (ServerPlayer) this.player);
     }
 
     public void syncTo(ServerPlayer receiver) {
         if (this.player.level().isClientSide) {
             throw new IllegalStateException("Don't sync client -> server");
         }
-        new SyncGliderData(this.player.getId(), serializeNBT()).send(receiver);
+        Network.getNetworkHandler().sendToClient(new SyncGliderData(this.player.getId(), serializeNBT()), receiver);
     }
 
     public AnimationState getAnimation(AnimationStates animationStates) {

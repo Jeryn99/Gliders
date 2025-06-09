@@ -1,20 +1,24 @@
 package net.venturecraft.gliders.network;
 
+import commonnetwork.networking.data.PacketContext;
+import commonnetwork.networking.data.Side;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.threetag.palladiumcore.network.MessageContext;
-import net.threetag.palladiumcore.network.MessageS2C;
-import net.threetag.palladiumcore.network.MessageType;
+import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.data.GliderData;
-import org.jetbrains.annotations.NotNull;
 
-public class SyncGliderData extends MessageS2C {
+public class SyncGliderData {
+    public static final ResourceLocation CHANNEL = VCGliders.id("sync");
+    public static final StreamCodec<FriendlyByteBuf, SyncGliderData> STREAM_CODEC = StreamCodec.ofMember(SyncGliderData::encode, SyncGliderData::new);
 
     public int entityID;
     public CompoundTag nbt;
@@ -29,30 +33,28 @@ public class SyncGliderData extends MessageS2C {
         this.nbt = buf.readNbt();
     }
 
-    @NotNull
-    @Override
-    public MessageType getType() {
-        return GliderNetwork.SYNC_DATA;
+    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
+        return new CustomPacketPayload.Type<>(CHANNEL);
     }
 
-    @Override
-    public void toBytes(FriendlyByteBuf buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.entityID);
         buf.writeNbt(this.nbt);
     }
 
-    @Override
-    public void handle(MessageContext context) {
-        this.handleClient();
+    public static void handle(PacketContext<SyncGliderData> context) {
+        if (Side.CLIENT.equals(context.side())) {
+            handleClient(context);
+        }
     }
 
     @Environment(EnvType.CLIENT)
-    public void handleClient() {
+    public static void handleClient(PacketContext<SyncGliderData> context) {
         ClientLevel level = Minecraft.getInstance().level;
         if (level == null) return;
-        Entity entity = level.getEntity(this.entityID);
+        Entity entity = level.getEntity(context.message().entityID);
 
         if (entity instanceof Player player)
-            GliderData.get(player).ifPresent((c) -> c.deserializeNBT(this.nbt));
+            GliderData.get(player).ifPresent((c) -> c.deserializeNBT(context.message().nbt));
     }
 }

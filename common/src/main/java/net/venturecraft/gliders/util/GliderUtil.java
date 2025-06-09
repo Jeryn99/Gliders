@@ -1,5 +1,6 @@
 package net.venturecraft.gliders.util;
 
+import commonnetwork.api.Network;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -154,7 +155,7 @@ public class GliderUtil {
             setGlide(glider, false);
             setStruck(glider, false);
             if (player instanceof ServerPlayer serverPlayer) {
-                new MessagePOV("").send(serverPlayer);
+                Network.getNetworkHandler().sendToClient(new MessagePOV(""), serverPlayer);
             }
         }
     }

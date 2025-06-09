@@ -1,5 +1,6 @@
 package net.venturecraft.gliders.forge.data;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -8,7 +9,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.threetag.palladiumcore.registry.RegistrySupplier;
+import net.threetag.palladiumcore.registry.RegistryHolder;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.item.ItemRegistry;
@@ -22,9 +23,9 @@ public class ItemModelGeneration extends ItemModelProvider {
     @Override
     protected void registerModels() {
 
-        for (RegistrySupplier<Item> entry : ItemRegistry.ITEMS.getEntries()) {
+        for (RegistryHolder<Item> entry : ItemRegistry.ITEMS.getEntries()) {
             if (entry.get() instanceof GliderItem) {
-                ResourceLocation gliderId = ForgeRegistries.ITEMS.getKey(entry.get());
+                ResourceLocation gliderId = BuiltInRegistries.ITEM.getKey(entry.get());
                 layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_copper_upgrade"), gliderId, new ResourceLocation(VCGliders.MOD_ID, "copper_upgrade"));
                 layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_nether_upgrade"), gliderId, new ResourceLocation(VCGliders.MOD_ID, "nether_upgrade"));
                 layeredItem(new ResourceLocation(gliderId.getNamespace(), gliderId.getPath() + "_combined_upgrades"), gliderId, new ResourceLocation(VCGliders.MOD_ID, "combined_upgrades"));

@@ -1,13 +1,17 @@
 package net.venturecraft.gliders.network;
 
+import commonnetwork.networking.data.PacketContext;
 import net.minecraft.network.FriendlyByteBuf;
-import net.threetag.palladiumcore.network.MessageContext;
-import net.threetag.palladiumcore.network.MessageS2C;
-import net.threetag.palladiumcore.network.MessageType;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.util.ClientUtil;
-import org.jetbrains.annotations.NotNull;
 
-public class MessagePOV extends MessageS2C {
+public class MessagePOV {
+    public static final ResourceLocation CHANNEL = VCGliders.id("pov");
+    public static final StreamCodec<FriendlyByteBuf, MessagePOV> STREAM_CODEC = StreamCodec.ofMember(MessagePOV::encode, MessagePOV::new);
+
     private final String pointOfView;
 
     public MessagePOV(String pointOfView) {
@@ -18,19 +22,16 @@ public class MessagePOV extends MessageS2C {
         pointOfView = buffer.readUtf(32767);
     }
 
-    @NotNull
-    @Override
-    public MessageType getType() {
-        return GliderNetwork.POV;
+    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
+        return new CustomPacketPayload.Type<>(CHANNEL);
     }
 
-    public void toBytes(FriendlyByteBuf buffer) {
+    public void encode(FriendlyByteBuf buffer) {
         buffer.writeUtf(this.pointOfView);
     }
 
-    @Override
-    public void handle(MessageContext context) {
-        ClientUtil.setPlayerPerspective(this.pointOfView);
+    public static void handle(PacketContext<MessagePOV> context) {
+        ClientUtil.setPlayerPerspective(context.message().pointOfView);
     }
 
 }

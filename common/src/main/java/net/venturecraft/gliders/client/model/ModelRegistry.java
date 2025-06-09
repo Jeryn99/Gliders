@@ -7,8 +7,8 @@ import net.venturecraft.gliders.VCGliders;
 
 public class ModelRegistry {
 
-    public static ModelLayerLocation GLIDER = new ModelLayerLocation(new ResourceLocation(VCGliders.MOD_ID, "model"), "glider");
-    public static ModelLayerLocation X_WING = new ModelLayerLocation(new ResourceLocation(VCGliders.MOD_ID, "model"), "x_wing");
+    public static ModelLayerLocation GLIDER = new ModelLayerLocation(VCGliders.id("model"), "glider");
+    public static ModelLayerLocation X_WING = new ModelLayerLocation(VCGliders.id("model"), "x_wing");
 
     public static void init() {
         EntityRendererRegistry.registerModelLayer(GLIDER, GliderModel::getModelData);

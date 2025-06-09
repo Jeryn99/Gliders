@@ -1,11 +1,6 @@
 package net.venturecraft.gliders.forge.data;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.item.Rarity;
-import net.minecraftforge.common.data.LanguageProvider;
+
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.GliderDamageSource;
 import net.venturecraft.gliders.common.item.ItemRegistry;
