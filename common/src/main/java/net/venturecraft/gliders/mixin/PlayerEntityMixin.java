@@ -37,7 +37,7 @@ public class PlayerEntityMixin {
         boolean isGliding = GliderUtil.isGlidingWithActiveGlider(player);
         boolean isLightning = damageSource.is(DamageTypes.LIGHTNING_BOLT);
         if (hasCopperMod && isGliding && isLightning) {
-            cir.cancel();
+            cir.setReturnValue(false);
         }
     }
 }
