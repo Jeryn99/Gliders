@@ -6,9 +6,7 @@ import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationAccess;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.world.entity.player.ProfilePublicKey;
 import net.venturecraft.gliders.client.animation.AnimatedPlayer;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,16 +17,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AbstractClientPlayerMixin implements AnimatedPlayer {
 
     @Unique
-    private final ModifierLayer<IAnimation> gliderLayer = new ModifierLayer<>();
+    private final ModifierLayer<IAnimation> palladiumcore_vc_gliders$gliderLayer = new ModifierLayer<>();
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void init(ClientLevel clientLevel, GameProfile gameProfile, CallbackInfo ci) {
-        PlayerAnimationAccess.getPlayerAnimLayer((AbstractClientPlayer) (Object) this).addAnimLayer(1000, gliderLayer);
+        PlayerAnimationAccess.getPlayerAnimLayer((AbstractClientPlayer) (Object) this).addAnimLayer(1000, palladiumcore_vc_gliders$gliderLayer);
     }
 
 
     @Override
     public ModifierLayer<IAnimation> gliders_getModifierLayer() {
-        return gliderLayer;
+        return palladiumcore_vc_gliders$gliderLayer;
     }
 }
