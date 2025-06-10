@@ -34,5 +34,12 @@ versionRange = "[1.19.2-1.2.0.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
+[[dependencies.vc_gliders]]
+modId = "commonnetworking"
+mandatory = true
+versionRange = "[1.0.16-1.21,)"
+ordering = "AFTER"
+side = "BOTH"
+
 [[mixins]]
 config = "vc_gliders-common.mixins.json"
