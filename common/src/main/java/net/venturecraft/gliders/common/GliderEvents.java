@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GliderEvents implements PlayerEvents.Tracking, EntityEvents.LightningStrike, LivingEntityEvents.ItemUse, PlayerEvents.AnvilUpdate {
+public class GliderEvents implements PlayerEvents.Tracking, EntityEvents.LightningStrike, LivingEntityEvents.ItemUse {
 
     public static void initEvents() {
         GliderEvents instance = new GliderEvents();
@@ -35,7 +35,6 @@ public class GliderEvents implements PlayerEvents.Tracking, EntityEvents.Lightni
         LivingEntityEvents.ITEM_USE_START.register(instance);
         LivingEntityEvents.ITEM_USE_TICK.register(instance);
         LivingEntityEvents.ITEM_USE_STOP.register(instance);
-        PlayerEvents.ANVIL_UPDATE.register(instance);
         PlayerEvents.START_TRACKING.register(instance);
     }
 
@@ -69,40 +68,6 @@ public class GliderEvents implements PlayerEvents.Tracking, EntityEvents.Lightni
     @Override
     public EventResult livingEntityItemUse(LivingEntity entity, @NotNull ItemStack stack, AtomicInteger duration) {
         return GliderUtil.isGlidingWithActiveGlider(entity) ? EventResult.cancel() : EventResult.pass();
-    }
-
-
-    @Override
-    public EventResult anvilUpdate(Player player, ItemStack left, ItemStack right, @Nullable String name, AtomicLong cost, AtomicInteger materialCost, AtomicReference<ItemStack> output) {
-        if(left.getItem() instanceof GliderItem gliderItem) {
-
-            // Glider Repair
-            if (gliderItem.isValidRepairItem(left, right)) {
-                ItemStack data = left.copy();
-                GliderItem.setBroken(data, false);
-                data.setDamageValue(0);
-                cost.set(5);
-                output.set(data);
-            }
-
-            if(right.getItem() == ItemRegistry.COPPER_UPGRADE.get()){
-                ItemStack data = left.copy();
-                data = GliderItem.setCopper(data, true);
-                cost.set(10);
-                output.set(data);
-            }
-
-            if(right.getItem() == ItemRegistry.NETHER_UPGRADE.get()){
-                ItemStack data = left.copy();
-                data = GliderItem.setNether(data, true);
-                cost.set(10);
-                output.set(data);
-            }
-        }
-
-
-
-        return EventResult.pass();
     }
 
     @Override
