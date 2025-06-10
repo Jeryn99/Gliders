@@ -6,6 +6,7 @@
     "LevelRendererMixin"
   ],
   "mixins": [
+    "AnvilMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1
