@@ -83,10 +83,6 @@ public class GliderData {
         };
     }
 
-    public static CompoundTag serializeNBT() {
-        CompoundTag compoundTag = new CompoundTag();
-        return compoundTag;
-    }
 
     @ExpectPlatform
     public static void setLightningTimer(LivingEntity player, int lightningTimer) {
@@ -102,6 +98,11 @@ public class GliderData {
     public static void deserializeNBT(Player player, CompoundTag nbt) {
         setIsGliding(player, nbt.getBoolean("is_gliding"));
         setLightningTimer(player, nbt.getInt("lightningTimer"));
+    }
+
+    public static CompoundTag serializeNBT() {
+        CompoundTag compoundTag = new CompoundTag();
+        return compoundTag;
     }
 
     public enum AnimationStates {

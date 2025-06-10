@@ -1,4 +1,4 @@
-# Gliders v1.1.7 – Minecraft 1.20.1
+# Gliders v1.1.7 – Minecraft 1.21.1
 
 ### ✨ What's New
 
