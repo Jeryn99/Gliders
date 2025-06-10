@@ -74,7 +74,7 @@ public class GliderItem extends Item implements Equipable {
     }
 
     public static void setBroken(ItemStack itemStack, boolean broken) {
-        itemStack.set(ItemComponentRegistry.STRUCK.get(), broken);
+        itemStack.set(ItemComponentRegistry.BROKEN.get(), broken);
     }
 
     public static boolean isBroken(ItemStack itemStack) {
