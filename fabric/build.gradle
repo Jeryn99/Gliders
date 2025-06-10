@@ -20,13 +20,13 @@ loom {
         }
     }
 }
-/*
+
 unifiedPublishing {
     project {
         displayName = "🍂 [Fabric] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
         releaseType = "release"
         changelog = new File("${rootProject.projectDir}/changelog.md").text
-        gameVersions = ["1.20.1"]
+        gameVersions = ["1.21.1"]
         mainPublication tasks.remapJar
         gameLoaders = ["fabric"]
         relations {
@@ -55,7 +55,7 @@ unifiedPublishing {
         }
     }
 }
-*/
+
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -114,6 +114,10 @@ dependencies {
     }
 
     modImplementation("mysticdrew:common-networking-fabric:1.0.16-1.21") {
+        exclude group: "net.fabricmc.fabric-api"
+    }
+
+    include("mysticdrew:common-networking-fabric:1.0.16-1.21") {
         exclude group: "net.fabricmc.fabric-api"
     }
 

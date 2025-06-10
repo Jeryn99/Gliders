@@ -22,15 +22,15 @@ loom {
         }
     }
 }
-/*
+
 unifiedPublishing {
     project {
-        displayName = "🍂 [Forge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
+        displayName = "🍂 [Neoforge] - Gliders - $rootProject.minecraft_version-v$rootProject.mod_version"
         releaseType = "release"
         changelog = new File("${rootProject.projectDir}/changelog.md").text
-        gameVersions = ["1.20.1"]
+        gameVersions = ["1.21.1"]
         mainPublication tasks.remapJar
-        gameLoaders = ["forge"]
+        gameLoaders = ["neoforge"]
         relations {
 
         }
@@ -54,7 +54,7 @@ unifiedPublishing {
         }
     }
 }
-*/
+
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -101,6 +101,10 @@ dependencies {
     }
 
     implementation("mysticdrew:common-networking-neoforge:1.0.16-1.21") {
+        exclude group: "net.neoforged"
+    }
+
+    include("mysticdrew:common-networking-neoforge:1.0.16-1.21") {
         exclude group: "net.neoforged"
     }
 
