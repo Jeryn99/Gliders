@@ -16,13 +16,6 @@ public class GliderEventsFabric {
 
     public static void init() {
 
-//        EntityElytraEvents.CUSTOM.register((entity, flying) -> {
-//            if (GliderUtil.isGlidingWithActiveGlider(entity)) {
-//                return false;
-//            }
-//            return true;
-//        });
-
         UseItemCallback.EVENT.register((player, world, hand) -> {
             if (GliderUtil.isGlidingWithActiveGlider(player)) {
                 return InteractionResultHolder.fail(player.getItemInHand(hand));
