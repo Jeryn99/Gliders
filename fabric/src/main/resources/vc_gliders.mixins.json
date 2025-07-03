@@ -3,6 +3,7 @@
   "package": "net.venturecraft.gliders.mixin.fabric",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "EntityRenderDispatcherMixin",
     "LevelRendererMixin"
   ],
   "mixins": [

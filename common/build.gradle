@@ -16,10 +16,6 @@ dependencies {
         exclude group: "net.minecraftforge"
     }
 
-    modApi("net.threetag:palladiumcore-common:${rootProject.palladiumcore_version}") {
-        exclude group: "net.neoforged"
-    }
-
     // JEI
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}") {
         exclude group: "net.minecraftforge"

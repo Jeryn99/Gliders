@@ -11,4 +11,4 @@ include("common")
 include("fabric")
 include("neoforge")
 
-rootProject.name = "palladiumcore-vc_gliders"
+rootProject.name = "vc_gliders"

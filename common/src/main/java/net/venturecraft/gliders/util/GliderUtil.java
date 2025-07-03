@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.sound.SoundRegistry;
@@ -231,6 +232,14 @@ public class GliderUtil {
 
     public static boolean isGlidingWithActiveGlider(LivingEntity livingEntity) {
         return hasGliderEquipped(livingEntity) && isGliderActive(livingEntity) && !livingEntity.onGround() && !livingEntity.isInWater();
+    }
+
+    public static boolean isNeoForge() {
+        return VCGliders.PLATFORM.equals("neoforge");
+    }
+
+    public static boolean isFabric() {
+        return VCGliders.PLATFORM.equals("fabric");
     }
 
 }

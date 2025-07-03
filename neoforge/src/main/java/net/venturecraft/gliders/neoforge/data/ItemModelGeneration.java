@@ -8,10 +8,10 @@ import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.threetag.palladiumcore.registry.RegistryHolder;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.item.GliderItem;
 import net.venturecraft.gliders.common.item.ItemRegistry;
+import net.venturecraft.gliders.registry.RegistrySupplier;
 
 public class ItemModelGeneration extends ItemModelProvider {
 
@@ -22,7 +22,7 @@ public class ItemModelGeneration extends ItemModelProvider {
     @Override
     protected void registerModels() {
 
-        for (RegistryHolder<Item, ? extends Item> entry : ItemRegistry.ITEMS.getEntries()) {
+        for (RegistrySupplier<Item> entry : ItemRegistry.ITEMS.getEntries()) {
             if (entry.get() instanceof GliderItem) {
                 ResourceLocation gliderId = BuiltInRegistries.ITEM.getKey(entry.get());
                 layeredItem(ResourceLocation.fromNamespaceAndPath(gliderId.getNamespace(), gliderId.getPath() + "_copper_upgrade"), gliderId, VCGliders.id("copper_upgrade"));

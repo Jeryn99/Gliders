@@ -16,7 +16,7 @@ Gliders: essential for traversing terrain and preventing falls
 [[dependencies.vc_gliders]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[4,)"
+versionRange = "[21.1.181,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -25,13 +25,6 @@ modId = "minecraft"
 mandatory = true
 versionRange = "[1.21,)"
 ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.vc_gliders]]
-modId = "palladiumcore"
-mandatory = true
-versionRange = "[1.19.2-1.2.0.0,)"
-ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.vc_gliders]]
