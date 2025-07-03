@@ -5,11 +5,12 @@ import net.minecraft.data.DataGenerator;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.compat.trinket.CuriosUtil;
@@ -17,18 +18,17 @@ import net.venturecraft.gliders.data.neoforge.VCAttachments;
 import net.venturecraft.gliders.neoforge.data.*;
 
 @Mod(VCGliders.MOD_ID)
-@EventBusSubscriber(modid = VCGliders.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = VCGliders.MOD_ID)
 public class VCGlidersNeoForge {
 
     public VCGlidersNeoForge(IEventBus eventBus, ModContainer container) {
-        // Submit our event bus to let PalladiumCore register our content on the right time
-        VCGliders.init();
+        VCGliders.init("neoforge");
         VCAttachments.register(eventBus);
 
-        if (Platform.isClient()) {
+        if (FMLEnvironment.dist.isClient()) {
             VCGlidersClient.init();
         }
-        if (Platform.isModLoaded("curios")) {
+        if (ModList.get().isLoaded("curios")) {
             CuriosUtil.init(eventBus);
         }
     }
