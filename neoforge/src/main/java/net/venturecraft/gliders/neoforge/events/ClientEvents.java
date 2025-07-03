@@ -11,10 +11,12 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.venturecraft.gliders.VCGliders;
+import net.venturecraft.gliders.VCGlidersClient;
 import net.venturecraft.gliders.client.layer.PlayerGliderLayer;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
@@ -22,7 +24,7 @@ import net.venturecraft.gliders.util.GliderUtil;
 
 import static net.venturecraft.gliders.VCGlidersClient.lightLevel;
 
-@EventBusSubscriber(modid = VCGliders.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = VCGliders.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 
     @SubscribeEvent
@@ -55,6 +57,11 @@ public class ClientEvents {
         if (GliderUtil.isGlidingWithActiveGlider(Minecraft.getInstance().player)) {
             event.getInput().shiftKeyDown = false;
         }
+    }
+
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent event) {
+        VCGlidersClient.clientSetup();
     }
 
 }

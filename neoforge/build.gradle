@@ -66,12 +66,6 @@ configurations {
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
 
-    api("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}")
-
-    include("net.threetag:palladiumcore-neoforge:${rootProject.palladiumcore_version}") {
-        exclude group: "net.neoforged"
-    }
-
     // Player Animator
     include modImplementation("curse.maven:playeranimator-658587:6024462") {
         exclude group: "net.neoforged"

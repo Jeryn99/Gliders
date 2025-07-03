@@ -8,8 +8,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.threetag.palladiumcore.util.Platform;
 import net.venturecraft.gliders.common.item.GliderItem;
+import net.venturecraft.gliders.util.GliderUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class CuriosTrinketsUtil {
     }
 
     public CuriosTrinketsSlotInv getSlot(LivingEntity entity, Slot slot) {
-        return this.getSlot(entity, (Platform.isNeoForge() ? slot.getForge() : slot.getFabric()).location().getPath());
+        return this.getSlot(entity, (GliderUtil.isNeoForge() ? slot.getForge() : slot.getFabric()).location().getPath());
     }
 
     public static class Slot {
@@ -97,7 +97,7 @@ public class CuriosTrinketsUtil {
         public Slot(String forge, String fabric) {
             this.forge = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("curios:" + forge));
             this.fabric = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("trinkets:" + fabric));
-            this.identifier = Platform.isNeoForge() ? forge : fabric;
+            this.identifier = GliderUtil.isNeoForge() ? forge : fabric;
         }
 
         public String identifier() {

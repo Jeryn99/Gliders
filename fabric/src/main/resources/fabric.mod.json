@@ -29,7 +29,6 @@
   "depends": {
     "fabric-api": "*",
     "minecraft": ">=1.21",
-    "palladiumcore": ">=1.19.2-1.2.0.0",
     "commonnetworking": "*"
   }
 }
