@@ -29,7 +29,6 @@ public class ItemRegistry {
             return new ItemStack(REINFORCED_PAPER_IRON.get());
         }
     }));
-    ;
     public static final RegistrySupplier<Item> PARAGLIDER_GOLD = ITEMS.register("paraglider_gold", () -> new GliderItem((new Item.Properties()).durability(200).rarity(Rarity.UNCOMMON), new Supplier<>() {
         @Override
         public ItemStack get() {
