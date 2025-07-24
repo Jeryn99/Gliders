@@ -148,6 +148,7 @@ remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     archiveClassifier = 'neoforge-' + rootProject.mod_version
+    atAccessWideners.add("vc_gliders.accesswidener")
 }
 
 jar {
