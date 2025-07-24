@@ -21,7 +21,7 @@
     "FUF"
   ],
   "result": {
+    "count": 1,
     "id": "vc_gliders:nether_upgrade"
-  },
-  "show_notification": true
+  }
 }

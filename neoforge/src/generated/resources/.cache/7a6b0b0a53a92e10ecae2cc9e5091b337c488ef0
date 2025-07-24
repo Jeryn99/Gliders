@@ -1,4 +1,8 @@
-// 1.20.1	2024-10-29T18:59:39.0275766	Tags for minecraft:item mod id vc_gliders
-33b97d2f01c1e82413b9f2a044b5a7baa5bfff08 data/curios/tags/items/glider.json
-33b97d2f01c1e82413b9f2a044b5a7baa5bfff08 data/trinkets/tags/items/chest/back.json
-33b97d2f01c1e82413b9f2a044b5a7baa5bfff08 data/trinkets/tags/items/chest/cape.json
+// 1.21.1	2025-07-24T10:42:53.0010205	Tags for minecraft:item mod id vc_gliders
+3518ffb72e2559e35a28d993bc84b9b75e256d47 data/curios/tags/item/back.json
+3518ffb72e2559e35a28d993bc84b9b75e256d47 data/curios/tags/item/cape.json
+3518ffb72e2559e35a28d993bc84b9b75e256d47 data/curios/tags/item/glider.json
+3518ffb72e2559e35a28d993bc84b9b75e256d47 data/minecraft/tags/item/enchantable/durability.json
+3518ffb72e2559e35a28d993bc84b9b75e256d47 data/trinkets/tags/item/chest/back.json
+3518ffb72e2559e35a28d993bc84b9b75e256d47 data/trinkets/tags/item/chest/cape.json
+33b97d2f01c1e82413b9f2a044b5a7baa5bfff08 data/vc_gliders/tags/item/gliders.json

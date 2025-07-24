@@ -1,5 +1,8 @@
 {
   "values": [
-    "#vc_gliders:gliders"
+    {
+      "id": "#vc_gliders:gliders",
+      "required": false
+    }
   ]
 }

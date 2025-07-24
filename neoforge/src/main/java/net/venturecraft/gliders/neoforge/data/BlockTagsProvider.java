@@ -29,6 +29,6 @@ public class BlockTagsProvider extends net.neoforged.neoforge.common.data.BlockT
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
-        add(VCGliderTags.UPDRAFT_BLOCKS, BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof FireBlock || block instanceof CampfireBlock || block == Blocks.MAGMA_BLOCK).toList().toArray(new Block[0]));
+        add(VCGliderTags.UPDRAFT_BLOCKS, BuiltInRegistries.BLOCK.stream().filter(block -> block instanceof BaseFireBlock || block instanceof CampfireBlock || block == Blocks.MAGMA_BLOCK).toList().toArray(new Block[0]));
     }
 }

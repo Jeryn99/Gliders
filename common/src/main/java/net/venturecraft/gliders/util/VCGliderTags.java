@@ -10,9 +10,12 @@ import net.venturecraft.gliders.VCGliders;
 
 public class VCGliderTags {
 
+    public static TagKey<Item> GLIDERS = makeItem(VCGliders.MOD_ID, "gliders");
     public static TagKey<Item> TRINKETS_BACK = makeItem("trinkets", "chest/back");
     public static TagKey<Item> TRINKETS_CAPE = makeItem("trinkets", "chest/cape");
     public static TagKey<Item> CURIOS_CHEST = makeItem("curios", "glider");
+    public static TagKey<Item> CURIOS_BACK = makeItem("curios", "back");
+    public static TagKey<Item> CURIOS_CAPE = makeItem("curios", "cape");
     public static TagKey<Block> UPDRAFT_BLOCKS = makeBlock(VCGliders.MOD_ID, "updraft");
 
 
