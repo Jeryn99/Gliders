@@ -40,7 +40,7 @@ public class VCGlidersNeoForge {
 
         var blockTagsProvider = generator.addProvider(e.includeServer(), new BlockTagsProvider(generator.getPackOutput(), e.getLookupProvider(), existingFileHelper));
 
-//        generator.addProvider(e.includeServer(), new RecipeGeneration(generator));
+        generator.addProvider(e.includeServer(), new RecipeGeneration(generator, e.getLookupProvider()));
 
         generator.addProvider(e.includeServer(), new ItemTagsProvider(generator.getPackOutput(), e.getLookupProvider(), blockTagsProvider.contentsGetter(), existingFileHelper));
 

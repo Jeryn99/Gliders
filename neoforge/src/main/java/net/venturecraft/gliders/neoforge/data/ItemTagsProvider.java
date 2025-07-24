@@ -3,6 +3,7 @@ package net.venturecraft.gliders.neoforge.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,6 +31,10 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
         this.tag(branch).add(item);
     }
 
+    public void add(TagKey<Item> branch, TagKey<Item> item) {
+        this.tag(branch).addOptionalTag(item);
+    }
+
     public void add(TagKey<Item> branch, Item... item) {
         this.tag(branch).add(item);
     }
@@ -38,10 +43,15 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
     protected void addTags(HolderLookup.Provider arg) {
         for (Item itemsValue : BuiltInRegistries.ITEM.stream().toList()) {
             if (itemsValue instanceof GliderItem) {
-                add(VCGliderTags.TRINKETS_BACK, itemsValue);
-                add(VCGliderTags.TRINKETS_CAPE, itemsValue);
-                add(VCGliderTags.CURIOS_CHEST, itemsValue);
+                add(VCGliderTags.GLIDERS, itemsValue);
+
             }
         }
+        add(VCGliderTags.TRINKETS_BACK, VCGliderTags.GLIDERS);
+        add(VCGliderTags.TRINKETS_CAPE, VCGliderTags.GLIDERS);
+        add(VCGliderTags.CURIOS_CHEST, VCGliderTags.GLIDERS);
+        add(VCGliderTags.CURIOS_BACK, VCGliderTags.GLIDERS);
+        add(VCGliderTags.CURIOS_CAPE, VCGliderTags.GLIDERS);
+        add(ItemTags.DURABILITY_ENCHANTABLE, VCGliderTags.GLIDERS);
     }
 }
