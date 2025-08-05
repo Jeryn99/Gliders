@@ -53,7 +53,7 @@ githubRelease {
     owner "VentureCraftMods"
     repo "MC-Gliders"
     tagName "v$rootProject.minecraft_version-${version}"
-    targetCommitish "main"
+    targetCommitish "1.21.1"
     releaseName "[$rootProject.minecraft_version] Gliders - v$version"
     generateReleaseNotes true
     body new File("${rootProject.projectDir}/changelog.md").text
