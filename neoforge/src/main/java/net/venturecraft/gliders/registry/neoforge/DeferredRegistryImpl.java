@@ -1,11 +1,11 @@
 package net.venturecraft.gliders.registry.neoforge;
 
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.venturecraft.gliders.registry.DeferredRegistry;
 import net.venturecraft.gliders.registry.RegistrySupplier;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 
 import java.util.ArrayList;
 import java.util.Collection;

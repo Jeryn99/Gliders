@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.venturecraft.gliders.common.item.ItemRegistry;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public class RecipeGeneration extends RecipeProvider {
 

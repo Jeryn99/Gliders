@@ -1,7 +1,6 @@
 package net.venturecraft.gliders.util;
 
 import commonnetwork.api.Network;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -50,7 +49,7 @@ public class GliderUtil {
 
     public static boolean canDeployHere(LivingEntity livingEntity) {
 
-        if(livingEntity.isPassenger()){
+        if (livingEntity.isPassenger()) {
             return false;
         }
         boolean isAir = !livingEntity.onGround() && livingEntity.level().getBlockState(livingEntity.blockPosition().below(2)).isAir() && livingEntity.level().getBlockState(livingEntity.blockPosition().below()).isAir();
@@ -82,7 +81,7 @@ public class GliderUtil {
     }
 
 
-    public static ResourceLocation getItemId(Item item){
+    public static ResourceLocation getItemId(Item item) {
         return BuiltInRegistries.ITEM.getKey(item);
     }
 
@@ -191,7 +190,8 @@ public class GliderUtil {
                     lightningBolt.setVisualOnly(false);
                     level.addFreshEntity(lightningBolt);
                 }
-            };
+            }
+            ;
 
             if (player.level().random.nextInt(24) == 0 && !hasCopperUpgrade(glider)) {
                 for (int i = 0; i < 2; i++) {
@@ -219,7 +219,7 @@ public class GliderUtil {
     }
 
     private static boolean checkLit(BlockState blockState) {
-        if(blockState.hasProperty(BlockStateProperties.LIT)){
+        if (blockState.hasProperty(BlockStateProperties.LIT)) {
             return blockState.getValue(BlockStateProperties.LIT);
         }
         return true;

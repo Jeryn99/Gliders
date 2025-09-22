@@ -1,14 +1,7 @@
 package net.venturecraft.gliders.data.neoforge;
 
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.venturecraft.gliders.data.GliderData;
-
-import java.util.Objects;
-import java.util.Optional;
 
 public class GliderDataImpl {
 

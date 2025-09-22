@@ -39,11 +39,6 @@ public class MessagePlaySound {
         return new CustomPacketPayload.Type<>(CHANNEL);
     }
 
-    public void encode(FriendlyByteBuf buffer) {
-        buffer.writeResourceLocation(this.sound);
-        buffer.writeUUID(this.playerUUID);
-    }
-
     public static void handle(PacketContext<MessagePlaySound> context) {
         if (Side.CLIENT.equals(context.side())) {
             handleClient(context);
@@ -58,6 +53,11 @@ public class MessagePlaySound {
                 ClientUtil.playGliderSound(player, context.message().sound, SoundSource.PLAYERS, true, () -> !GliderUtil.isGlidingWithActiveGlider(player), 0.1F, RandomSource.create());
             }
         }
+    }
+
+    public void encode(FriendlyByteBuf buffer) {
+        buffer.writeResourceLocation(this.sound);
+        buffer.writeUUID(this.playerUUID);
     }
 
 }

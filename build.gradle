@@ -24,7 +24,7 @@ subprojects {
     }
 }
 
-task publishMeEverywhere(){
+task publishMeEverywhere() {
     dependsOn ':neoforge:publishUnified'
     dependsOn ':fabric:publishUnified'
     dependsOn 'githubRelease'
@@ -183,7 +183,7 @@ allprojects {
         maven {
             url = "https://maven.theillusivec4.top/"
         }
-       // mavenLocal()
+        // mavenLocal()
         maven { url "https://maven.neoforged.net/releases/" }
         maven {
             url = "https://jm.gserv.me/repository/maven-public/"

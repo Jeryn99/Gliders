@@ -1,7 +1,6 @@
 package net.venturecraft.gliders.mixin.fabric;
 
 
-
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         ItemStack left = inputSlots.getItem(0);
         ItemStack right = inputSlots.getItem(1);
 
-        if(left.getItem() instanceof GliderItem gliderItem) {
+        if (left.getItem() instanceof GliderItem gliderItem) {
 
             // Glider Repair
             if (gliderItem.isValidRepairItem(left, right)) {
@@ -57,7 +56,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
                 return;
             }
 
-            if(right.getItem() == ItemRegistry.NETHER_UPGRADE.get()) {
+            if (right.getItem() == ItemRegistry.NETHER_UPGRADE.get()) {
                 ItemStack data = left.copy();
                 GliderItem.setNether(data, true);
                 cost.set(10);

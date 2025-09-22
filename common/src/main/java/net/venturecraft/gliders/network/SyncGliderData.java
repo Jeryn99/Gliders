@@ -37,11 +37,6 @@ public class SyncGliderData {
         return new CustomPacketPayload.Type<>(CHANNEL);
     }
 
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(this.entityID);
-        buf.writeNbt(this.nbt);
-    }
-
     public static void handle(PacketContext<SyncGliderData> context) {
         if (Side.CLIENT.equals(context.side())) {
             handleClient(context);
@@ -56,5 +51,10 @@ public class SyncGliderData {
 
         if (entity instanceof Player player)
             GliderData.deserializeNBT(player, context.message().nbt);
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(this.entityID);
+        buf.writeNbt(this.nbt);
     }
 }

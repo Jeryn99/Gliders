@@ -19,11 +19,11 @@ public class VCAttachments {
     );
 
     public static final Supplier<AttachmentType<Integer>> LIGHTNING_TIMER = ATTACHMENT_TYPES.register(
-            "lightning_timer", () -> AttachmentType.builder(()->0).serialize(Codec.INT).build()
+            "lightning_timer", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build()
     );
 
     public static final Supplier<AttachmentType<Boolean>> IS_GLIDING = ATTACHMENT_TYPES.register(
-            "is_gliding", () -> AttachmentType.builder(()->false).serialize(Codec.BOOL).build()
+            "is_gliding", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build()
     );
 
     public static void register(IEventBus eventBus) {

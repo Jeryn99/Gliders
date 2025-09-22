@@ -1,6 +1,7 @@
 package net.venturecraft.gliders.network;
 
 import commonnetwork.api.Network;
+import commonnetwork.networking.data.PacketContext;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -8,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import commonnetwork.networking.data.PacketContext;
 import net.venturecraft.gliders.VCGliders;
 import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.common.item.GliderItem;
@@ -31,10 +31,6 @@ public class MessageToggleGlide {
         return new CustomPacketPayload.Type<>(CHANNEL);
     }
 
-    public void encode(FriendlyByteBuf buf) {
-
-    }
-
     public static void handle(PacketContext<MessageToggleGlide> context) {
         var sender = context.sender();
         if (GliderUtil.hasGliderEquipped(sender)) {
@@ -49,6 +45,10 @@ public class MessageToggleGlide {
             Network.getNetworkHandler().sendToClient(new MessagePOV(GliderItem.isGlidingEnabled(chestItem) ? "THIRD_PERSON_BACK" : ""), sender);
         }
         GliderData.sync(sender);
+
+    }
+
+    public void encode(FriendlyByteBuf buf) {
 
     }
 

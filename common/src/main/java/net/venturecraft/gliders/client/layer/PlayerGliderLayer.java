@@ -8,8 +8,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,10 +22,10 @@ import net.venturecraft.gliders.util.GliderUtil;
 
 public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
 
-    private static final ResourceLocation COPPER_EMBED = VCGliders.id( "textures/entity/glider/copper_overlay.png");
-    private static final ResourceLocation NETHER_UPGRADE = VCGliders.id( "textures/entity/glider/nether_upgrade_overlay.png");
-    private static final ResourceLocation COPPER_EMBED_CHARGED = VCGliders.id( "textures/entity/glider/copper_overlay_charged.png");
-    private static final ResourceLocation XWING_TEXTURE = VCGliders.id( "textures/entity/glider/xwing.png");
+    private static final ResourceLocation COPPER_EMBED = VCGliders.id("textures/entity/glider/copper_overlay.png");
+    private static final ResourceLocation NETHER_UPGRADE = VCGliders.id("textures/entity/glider/nether_upgrade_overlay.png");
+    private static final ResourceLocation COPPER_EMBED_CHARGED = VCGliders.id("textures/entity/glider/copper_overlay_charged.png");
+    private static final ResourceLocation XWING_TEXTURE = VCGliders.id("textures/entity/glider/xwing.png");
     public static GliderModel gliderModel;
     public static XWingModel<Entity> xWingModel;
 

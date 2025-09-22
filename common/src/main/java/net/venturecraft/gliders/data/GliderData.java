@@ -9,9 +9,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.venturecraft.gliders.network.SyncGliderData;
 import net.venturecraft.gliders.util.GliderUtil;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class GliderData {
 
@@ -33,7 +30,7 @@ public class GliderData {
         glideAndFallLogic(livingEntity);
         GliderUtil.onTickPlayerGlide(livingEntity.level(), livingEntity);
 
-        if(!GliderUtil.isGlidingWithActiveGlider(livingEntity)){
+        if (!GliderUtil.isGlidingWithActiveGlider(livingEntity)) {
             setLightningTimer(livingEntity, 0);
         }
 

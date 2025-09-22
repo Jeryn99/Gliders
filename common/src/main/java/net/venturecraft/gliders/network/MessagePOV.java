@@ -26,12 +26,12 @@ public class MessagePOV {
         return new CustomPacketPayload.Type<>(CHANNEL);
     }
 
-    public void encode(FriendlyByteBuf buffer) {
-        buffer.writeUtf(this.pointOfView);
-    }
-
     public static void handle(PacketContext<MessagePOV> context) {
         ClientUtil.setPlayerPerspective(context.message().pointOfView);
+    }
+
+    public void encode(FriendlyByteBuf buffer) {
+        buffer.writeUtf(this.pointOfView);
     }
 
 }
