@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.venturecraft.gliders.data.GliderData;
 import net.venturecraft.gliders.util.GliderUtil;
 
@@ -17,9 +16,9 @@ public class GliderEventsFabric {
 
         UseItemCallback.EVENT.register((player, world, hand) -> {
             if (GliderUtil.isGlidingWithActiveGlider(player)) {
-                return InteractionResultHolder.fail(player.getItemInHand(hand));
+                return InteractionResult.FAIL;
             }
-            return InteractionResultHolder.pass(player.getItemInHand(hand));
+            return InteractionResult.PASS;
         });
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {

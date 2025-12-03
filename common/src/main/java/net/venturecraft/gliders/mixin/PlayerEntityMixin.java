@@ -1,5 +1,6 @@
 package net.venturecraft.gliders.mixin;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
@@ -28,8 +29,8 @@ public class PlayerEntityMixin {
         if (GliderUtil.isGlidingWithActiveGlider(player)) info.cancel();
     }
 
-    @Inject(method = "hurt", at = @At(value = "HEAD"), cancellable = true)
-    private void livingEntityHurt(DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z", at = @At(value = "HEAD"), cancellable = true)
+    private void hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
         var player = (Player) (Object) this;
         ItemStack chestItem = CuriosTrinketsUtil.getInstance().getFirstFoundGlider(player);
         boolean hasCopperMod = GliderItem.hasCopperUpgrade(chestItem);

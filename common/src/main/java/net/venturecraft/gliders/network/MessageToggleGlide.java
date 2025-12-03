@@ -38,7 +38,7 @@ public class MessageToggleGlide {
             GliderItem.setGlide(chestItem, !GliderItem.isGlidingEnabled(chestItem));
             if (GliderItem.isGlidingEnabled(chestItem)) {
                 sender.level().playSound(null, sender.getX(), sender.getY(), sender.getZ(), GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_DEPLOY.get() : SoundRegistry.GLIDER_OPEN.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-                Network.getNetworkHandler().sendToClient(new MessagePlaySound(GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_GLIDE.get().getLocation() : SoundEvents.ELYTRA_FLYING.getLocation(), sender.getUUID()), sender);
+                Network.getNetworkHandler().sendToClient(new MessagePlaySound(GliderItem.isSpaceGlider(chestItem) ? SoundRegistry.SPACE_GLIDE.get().location() : SoundEvents.ELYTRA_FLYING.location(), sender.getUUID()), sender);
             } else {
                 GliderData.setLightningTimer(sender, 0);
             }

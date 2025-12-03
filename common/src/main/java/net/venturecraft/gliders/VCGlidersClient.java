@@ -1,15 +1,7 @@
 package net.venturecraft.gliders;
 
 import net.minecraft.client.OptionInstance;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.venturecraft.gliders.client.layer.PlayerGliderLayer;
 import net.venturecraft.gliders.client.model.ModelRegistry;
-import net.venturecraft.gliders.common.item.GliderItem;
-import net.venturecraft.gliders.common.item.ItemRegistry;
-import net.venturecraft.gliders.registry.EntityRendererRegistry;
-import net.venturecraft.gliders.registry.RegistrySupplier;
-import net.venturecraft.gliders.util.ClientUtil;
 
 public class VCGlidersClient {
 
@@ -20,7 +12,7 @@ public class VCGlidersClient {
     public static void init() {
         autoPerspective = OptionInstance.createBoolean("options.glider_perspective", false);
         ModelRegistry.init();
-        EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
+        //TODO  EntityRendererRegistry.addRenderLayerToPlayer(renderLayerParent -> new PlayerGliderLayer(renderLayerParent));
 
     /*    ClientTickEvents.CLIENT_POST.register(new ClientTickEvents.ClientTick() {
             @Override
@@ -37,9 +29,10 @@ public class VCGlidersClient {
 
     public static void clientSetup() {
         // Item Predicates
-        for (RegistrySupplier<Item> supplier : ItemRegistry.ITEMS.getEntries()) {
+        //TODO
+        /*    for (RegistrySupplier<Item> supplier : ItemRegistry.ITEMS.getEntries()) {
             if (supplier.get() instanceof GliderItem paragliderItem) {
-                ClientUtil.addPredicate(paragliderItem, ResourceLocation.withDefaultNamespace("upgrade_level"), (itemStack, clientLevel, livingEntity, i) -> {
+                ClientUtil.addPredicate(paragliderItem, ResourceLocation.withDefaultNamespace("upgrade_level"), (itemStack, resourceLocation, function) -> {
 
                     if (GliderItem.isBroken(itemStack)) {
                         return 0.4F;
@@ -60,7 +53,7 @@ public class VCGlidersClient {
                     return 0;
                 });
             }
-        }
+        }*/
     }
 
 }

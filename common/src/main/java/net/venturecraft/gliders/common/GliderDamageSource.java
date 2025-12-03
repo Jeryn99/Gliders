@@ -14,8 +14,8 @@ public class GliderDamageSource {
 
     public static DamageSource getSource(ServerLevel level, ResourceKey<DamageType> damageTypeResourceKey) {
         Holder.Reference<DamageType> damageType = level.registryAccess()
-                .registryOrThrow(Registries.DAMAGE_TYPE)
-                .getHolderOrThrow(damageTypeResourceKey);
+                .getOrThrow(Registries.DAMAGE_TYPE)
+                .value().getOrThrow(damageTypeResourceKey);
         return new DamageSource(damageType);
     }
 }

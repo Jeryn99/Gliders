@@ -1,3 +1,5 @@
+
+/*
 package net.venturecraft.gliders.client.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -82,4 +84,4 @@ public class PlayerGliderLayer<T extends LivingEntity, M extends HumanoidModel<T
 
     }
 
-}
+}*/

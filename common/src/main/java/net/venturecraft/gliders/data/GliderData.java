@@ -93,8 +93,8 @@ public class GliderData {
     }
 
     public static void deserializeNBT(Player player, CompoundTag nbt) {
-        setIsGliding(player, nbt.getBoolean("is_gliding"));
-        setLightningTimer(player, nbt.getInt("lightningTimer"));
+        setIsGliding(player, nbt.getBoolean("is_gliding").get());
+        setLightningTimer(player, nbt.getInt("lightningTimer").get());
     }
 
     public static CompoundTag serializeNBT() {

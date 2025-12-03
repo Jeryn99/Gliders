@@ -4,16 +4,13 @@ import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.venturecraft.gliders.data.GliderData;
-import net.venturecraft.gliders.util.GliderUtil;
 
-public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
+public class XWingModel<T extends Entity> extends EntityModel {
 
     public static final AnimationDefinition OPEN_XWING = AnimationDefinition.Builder.withLength(26f).addAnimation("LW1", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 2.5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, -17.66f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.7083333333333334f, KeyframeAnimations.degreeVec(0f, 0f, -17.5f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("LW2", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, 17.66f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.6666666666666666f, KeyframeAnimations.degreeVec(0f, 0f, 15f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RW1", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -2.5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, 18.27f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.6666666666666666f, KeyframeAnimations.degreeVec(0f, 0f, 15f), AnimationChannel.Interpolations.CATMULLROM))).addAnimation("RW2", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 5f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.4166666666666667f, KeyframeAnimations.degreeVec(0f, 0f, -17.66f), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.7083333333333334f, KeyframeAnimations.degreeVec(0f, 0f, -15f), AnimationChannel.Interpolations.CATMULLROM))).build();
 
@@ -27,6 +24,7 @@ public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart root;
 
     public XWingModel(ModelPart root) {
+        super(root);
         this.root = root;
         this.bone = root.getChild("bone");
         this.bone4 = root.getChild("bone4");
@@ -156,7 +154,8 @@ public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    @Override
+    //TODO
+ /*   @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity instanceof LivingEntity livingEntity) {
 
@@ -166,10 +165,6 @@ public class XWingModel<T extends Entity> extends HierarchicalModel<T> {
                 this.animate(GliderData.getAnimation(GliderData.AnimationStates.GLIDER_OPENING), OPEN_XWING, ageInTicks);
             }
         }
-    }
+    }*/
 
-    @Override
-    public ModelPart root() {
-        return root;
-    }
 }

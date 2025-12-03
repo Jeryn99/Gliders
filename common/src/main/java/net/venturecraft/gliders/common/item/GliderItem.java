@@ -1,30 +1,24 @@
 package net.venturecraft.gliders.common.item;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.venturecraft.gliders.util.ModConstants;
 
-import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class GliderItem extends Item implements Equipable {
+public class GliderItem extends Item {
 
     private final Supplier<ItemStack> repair;
 
     public GliderItem(Properties itemProperties, Supplier<ItemStack> stackSupplier) {
-        super(itemProperties);
+        super(itemProperties.equippable(EquipmentSlot.CHEST).repairable(stackSupplier.get().getItem()));
         this.repair = stackSupplier;
-        DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);
     }
 
     public static boolean isSpaceGlider(ItemStack stack) {
@@ -39,7 +33,7 @@ public class GliderItem extends Item implements Equipable {
     public static boolean hasCopperUpgrade(ItemStack itemStack) {
         DataComponentMap compound = itemStack.getComponents();
         if (!compound.has(ItemComponentRegistry.COPPER_UPGRADE.get())) return false;
-        return compound.get(ItemComponentRegistry.COPPER_UPGRADE.get());
+        return Boolean.TRUE.equals(compound.get(ItemComponentRegistry.COPPER_UPGRADE.get()));
     }
 
     public static ItemStack setNether(ItemStack itemStack, boolean copper) {
@@ -87,39 +81,35 @@ public class GliderItem extends Item implements Equipable {
         return compound.get(ItemComponentRegistry.STRUCK.get());
     }
 
-    @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
         return repairCandidate.getItem() == this.repair.get().getItem();
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltip, tooltipFlag);
+    public void appendHoverText(
+            ItemStack itemStack,
+            TooltipContext tooltipContext,
+            TooltipDisplay tooltipDisplay,
+            Consumer<Component> consumer,
+            TooltipFlag tooltipFlag
+    ) {
+        super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 
-        if (hasCopperUpgrade(stack) || hasNetherUpgrade(stack)) {
-            tooltip.add(Component.translatable(ModConstants.INSTALLED_UPGRADES));
-            if (hasCopperUpgrade(stack)) {
-                tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.COPPER_UPGRADE)));
+        if (hasCopperUpgrade(itemStack) || hasNetherUpgrade(itemStack)) {
+            consumer.accept(Component.translatable(ModConstants.INSTALLED_UPGRADES));
+
+            if (hasCopperUpgrade(itemStack)) {
+                consumer.accept(
+                        Component.literal("- ").append(Component.translatable(ModConstants.COPPER_UPGRADE))
+                );
             }
 
-            if (hasNetherUpgrade(stack)) {
-                tooltip.add(Component.literal("- ").append(Component.translatable(ModConstants.NETHER_UPGRADE)));
+            if (hasNetherUpgrade(itemStack)) {
+                consumer.accept(
+                        Component.literal("- ").append(Component.translatable(ModConstants.NETHER_UPGRADE))
+                );
             }
         }
     }
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        return this.swapWithEquipmentSlot(this, level, player, usedHand);
-    }
-
-    @Override
-    public EquipmentSlot getEquipmentSlot() {
-        return EquipmentSlot.CHEST;
-    }
-
-    @Override
-    public Holder<SoundEvent> getEquipSound() {
-        return SoundEvents.ARMOR_EQUIP_ELYTRA;
-    }
 }
