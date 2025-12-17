@@ -28,11 +28,11 @@ public class EnglishLangProvider extends LanguageProvider {
         add(ItemRegistry.PARAGLIDER_NETHERITE.get(), "Netherite Paraglider");
 
         // Paper
-        add(ItemRegistry.REINFORCED_PAPER.get(), "Re-Inforced Paper");
-        add(ItemRegistry.REINFORCED_PAPER_IRON.get(), "Re-Inforced Paper (Iron)");
-        add(ItemRegistry.REINFORCED_PAPER_GOLD.get(), "Re-Inforced Paper (Gold)");
-        add(ItemRegistry.REINFORCED_PAPER_DIAMOND.get(), "Re-Inforced Paper (Diamond)");
-        add(ItemRegistry.REINFORCED_PAPER_NETHERITE.get(), "Re-Inforced Paper (Netherite)");
+        add(ItemRegistry.REINFORCED_PAPER.get(), "Re-Enforced Paper");
+        add(ItemRegistry.REINFORCED_PAPER_IRON.get(), "Re-Enforced Paper (Iron)");
+        add(ItemRegistry.REINFORCED_PAPER_GOLD.get(), "Re-Enforced Paper (Gold)");
+        add(ItemRegistry.REINFORCED_PAPER_DIAMOND.get(), "Re-Enforced Paper (Diamond)");
+        add(ItemRegistry.REINFORCED_PAPER_NETHERITE.get(), "Re-Enforced Paper (Netherite)");
 
         add(ItemRegistry.COPPER_UPGRADE.get(), Rarity.UNCOMMON.color + "Copper Upgrade");
         add(ItemRegistry.NETHER_UPGRADE.get(), Rarity.EPIC.color + "Nether Upgrade");
