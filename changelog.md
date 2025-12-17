@@ -9,6 +9,6 @@
 - Corrected some language entries ([#125](https://github.com/Jeryn99/Gliders/pull/125))
 - gliders still render in spectator ([#121](https://github.com/Jeryn99/Gliders/pull/121))
 - Items now correctly swap
-- 
+- Fixed Animations looking strange
 
 Happy gliding! 🪁
