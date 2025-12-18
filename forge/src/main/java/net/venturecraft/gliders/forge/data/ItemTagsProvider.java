@@ -41,7 +41,8 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
             if (itemsValue instanceof GliderItem) {
                 add(VCGliderTags.TRINKETS_BACK, itemsValue);
                 add(VCGliderTags.TRINKETS_CAPE, itemsValue);
-                add(VCGliderTags.CURIOS_CHEST, itemsValue);
+                add(VCGliderTags.CURIOUS_GLIDER, itemsValue);
+                add(VCGliderTags.ALL_GLIDERS, itemsValue);
             }
         }
     }

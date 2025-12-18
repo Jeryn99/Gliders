@@ -12,8 +12,9 @@ public class VCGliderTags {
 
     public static TagKey<Item> TRINKETS_BACK = makeItem("trinkets", "chest/back");
     public static TagKey<Item> TRINKETS_CAPE = makeItem("trinkets", "chest/cape");
-    public static TagKey<Item> CURIOS_CHEST = makeItem("curios", "glider");
+    public static TagKey<Item> CURIOUS_GLIDER = makeItem("curios", "glider");
     public static TagKey<Block> UPDRAFT_BLOCKS = makeBlock(VCGliders.MOD_ID, "updraft");
+    public static TagKey<Item> ALL_GLIDERS = makeItem(VCGliders.MOD_ID, "gliders");
 
 
     public static TagKey<Item> makeItem(String domain, String path) {
