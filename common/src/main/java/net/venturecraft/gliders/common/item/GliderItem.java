@@ -5,14 +5,21 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsSlotInv;
+import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import net.venturecraft.gliders.util.ModConstants;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -110,7 +117,46 @@ public class GliderItem extends Item implements Equipable {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        InteractionResultHolder<ItemStack> capeResult = equipInCape(level, player, usedHand);
+        if (capeResult != null) {
+            return capeResult;
+        }
         return this.swapWithEquipmentSlot(this, level, player, usedHand);
+    }
+
+    @Nullable
+    private InteractionResultHolder<ItemStack> equipInCape(Level level, Player player, InteractionHand hand) {
+        if (!CuriosTrinketsUtil.getInstance().isCurios() && !CuriosTrinketsUtil.getInstance().isTrinkets()) {
+            return null;
+        }
+        ItemStack held = player.getItemInHand(hand);
+        CuriosTrinketsSlotInv cape = CuriosTrinketsUtil.getInstance().getSlot(player, CuriosTrinketsUtil.CAPE);
+        if (cape.getSlots() == 0) {
+            // The Accessories compat layer exposes the cape as "body" instead.
+            cape = CuriosTrinketsUtil.getInstance().getSlot(player, "body");
+        }
+        if (cape.getSlots() == 0) {
+            return null;
+        }
+        if (level.isClientSide()) {
+            return InteractionResultHolder.sidedSuccess(held, true);
+        }
+
+        for (int i = 0; i < cape.getSlots(); i++) {
+            ItemStack occupant = cape.getStackInSlot(i);
+            if (!occupant.isEmpty() && EnchantmentHelper.has(occupant, EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE) && !player.isCreative()) {
+                continue;
+            }
+            if (!occupant.isEmpty() && ItemStack.matches(occupant, held)) {
+                return InteractionResultHolder.fail(held);
+            }
+            cape.setStackInSlot(i, player.isCreative() ? held.copy() : held);
+            player.awardStat(Stats.ITEM_USED.get(this));
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_ELYTRA.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            // The swap returns the displaced item, the game mode puts it back in the hand.
+            return InteractionResultHolder.sidedSuccess(occupant.isEmpty() && player.isCreative() ? held : occupant, false);
+        }
+        return null;
     }
 
     @Override
