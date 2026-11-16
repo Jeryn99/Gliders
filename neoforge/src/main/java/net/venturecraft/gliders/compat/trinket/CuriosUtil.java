@@ -8,6 +8,8 @@ import net.venturecraft.gliders.common.compat.trinket.CuriosTrinketsUtil;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
+import java.util.List;
+
 public class CuriosUtil extends CuriosTrinketsUtil {
 
     public static void init(IEventBus eventBus) {
@@ -17,6 +19,13 @@ public class CuriosUtil extends CuriosTrinketsUtil {
     @Override
     public boolean isCurios() {
         return true;
+    }
+
+    @Override
+    public List<String> getAllSlots(LivingEntity entity) {
+        return CuriosApi.getCuriosInventory(entity)
+                .map(inv -> List.copyOf(inv.getCurios().keySet()))
+                .orElseGet(List::of);
     }
 
     @Override

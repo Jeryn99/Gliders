@@ -19,7 +19,7 @@ public class CuriosTrinketsUtil {
     public static final Slot NECKLACE = new Slot("necklace", "chest/necklace");
     public static final Slot BACK = new Slot("glider", "chest/back");
     public static final Slot BACK_NATIVE = new Slot("back", "chest/back");
-    public static final Slot CAPE = new Slot("back", "chest/cape");
+    public static final Slot CAPE = new Slot("cape", "chest/cape");
     public static final Slot BELT = new Slot("belt", "legs/belt");
     public static final Slot HAND = new Slot("hand", "hand/glove");
     public static final Slot OFFHAND = new Slot("hand", "offhand/glove");
@@ -44,7 +44,21 @@ public class CuriosTrinketsUtil {
     }
 
     public ItemStack getFirstFoundGlider(LivingEntity livingEntity) {
-        return findGliders(livingEntity, BACK.identifier, CAPE.identifier, BACK_NATIVE.identifier);
+        ItemStack glider = findGliders(livingEntity, BACK.identifier, CAPE.identifier, BACK_NATIVE.identifier);
+        if (glider.isEmpty() && (isCurios() || isTrinkets())) {
+            // Some setups expose the cape under a different id (the Accessories
+            // compat layer calls it "body"), so fall back to checking every slot.
+            glider = findGliders(livingEntity, getAllSlots(livingEntity).toArray(new String[0]));
+        }
+        return glider;
+    }
+
+    /**
+     * Slot identifiers the entity actually has. Overridden by the loader
+     * impls, empty by default.
+     */
+    public List<String> getAllSlots(LivingEntity entity) {
+        return List.of();
     }
 
     public ItemStack findGliders(LivingEntity entity, String... slots) {
